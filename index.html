@@ -5,6 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>INDRAA STORE - Pop Up Promo</title>
     
+    <style>
+        .store-header {
+            /* Warna latar belakang cerah atau sesuai tema */
+            background-color: #2c3e50; /* Biru gelap modern */
+            color: #ecf0f1; /* Putih keabu-abuan */
+            padding: 15px 0;
+            text-align: center;
+            font-family: 'Arial', sans-serif; /* Font yang cepat dimuat */
+            font-size: 2.2em;
+            font-weight: bold;
+            letter-spacing: 2px;
+            /* Garis bawah atau efek sederhana */
+            border-bottom: 5px solid #e74c3c; /* Merah untuk penekanan */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Bayangan lembut agar terlihat 3D */
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .store-header .icon {
+            color: #f1c40f; /* Emas untuk ikon */
+            margin-right: 10px;
+        }
+
+        /* CSS Lainnya dari Style.css dan promo-popup-style.css tetap diperlukan di sini */
+        /* ... tempat untuk menyalin dan menempelkan isi Style.css dan promo-popup-style.css */
+    </style>
+    
     <link rel="Stylesheet" href="Style.css">
     <link rel="Stylesheet" href="promo-popup-style.css"> 
 </head>
@@ -16,16 +43,16 @@
         </div>
     </div>
     
-    <header class="bubble-text">💣INDRAA STORE💣</header>
+    <header class="store-header">
+        <span class="icon">💣</span>INDRAA STORE<span class="icon">💣</span>
+    </header>
+    
     <script src="promo-popup-script.js"></script> 
-    </body>
-</html>
-
     <div class="welcome-text">
         <h2>Selamat Datang di Toko Indraa Store</h2>
         <p>Jasa Joki Cepat, Aman & Terpercaya 💪🔥</p>
     </div>
-
+    
     <nav>
         <button onclick="showCategory('all')">Semua</button>
         <button onclick="showCategory('Level')">Level</button>
@@ -281,9 +308,20 @@
             waChat.href = `https://wa.me/62895321940805?text=${message}`;
         }
 
+        // ... kode JavaScript sebelum fungsi clearCart() ...
+
         function clearCart() {
-            cart = [];
-            updateCart();
+            // Menampilkan pop-up konfirmasi
+            const confirmed = confirm("Apakah Anda yakin ingin mengosongkan keranjang belanja?");
+
+            // Jika pengguna mengklik "OK" (true), keranjang akan dikosongkan.
+            if (confirmed) {
+                cart = [];
+                updateCart();
+                // Opsional: Tampilkan notifikasi berhasil
+                alert("Keranjang belanja telah dikosongkan.");
+            }
+            // Jika pengguna mengklik "Cancel" (false), tidak ada yang terjadi.
         }
 
         searchInput.addEventListener("input", displayProducts);
