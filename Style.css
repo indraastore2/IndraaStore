@@ -220,16 +220,29 @@ input::placeholder {
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
-.welcome-text h2 {
-  margin: 0;
-  font-size: 1.5em;
-  font-weight: bold;
-}
+/* Gaya untuk Welcome Text */
+    .welcome-text {
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        
+        /* --- KODE UNTUK MEMPOSISIKAN DI TENGAH --- */
+        margin: 20px auto; /* Margin atas/bawah 20px, kiri/kanan auto (membuatnya center) */
+        width: 90%;      /* Set lebar agar margin auto bisa bekerja */
+        max-width: 400px; /* Batasi lebar maksimum di layar besar */
+        text-align: center; /* Posisikan teks di dalam kotak ke tengah */
+        /* --- AKHIR KODE POSISI TENGAH --- */
+        
+        z-index: 10;
+        position: relative;
+    }
 
-.welcome-text p {
-  margin: 5px 0 0;
-  font-size: 1.1em;
-}
+    /* Pastikan header dan paragraph juga rata tengah */
+    .welcome-text h2, .welcome-text p {
+        text-align: center;
+        color: #333;
+    }
 
 /* Font Super Caramel */
 @import url('https://fonts.googleapis.com/css2?family=Super+Caramel&display=swap');
@@ -496,3 +509,4 @@ header.bubble-text {
         font-size: 1.1em;
     }
 }
+
