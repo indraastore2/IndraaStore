@@ -7,29 +7,147 @@
     
     <style>
         .store-header {
-            /* Warna latar belakang cerah atau sesuai tema */
-            background-color: #2c3e50; /* Biru gelap modern */
-            color: #ecf0f1; /* Putih keabu-abuan */
+            background-color: #2c3e50;
+            color: #ecf0f1;
             padding: 15px 0;
             text-align: center;
-            font-family: 'Arial', sans-serif; /* Font yang cepat dimuat */
+            font-family: 'Arial', sans-serif;
             font-size: 2.2em;
             font-weight: bold;
             letter-spacing: 2px;
-            /* Garis bawah atau efek sederhana */
-            border-bottom: 5px solid #e74c3c; /* Merah untuk penekanan */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Bayangan lembut agar terlihat 3D */
+            border-bottom: 5px solid #e74c3c;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
             text-transform: uppercase;
+            position: relative; /* Diperlukan untuk #menuToggle */
         }
 
         .store-header .icon {
-            color: #f1c40f; /* Emas untuk ikon */
+            color: #f1c40f;
             margin-right: 10px;
         }
 
-        /* CSS Lainnya dari Style.css dan promo-popup-style.css tetap diperlukan di sini */
-        /* ... tempat untuk menyalin dan menempelkan isi Style.css dan promo-popup-style.css */
+        /* --- CSS Tambahan --- */
+        
+        /* Gaya untuk Menu Toggle (Pojok Kanan Atas) */
+        #menuToggle {
+            position: fixed; 
+            top: 20px; 
+            right: 20px; 
+            z-index: 1000;
+            background-color: #e74c3c;
+            color: white; 
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 1.5em;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        
+        #menuToggle:hover {
+            background-color: #c0392b;
+            transform: scale(1.05);
+        }
+
+        /* Gaya untuk Menu Dropdown */
+        #menuDropdown {
+            display: none; 
+            position: fixed;
+            top: 75px; 
+            right: 20px;
+            background-color: #34495e;
+            min-width: 200px;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.4);
+            z-index: 999;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        #menuDropdown button {
+            color: #ecf0f1;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            font-size: 1em;
+        }
+
+        #menuDropdown button:hover {
+            background-color: #2c3e50;
+        }
+        
+        /* Gaya untuk Navigasi Utama (Pemisah Joki) */
+        .main-category-nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 25px;
+            padding: 10px;
+            border-bottom: 3px solid #f1c40f;
+        }
+        
+        .main-category-nav button {
+            background-color: #e74c3c;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2em;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            min-width: 250px;
+        }
+        
+        .main-category-nav button:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        .main-category-nav button.active {
+            background-color: #2ecc71;
+            border: 3px solid #27ae60;
+        }
+        
+        /* Gaya untuk Navigasi Detail (Kategori Kecil) */
+        #detailNav {
+            display: none; /* SEMBUNYIKAN SECARA DEFAULT */
+            text-align: center;
+            padding: 10px 0;
+            border-bottom: 2px solid #2ecc71;
+            margin-bottom: 20px;
+            display: flex; /* Gunakan flex untuk tata letak tombol */
+            flex-wrap: wrap; 
+            justify-content: center;
+        }
+
+        #detailNav button {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            border: 1px solid #3498db;
+            padding: 8px 15px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 0.9em;
+        }
+
+        #detailNav button:hover {
+            background-color: #3498db;
+        }
+        
+        /* ... CSS Lainnya dari Style.css dan promo-popup-style.css tetap diperlukan di sini ... */
     </style>
     
     <link rel="Stylesheet" href="Style.css">
@@ -48,34 +166,47 @@
     </header>
     
     <script src="promo-popup-script.js"></script> 
+    
     <div class="welcome-text">
         <h2>Selamat Datang di Toko Indraa Store</h2>
         <p>Jasa Joki Cepat, Aman & Terpercaya 💪🔥</p>
     </div>
-    
-    <nav>
-        <button onclick="showCategory('all')">Semua</button>
-        <button onclick="showCategory('Level')">Level</button>
-        <button onclick="showCategory('Mastery')">Mastery</button>
-        <button onclick="showCategory('PAKET LEVEL MURAH')">Paket Level Murah</button>
-        <button onclick="showCategory('Currency')">Currency</button>
-        <button onclick="showCategory('Instinct')">Instinct</button>
-        <button onclick="showCategory('Fighting Style')">Fighting Style</button>
-        <button onclick="showCategory('Sword')">Sword</button>
-        <button onclick="showCategory('Gun')">Gun</button>
-        <button onclick="showCategory('Haki Resep')">Haki Resep</button>
-        <button onclick="showCategory('Raid')">Raid</button>
-        <button onclick="showCategory('Boss Raid')">Boss Raid</button>
-        <button onclick="showCategory('Material')">Material</button>
-        <button onclick="showCategory('Race')">Race</button>
-        <button onclick="showCategory('V4')">V4</button>
-        <button onclick="showCategory('Sea Event')">Sea Event</button>
-        <button onclick="showCategory('Kitsune Event')">Kitsune Event</button>
-        <button onclick="showCategory('Dragon Event')">Dragon Event</button>
-        <button onclick="showCategory('Accessories')">Accessories</button>
-        <button onclick="showCategory('Promo')">Promo</button>
-    </nav>
 
+    <div class="main-category-nav">
+        <button id="btnBloxFruit" onclick="showCategory('BloxFruit_All')">
+            JOKI BLOXFRUIT
+        </button>
+        <button id="btnFishIt" onclick="showCategory('JOKI FISH IT')">
+            JOKI FISH IT
+        </button>
+    </div>
+    <nav id="detailNav" style="display: none;">
+        <div class="detail-row">
+            <button onclick="showCategory('all')">Semua BloxFruit</button>
+            <button onclick="showCategory('Level')">Level</button>
+            <button onclick="showCategory('Mastery')">Mastery</button>
+            <button onclick="showCategory('PAKET LEVEL MURAH')">Paket Level Murah</button>
+            <button onclick="showCategory('Currency')">Currency</button>
+            <button onclick="showCategory('Instinct')">Instinct</button>
+            <button onclick="showCategory('Fighting Style')">Fighting Style</button>
+            <button onclick="showCategory('Sword')">Sword</button>
+            <button onclick="showCategory('Gun')">Gun</button>
+            <button onclick="showCategory('Haki Resep')">Haki Resep</button>
+            <button onclick="showCategory('Raid')">Raid</button>
+            <button onclick="showCategory('Boss Raid')">Boss Raid</button>
+            <button onclick="showCategory('Material')">Material</button>
+            <button onclick="showCategory('Race')">Race</button>
+            <button onclick="showCategory('V4')">V4</button>
+            <button onclick="showCategory('Sea Event')">Sea Event</button>
+        </div>
+        
+        <div class="detail-row">
+            <button onclick="showCategory('Kitsune Event')">Kitsune Event</button>
+            <button onclick="showCategory('Dragon Event')">Dragon Event</button>
+            <button onclick="showCategory('Accessories')">Accessories</button>
+            <button onclick="showCategory('Promo')">Promo</button>
+        </div>
+    </nav>
     <div class="main-content">
         <div class="container" id="container">
             <input type="text" id="searchInput" placeholder="🔍 Cari List Joki...">
@@ -83,28 +214,42 @@
         </div>
 
         <div class="cart">
-            <h3>🛒 Keranjang Belanja</h3>
-            <ul id="cartList"></ul>
-            <p id="totalPrice">Total: Rp0</p>
-            <button class="clear" onclick="clearCart()">Kosongkan Keranjang</button>
-            <a id="waChat" class="whatsapp" href="#" target="_blank">💬Chat via WhatsApp</a>
-            
-            <p id="cartNote" class="cart-note">Terima kasih sudah berbelanja — Silakan cek detail pesanan dan tekan Chat WhatsApp untuk konfirmasi.</p>
-            
-            <div id="termsModal" class="modal">
-                <div class="modal-content">
-                    <h2>Syarat & Ketentuan</h2>
-                    <p>
-                        1️⃣ Pesanan yang sudah dibeli tidak dapat dikembalikan kecuali terjadi kesalahan dari pihak toko.<br><br>
-                        2️⃣ Proses transaksi dilakukan langsung melalui chat WhatsApp Admin Indraa.<br><br>
-                        3️⃣ Pastikan data pesanan sudah benar sebelum mengonfirmasi.<br><br>
-                        4️⃣ Harga dapat berubah sewaktu-waktu tanpa pemberitahuan.<br><br>
-                        5️⃣ INDRAA STORE tidak bertanggung jawab atas kesalahan input pembeli.
-                    </p>
-                </div>
-            </div>
-        </div>
+    <h3>🛒 Keranjang Belanja</h3>
+    <ul id="cartList"></ul>
+    <p id="totalPrice">Total: Rp0</p>
+
+    <div class="payment-methods">
+        <button class="payment-btn dana" onclick="showPaymentInfo('DANA')">DANA</button>
+        <button class="payment-btn qris" onclick="showPaymentInfo('QRIS')">QRIS</button>
+        <button class="payment-btn gopay" onclick="showPaymentInfo('GOPAY')">GOPAY</button>
+        <button class="payment-btn seabank" onclick="showPaymentInfo('SEABANK')">SEABANK</button>
     </div>
+    <button class="clear" onclick="clearCart()">Kosongkan Keranjang</button>
+    <a id="waChat" class="whatsapp" href="#" target="_blank">💬Chat via WhatsApp</a>
+    
+    <p id="cartNote" class="cart-note">Terima kasih sudah berbelanja — Silakan cek detail pesanan dan tekan Chat WhatsApp untuk konfirmasi.</p>
+    
+    <h2 id="termsTitle">Syarat & Ketentuan</h2>
+    <div id="termsContent">
+        <p>
+            1️⃣ Pesanan yang sudah dibeli tidak dapat dikembalikan kecuali terjadi kesalahan dari pihak toko.<br><br>
+            2️⃣ Proses transaksi dilakukan langsung melalui chat WhatsApp Admin Indraa.<br><br>
+            3️⃣ Pastikan data pesanan sudah benar sebelum mengonfirmasi.<br><br>
+            4️⃣ Harga dapat berubah sewaktu-waktu tanpa pemberitahuan.<br><br>
+            5️⃣ INDRAA STORE tidak bertanggung jawab atas kesalahan input pembeli.
+        </p>
+    </div>
+</div>
+
+<div id="paymentModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closePaymentModal()">&times;</span>
+        <h2 id="paymentTitle"></h2>
+        <p>Silakan transfer total pembayaran ke:</p>
+        <p id="paymentDetails"></p>
+        <p>Setelah transfer, harap konfirmasi via WhatsApp Admin & Kirim Bukti Transfer !!</p>
+    </div>
+</div>
 
     <script>
         const products = [
@@ -236,8 +381,57 @@
             { id: 126,name: "Valkyrie Helm", price:10000, category: "Promo"},
             { id: 127,name: "Full Gear T5", price:30000, category: "Promo"},
             { id: 128,name: "Full Gear T10", price:40000, category: "Promo"},
-            { id: 129,name: "1X Trial", price:5000, category: "Promo"},
-            ];
+            { id: 129,name: "1X Trial", price: 5000, category: "Promo"},
+            // Produk Fish It baru
+            // --- START PRODUK JOKI FISH IT (Kategori: JOKI FISH IT) ---
+            
+            // Jasa Joki AFK
+            { id: 130, name: "1 Jam", price: 3000, category: "JOKI FISH IT", subCategory: "Jasa Joki AFK"}, 
+            { id: 131, name: "1 Hari", price: 15000, category: "JOKI FISH IT", subCategory: "Jasa Joki AFK"},
+            { id: 132, name: "2 Hari", price: 30000, category: "JOKI FISH IT", subCategory: "Jasa Joki AFK"},
+            { id: 133, name: "3 Hari", price: 35000, category: "JOKI FISH IT", subCategory: "Jasa Joki AFK"},
+            { id: 134, name: "7 Hari", price: 45000, category: "JOKI FISH IT", subCategory: "Jasa Joki AFK"},
+            { id: 135, name: "15 Hari", price: 55000, category: "JOKI FISH IT", subCategory: "Jasa Joki AFK"},
+            
+            // Jasa Joki Coin
+            { id: 136, name: "1M", price: 10000, category: "JOKI FISH IT", subCategory: "Jasa Joki Coin"},
+            { id: 137, name: "2M", price: 20000, category: "JOKI FISH IT", subCategory: "Jasa Joki Coin"},
+            { id: 138, name: "3M", price: 25000, category: "JOKI FISH IT", subCategory: "Jasa Joki Coin"},
+            
+            // Jasa Joki Rod
+            { id: 139, name: "Ghostfin Rod", price: 60000, category: "JOKI FISH IT", subCategory: "Jasa Joki Rod"},
+            { id: 140, name: "Angler Rod", price: 45000, category: "JOKI FISH IT", subCategory: "Jasa Joki Rod"},
+            { id: 141, name: "Ares Rod", price: 30000, category: "JOKI FISH IT", subCategory: "Jasa Joki Rod"},
+            { id: 142, name: "Astral Rod", price: 10000, category: "JOKI FISH IT", subCategory: "Jasa Joki Rod"},
+            { id: 143, name: "Bamboo Rod", price: 55000, category: "JOKI FISH IT", subCategory: "Jasa Joki Rod"},
+            { id: 144, name: "Element Rod", price: 100000, category: "JOKI FISH IT", subCategory: "Jasa Joki Rod"},
+            
+            // Jasa Joki Bobber
+            { id: 145, name: "Aether", price: 25000, category: "JOKI FISH IT", subCategory: "Jasa Joki Bobber"},
+            { id: 146, name: "Corupt", price: 15000, category: "JOKI FISH IT", subCategory: "Jasa Joki Bobber"},
+            { id: 147, name: "Dark Matter", price: 10000, category: "JOKI FISH IT", subCategory: "Jasa Joki Bobber"},
+            { id: 148, name: "Chroma", price: 5000, category: "Lainnya", subCategory: "Jasa Joki Bobber"},
+            // Batu Enchant Esoteric
+            { id: 150, name: "10 Batu", price: 1000, category: "JOKI FISH IT", subCategory: "Batu Enchant Esoteric"},
+            { id: 151, name: "55 Batu", price: 5000, category: "JOKI FISH IT", subCategory: "Batu Enchant Esoteric"},
+            { id: 152, name: "100 Batu", price: 10000, category: "JOKI FISH IT", subCategory: "Batu Enchant Esoteric"},
+            { id: 153, name: "150 Batu", price: 15000, category: "JOKI FISH IT", subCategory: "Batu Enchant Esoteric"},
+            { id: 154, name: "220 Batu", price: 20000, category: "JOKI FISH IT", subCategory: "Batu Enchant Esoteric"},
+            { id: 155, name: "280 Batu", price: 25000, category: "JOKI FISH IT", subCategory: "Batu Enchant Esoteric"},
+            { id: 156, name: "340 Batu", price: 30000, category: "JOKI FISH IT", subCategory: "Batu Enchant Esoteric"},
+            { id: 157, name: "400 Batu", price: 35000, category: "JOKI FISH IT", subCategory: "Batu Enchant Esoteric"},
+            
+            // Batu Enchant New
+            { id: 158, name: "1 Batu", price: 5000, category: "JOKI FISH IT", subCategory: "Batu Enchant New"},
+            { id: 159, name: "5 Batu", price: 15000, category: "JOKI FISH IT", subCategory: "Batu Enchant New"},
+            { id: 160, name: "15 Batu", price: 60000, category: "JOKI FISH IT", subCategory: "Batu Enchant New"},
+            { id: 161, name: "25 Batu", price: 100000, category: "JOKI FISH IT", subCategory: "Batu Enchant New"},
+            
+            // Jasa Joki Artefak Tample
+            { id: 162, name: "Artefak Tample", price: 35000, category: "JOKI FISH IT", subCategory: "Jasa Joki Artefak Tample"},
+            
+            // --- END PRODUK BARU ---
+        ];
 
         let cart = [];
         let currentCategory = "all";
@@ -248,36 +442,167 @@
         const searchInput = document.getElementById("searchInput");
         const waChat = document.getElementById("waChat");
         const container = document.getElementById("container");
+        const detailNav = document.getElementById('detailNav'); // Ambil detail nav
+        const menuDropdown = document.getElementById('menuDropdown'); // Ambil dropdown menu
+        const paymentModal = document.getElementById('paymentModal');
+        const paymentTitle = document.getElementById('paymentTitle');
+        const paymentDetails = document.getElementById('paymentDetails');
+        
+        // Data Pembayaran (PASTIKAN MENGGANTI DENGAN DETAIL REKENING ASLI ANDA)
+        const paymentData = {
+            DANA: "Nomor DANA: 0895371757784\nA.N. MAULANA",
+            QRIS: "Metode ini menggunakan QR Code.\nSilakan tekan 'Chat via WhatsApp' untuk mendapatkan QR Code terbaru.",
+            GOPAY: "Nomor GOPAY: 0895321940805\nA.N. MAULANA",
+            SEABANK: "Nomor Rekening: 901768241659\nA.N. MAULANA"
+        };
+        
+        function showPaymentInfo(method) {
+            paymentTitle.textContent = `Pembayaran via ${method}`;
+            
+            // Ambil total harga terbaru
+            const totalText = totalPrice.textContent;
+
+            paymentDetails.innerHTML = `
+                <p>Total yang harus dibayar: <strong>${totalText}</strong></p>
+                <p style="white-space: pre-wrap; margin-top: 10px;">${paymentData[method]}</p>
+            `;
+
+            paymentModal.style.display = "block";
+        }
+        
+        function closePaymentModal() {
+            paymentModal.style.display = "none";
+        }
+        
+        // Tambahkan listener untuk menutup modal ketika mengklik di luar area modal
+        window.onclick = function(event) {
+            if (event.target == paymentModal) {
+                closePaymentModal();
+            }
+        }
+
+        function setActiveButton(category) {
+            const buttons = document.querySelectorAll('.main-category-nav button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // Logika untuk tombol utama dan visibilitas detailNav:
+            if (category === 'JOKI FISH IT') { 
+                // 1. Aktifkan tombol JOKI FISH IT
+                document.getElementById('btnFishIt').classList.add('active');
+                // 2. SEMBUNYIKAN navigasi kategori detail
+                detailNav.style.display = 'none'; 
+            } else {
+                // Semua kategori lainnya (BloxFruit_All, all, Level, Mastery, dst.) dianggap BloxFruit
+                // 1. Aktifkan tombol JOKI BLOXFRUIT
+                document.getElementById('btnBloxFruit').classList.add('active');
+                // 2. TAMPILKAN navigasi kategori detail
+                detailNav.style.display = 'flex'; // Gunakan 'flex' atau 'block' sesuai gaya CSS Anda
+            }
+        }
 
         function displayProducts() {
             const searchValue = searchInput.value.toLowerCase();
             productList.innerHTML = "";
 
-            const filtered = products.filter(p =>
-                (currentCategory === "all" || p.category === currentCategory) &&
-                p.name.toLowerCase().includes(searchValue)
-            );
+            const isFishItView = currentCategory === "JOKI FISH IT";
+            const isBloxFruitView = currentCategory === "BloxFruit_All" || currentCategory === "all";
+
+            // KONTROL VISIBILITAS SEARCH INPUT
+            if (isFishItView) {
+                searchInput.style.display = 'none';
+            } else {
+                searchInput.style.display = 'block';
+            }
+
+            // 1. Logika Filter
+            const filtered = products.filter(p => {
+                const searchMatch = p.name.toLowerCase().includes(searchValue);
+                
+                if (isFishItView) {
+                    // Filter untuk Fish It: tampilkan JOKI FISH IT & Lainnya
+                    return (p.category === "JOKI FISH IT" || p.category === "Lainnya") && searchMatch;
+                } else if (isBloxFruitView) {
+                    // Filter untuk BloxFruit: tampilkan semua kecuali Fish It & Lainnya
+                    return p.category !== "JOKI FISH IT" && p.category !== "Lainnya" && searchMatch;
+                } else {
+                    // Filter berdasarkan kategori detail BloxFruit (Level, Mastery, dll.)
+                    return p.category === currentCategory && searchMatch;
+                }
+            });
 
             if (filtered.length === 0) {
-                productList.innerHTML = "<p>Tidak ada produk ditemukan.</p>";
+                productList.innerHTML = "<p>Tidak ada produk ditemukan di kategori ini.</p>";
                 return;
             }
 
-            filtered.forEach(p => {
-                const div = document.createElement("div");
-                div.className = "product";
-                div.innerHTML = `
-                    <span>${p.name} - Rp${p.price.toLocaleString()}</span>
-                    <button onclick="addToCart(${p.id})">Tambah</button>
-                `;
-                productList.appendChild(div);
-            });
+            // 2. Logika Rendering
+            if (isFishItView) {
+                // Rendering KHUSUS untuk JOKI FISH IT (Gaya Blok)
+                
+                // Kelompokkan produk berdasarkan subCategory
+                const groupedProducts = filtered.reduce((acc, p) => {
+                    // Hanya grup produk JOKI FISH IT (Subkategori)
+                    if (p.category === "JOKI FISH IT") {
+                        const subCat = p.subCategory || "Lain-lain";
+                        if (!acc[subCat]) {
+                            acc[subCat] = [];
+                        }
+                        acc[subCat].push(p);
+                    }
+                    return acc;
+                }, {});
+                
+                // Render setiap grup sebagai blok terpisah
+                for (const title in groupedProducts) {
+                    const blockDiv = document.createElement("div");
+                    blockDiv.className = "fishit-block";
+                    // Tambahkan ikon di judul
+                    const iconMap = {
+                        "Jasa Joki AFK": "🕒", "Jasa Joki Coin": "💰", 
+                        "Jasa Joki Rod": "🎣", "Jasa Joki Bobber": "🔴"
+                    };
+                    const icon = iconMap[title] || '🌑';
+
+                    blockDiv.innerHTML = `<div class="fishit-title">${icon} ${title}</div><div class="fishit-options"></div>`;
+                    
+                    const optionsContainer = blockDiv.querySelector('.fishit-options');
+
+                    groupedProducts[title].forEach(p => {
+                        const button = document.createElement("button");
+                        button.className = "fishit-item-btn";
+                        button.setAttribute('onclick', `addToCart(${p.id})`);
+                        button.innerHTML = `
+                            ${p.name}
+                            <span class="fishit-item-price">Rp${p.price.toLocaleString()}</span>
+                        `;
+                        optionsContainer.appendChild(button);
+                    });
+                    
+                    productList.appendChild(blockDiv);
+                }
+                
+            } else {
+                // Rendering DEFAULT untuk JOKI BLOXFRUIT (Gaya Tabel/List)
+                filtered.forEach(p => {
+                    const div = document.createElement("div");
+                    div.className = "product";
+                    div.innerHTML = `
+                        <span>${p.name} - Rp${p.price.toLocaleString()}</span>
+                        <button onclick="addToCart(${p.id})">Tambah</button>
+                    `;
+                    productList.appendChild(div);
+                });
+            }
         }
 
         function showCategory(category) {
             container.style.opacity = "0";
+            setActiveButton(category); 
+            
+            // Set currentCategory untuk filtering
+            currentCategory = category;
+
             setTimeout(() => {
-                currentCategory = category;
                 displayProducts();
                 container.style.opacity = "1";
             }, 300);
@@ -308,24 +633,43 @@
             waChat.href = `https://wa.me/62895321940805?text=${message}`;
         }
 
-        // ... kode JavaScript sebelum fungsi clearCart() ...
-
         function clearCart() {
-            // Menampilkan pop-up konfirmasi
             const confirmed = confirm("Apakah Anda yakin ingin mengosongkan keranjang belanja?");
-
-            // Jika pengguna mengklik "OK" (true), keranjang akan dikosongkan.
             if (confirmed) {
                 cart = [];
                 updateCart();
-                // Opsional: Tampilkan notifikasi berhasil
                 alert("Keranjang belanja telah dikosongkan.");
             }
-            // Jika pengguna mengklik "Cancel" (false), tidak ada yang terjadi.
+        }
+        
+        // FUNGSI MENU LAIN (Toggle Dropdown)
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            if (menuDropdown.style.display === 'block') {
+                menuDropdown.style.display = 'none';
+            } else {
+                menuDropdown.style.display = 'block';
+            }
+        });
+
+        // FUNGSI MEMILIH DARI MENU LAIN
+        function selectExternalMenu(menuItem) {
+            menuDropdown.style.display = 'none'; // Sembunyikan menu setelah memilih
+            
+            if (menuItem === 'BloxFruit') {
+                showCategory('BloxFruit_All'); // Mengarahkan ke tampilan Blox Fruit
+            } else if (menuItem === 'FishIt') {
+                showCategory('Lainnya'); // Tampilkan produk Fish It
+            }
         }
 
+
         searchInput.addEventListener("input", displayProducts);
-        displayProducts();
+        
+        // Atur agar halaman dimuat dengan Joki Bloxfruit sebagai default
+        window.onload = function() {
+            // Memuat dengan semua kategori BloxFruit dan mengaktifkan tombol yang benar
+            showCategory('BloxFruit_All'); 
+        };
 
     </script>
     
