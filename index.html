@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <link rel="Stylesheet" href="Style.css">
+  <link rel="Stylesheet" href="promo-popup-style.css">
+
+  <style>
+        /* ==================================== */
+        /* 1. Gaya Dasar Overlay dan Pop-up */
+        /* ==================================== */
+
+        .promo-popup-container {
+            display: none; 
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 9999; 
+            transition: background-color 0.5s ease;
+        }
+
+        .promo-popup-content {
+            /* Posisi Awal: Di luar layar (ke kanan) */
+            position: absolute;
+            top: 50%;
+            left: 100%;
+            transform: translate(0%, -50%); 
+            
+            width: 300%; 
+            max-width: 800px; 
+            background-color: #1a1a1a; 
+            border: 3px solid #ff4d4d; 
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.8), 0 0 10px rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 0;
+            overflow: hidden; 
+            
+            /* Transisi Slide: Geser */
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1); 
+        }
+
+        /* Kelas aktif untuk memicu Pop-up masuk */
+        .promo-popup-container.active {
+            display: block; 
+        }
+
+        .promo-popup-container.active .promo-popup-content {
+            /* Posisi Akhir: Di tengah layar */
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* ==================================== */
+        /* 2. Gaya Tombol Tutup */
+        /* ==================================== */
+
+        .popup-close-btn {
+            position: absolute;
+            top: 8px;
+            right: 25px;
+            font-size: 38px;
+            color: #ffffff; 
+            text-shadow: 0 0 5px #ff0000;
+            cursor: pointer;
+            z-index: 10000; 
+            transition: transform 0.2s, color 0.2s;
+        }
+
+        .popup-close-btn:hover {
+            color: #ffffff;
+            transform: rotate(90deg);
+        }
+
+        /* ==================================== */
+        /* 3. Gaya Slider/Carousel & Navigasi */
+        /* ==================================== */
+
+        .slider-container {
+            position: relative;
+            overflow: hidden; 
+            width: 100%;
+        }
+
+        .slider-wrapper {
+            display: flex; 
+            transition: transform 0.5s ease-in-out; 
+        }
+
+        .slide {
+            min-width: 100%; 
+            flex-shrink: 0; 
+            max-height: 80vh; 
+        }
+
+        .slide img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain; 
+            border-radius: 10px; 
+        }
+
+        /* Navigasi (Panah) */
+        .prev-btn, .next-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 0, 0, 0.5); 
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 28px;
+            z-index: 10;
+            opacity: 0.8;
+            border-radius: 50%; 
+            transition: background-color 0.3s, opacity 0.3s;
+        }
+
+        .prev-btn:hover, .next-btn:hover {
+            opacity: 1;
+            background-color: #ff0000;
+        }
+
+        .prev-btn {
+            left: 10px;
+        }
+
+        .next-btn {
+            right: 10px;
+        }
+
+        /* Indikator Slide (Dots) */
+        .slider-indicators {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 15;
+        }
+
+        .dot {
+            height: 10px;
+            width: 10px;
+            background-color: #555;
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .dot.active {
+            background-color: #ff4d4d; 
+            transform: scale(1.2);
+            box-shadow: 0 0 5px #ff4d4d;
+        }
+    </style>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INDRAA STORE</title>
+</head>
+<body>
+    <div id="promoPopup" class="promo-popup-container">
+        <div class="promo-popup-content">
+            <span class="popup-close-btn">&times;</span>
+            <img src="PROMO DRACO EVENT.jpg" alt="Promo Joki Blox Fruits Draco Event Indraa Store">
+        </div>
+    </div>
+    <script>
+        // ... SELURUH KODE JAVASCRIPT ANDA YANG SUDAH ADA (products, displayProducts, dll.) ...
+    </script>
+
+    <script src="promo-popup-script.js"></script> 
+    <script src="secure-devtools-blocker.js"></script>
+
+</body>
+</html>
+
+  <header class="bubble-text">💣INDRAA STORE💣</header>
+
+    <!-- ✨ Tambahan teks sambutan -->
+  <div class="welcome-text">
+    <h2>Selamat Datang di Toko Indraa Store</h2>
+    <p>Jasa Joki Cepat, Aman & Terpercaya 💪🔥</p>
+  </div>
+
+  <nav>
+    <button onclick="showCategory('all')">Semua</button>
+    <button onclick="showCategory('Level')">Level</button>
+    <button onclick="showCategory('Mastery')">Mastery</button>
+    <button onclick="showCategory('PAKET LEVEL MURAH')">Paket Level Murah</button>
+    <button onclick="showCategory('Currency')">Currency</button>
+    <button onclick="showCategory('Instinct')">Instinct</button>
+    <button onclick="showCategory('Fighting Style')">Fighting Style</button>
+    <button onclick="showCategory('Sword')">Sword</button>
+    <button onclick="showCategory('Gun')">Gun</button>
+    <button onclick="showCategory('Haki Resep')">Haki Resep</button>
+    <button onclick="showCategory('Raid')">Raid</button>
+    <button onclick="showCategory('Boss Raid')">Boss Raid</button>
+    <button onclick="showCategory('Material')">Material</button>
+    <button onclick="showCategory('Race')">Race</button>
+    <button onclick="showCategory('V4')">V4</button>
+    <button onclick="showCategory('Sea Event')">Sea Event</button>
+    <button onclick="showCategory('Kitsune Event')">Kitsune Event</button>
+    <button onclick="showCategory('Dragon Event')">Dragon Event</button>
+    <button onclick="showCategory('Accessories')">Accessories</button>
+    <button onclick="showCategory('Promo')">Promo</button>
+  </nav>
+
+  <div class="main-content">
+    <div class="container" id="container">
+      <input type="text" id="searchInput" placeholder="🔍 Cari List Joki...">
+      <div id="productList"></div>
+    </div>
+
+    <div class="cart">
+      <h3>🛒 Keranjang Belanja</h3>
+      <ul id="cartList"></ul>
+      <p id="totalPrice">Total: Rp0</p>
+      <button class="clear" onclick="clearCart()">Kosongkan Keranjang</button>
+      <a id="waChat" class="whatsapp" href="#" target="_blank">💬Chat via WhatsApp</a>
+      
+      <!-- NOTE: Tambahkan element ini -->
+      <p id="cartNote" class="cart-note">Terima kasih sudah berbelanja — Silakan cek detail pesanan dan tekan Chat WhatsApp untuk konfirmasi.</p>
+      
+<!-- Modal Syarat & Ketentuan -->
+<div id="termsModal" class="modal">
+  <div class="modal-content">
+    <h2>Syarat & Ketentuan</h2>
+    <p>
+      1️⃣ Pesanan yang sudah dibeli tidak dapat dikembalikan kecuali terjadi kesalahan dari pihak toko.<br><br>
+      2️⃣ Proses transaksi dilakukan langsung melalui chat WhatsApp Admin Indraa.<br><br>
+      3️⃣ Pastikan data pesanan sudah benar sebelum mengonfirmasi.<br><br>
+      4️⃣ Harga dapat berubah sewaktu-waktu tanpa pemberitahuan.<br><br>
+      5️⃣ INDRAA STORE tidak bertanggung jawab atas kesalahan input pembeli.
+    </p>
+  </div>
+</div>
+
+  <script>
+    const products = [
+      { id: 1, name: "100 Level Sea 1", price: 5000, category: "Level" },
+      { id: 2, name: "100 Level Sea 2", price: 10000, category: "Level" },
+      { id: 3, name: "100 Level Sea 3", price: 15000, category: "Level" },
+      { id: 4, name: "1 - 700", price: 10000, category: "PAKET LEVEL MURAH" },
+      { id: 5, name: "700 - 1500", price: 20000, category: "PAKET LEVEL MURAH" },
+      { id: 6, name: "1500 - 2800", price: 35000, category: "PAKET LEVEL MURAH" },
+      { id: 7, name: "150 Mastery Melee/Sword (0 - 300)", price: 3000, category: "Mastery" },
+      { id: 8, name: "100 Mastery Fruit/Gun (0 - 300)", price: 5000, category: "Mastery" },
+      { id: 9, name: "150 Mastery Melle/Sword (300 - 600)", price: 5000, category: "Mastery"},
+      { id: 10,name: "100 Mastery Fruit/Gun (300 - 600)", price: 10000, category: "Mastery"},
+      { id: 11,name: "1M Belly", price: 5000, category: "Currency"},
+      { id: 12,name: "1K Fragment (Buah Buyer)", price: 1000, category: "Currency"},
+      { id: 13,name: "1K Fragment (Buah Penjoki)", price: 2000, category: "Currency"},
+      { id: 14,name: "100M Belly", price: 150000, category: "Currency"},
+      { id: 15,name: "100K Fragment", price: 180000, category: "Currency"},
+      { id: 16,name: "1000 Instinct", price: 15000, category: "Instinct"},
+      { id: 17,name: "Instinct V2", price: 10000, category: "Instinct"},
+      { id: 18,name: "Superhuman", price: 25000, category: "Fighting Style"},
+      { id: 19,name: "Electric Claw", price: 5000, category: "Fighting Style"},
+      { id: 20,name: "Death Step", price: 10000, category: "Fighting Style"},
+      { id: 21,name: "Sharkman Karate", price: 10000, category: "Fighting Style"},
+      { id: 22,name: "Dragontalon", price: 20000, category: "Fighting Style"},
+      { id: 23,name: "God Human", price: 15000, category: "Fighting Style"},
+      { id: 24,name: "Sanguine Art", price: 60000, category: "Fighting Style"},
+      { id: 25,name: "Dark Dagger", price: 80000, category: "Sword"},
+      { id: 26,name: "Hallow Scythe", price: 40000, category: "Sword"},
+      { id: 27,name: "V2 Dark Blade", price: 5000, category: "Sword"},
+      { id: 28,name: "V3 Dark Blade (Wajib V3 Race Human, Angel, Shark, Rabbit)", price: 50000, category: "Sword"},
+      { id: 29,name: "TTK (Wajib Memiliki 2M Belly, Wando, Shisui, Saddi)", price: 20000, category: "Sword"},
+      { id: 30,name: "CDK (Wajib Level 2200 Keatas + 10K Jika Yama Dan Tushita Belum 350 Mastery)", price: 20000, category: "Sword"},
+      { id: 31,name: "Yama", price: 15000, category: "Sword"},
+      { id: 32,name: "Tushita (Wajib Level 2000 Keatas)", price: 15000, category: "Sword"},
+      { id: 33,name: "Oroshi (Wajib Memiliki 2M Belly)↘", price: 4000, category: "Sword"},
+      { id: 34,name: "Shizu (Wajib Memiliki 2M Belly) --> 10K (Wajib Memiliki 6M Belly)", price: 4000, category: "Sword"},
+      { id: 35,name: "Saishi (Wajib Memiliki 2M Belly)↗", price: 4000, category: "Sword"},
+      { id: 36,name: "Trident Spikey", price: 20000, category: "Sword"},
+      { id: 37,name: "Kabucha", price: 5000, category: "Gun"},
+      { id: 38,name: "Acidum Rifle", price: 20000, category: "Gun"},
+      { id: 39,name: "Skull Guitar (Wajib Level 2300 Keatas + 15K Jika Material Belum Ada)", price: 15000, category: "Gun"},
+      { id: 40,name: "Normal ", price: 2000, category: "Haki Resep"},
+      { id: 41,name: "Legend", price: 5000, category: "Haki Resep"},
+      { id: 42,name: "Normal Raid 1X (BUAH BUYER)", price: 1000, category: "Raid"},
+      { id: 43,name: "Normal Raid + Fruit (FRUIT PENJOKI)", price: 2000, category: "Raid"},
+      { id: 44,name: "Advanced Raid 1X (BUAH BUYER)", price: 5000, category: "Raid"},
+      { id: 45,name: "Advanced Raid 1X (BUAH PENJOKI)", price: 8000, category: "Raid"},
+      { id: 46,name: "Law Raid 1X", price: 5000, category: "Raid"},
+      { id: 47,name: "Pirate Raid", price: 10000, category: "Raid"},
+      { id: 48,name: "Dough King", price: 20000, category: "Boss Raid"},
+      { id: 49,name: "Soul Reaper", price: 15000, category: "Boss Raid"},
+      { id: 50,name: "Rip_Indra", price: 15000, category: "Boss Raid"},
+      { id: 51,name: "DarkBeard", price: 15000, category: "Boss Raid"},
+      { id: 52,name: "Tyrant", price: 10000, category: "Boss Raid"},
+      { id: 53,name: "Counjured Cocoa (x2)", price: 1000, category: "Material"},
+      { id: 54,name: "Shark Tooth (x2)", price: 1000, category: "Material"},
+      { id: 55,name: "Moonstone (x10)", price: 10000, category: "Material"},
+      { id: 56,name: "Fire Feather (x10)", price: 10000, category: "Material"},
+      { id: 57,name: "Mystic Droplet (x2)", price: 1000, category: "Material"},
+      { id: 58,name: "Electric Wing (x2)", price: 1000, category: "Material"},
+      { id: 59,name: "Fools Gold (x3)", price: 2000, category: "Material"},
+      { id: 60,name: "Blaze Ember (x3)", price: 2000, category: "Material"},
+      { id: 61,name: "Volt Capsule (x3)", price: 2000, category: "Material"},
+      { id: 62,name: "Mutant Tooth (x1)", price: 3000, category: "Material"},
+      { id: 63,name: "Bones (x1000)", price: 10000, category: "Material"},
+      { id: 64,name: "Vampire Fang (x10)", price: 10000, category: "Material"},
+      { id: 65,name: "Scrap Metal (x10)", price: 10000, category: "Material"},
+      { id: 66,name: "Mini Tusk (x10)", price: 10000, category: "Material"},
+      { id: 67,name: "Ectoplasm (x100)", price: 3000, category: "Material"},
+      { id: 68,name: "Dragon Scale (x5)", price: 5000, category: "Material"},
+      { id: 69,name: "Terror Eye (x1)", price: 5000, category: "Material"},
+      { id: 70,name: "Leviathan Scales (x10)", price: 30000, category: "Material"},
+      { id: 71,name: "Leviathan Heart (x1)", price: 30000, category: "Material"},
+      { id: 72,name: "Legend Scroll", price: 30000, category: "Material"},
+      { id: 73,name: "Mythical Scroll", price:80000, category: "Material"},
+      { id: 74,name: "V2 All Race (Belly Sendiri)", price:3000, category: "Race"},
+      { id: 75,name: "V3 Race Not Ghoul (Belly Sendiri)", price:5000, category: "Race"},
+      { id: 76,name: "V3 Race Ghoul (Belly Sendiri)", price:15000, category: "Race"},
+      { id: 77,name: "Unlock Ghoul", price:15000, category: "Race"},
+      { id: 78,name: "Insert FOD Cyborg", price:10000, category: "Race"},
+      { id: 79,name: "Unlock Cyborg (Fragment Sendiri + Wajib sudah insert FOD)", price:10000, category: "Race"},
+      { id: 80,name: "Pull Lever/Bluegear (Wajib Memiliki Mirror Fractal + Valkyrie Helm)", price:10000, category: "V4"},
+      { id: 81,name: "1x Trial (Via Login)", price:7000, category: "V4"},
+      { id: 82,name: "1x Trial (Via Gendong)", price:10000, category: "V4"},
+      { id: 82,name: "1x Train (Khusus T1-T2)", price:3000, category: "V4"},
+      { id: 83,name: "FullGear T5 (9,250 Fragment + Fragment Sendiri)", price:40000, category: "V4"},
+      { id: 84,name: "FullGear T10 / TrueGear (26,750 Fragment + Fragment Sendiri)", price:50000, category: "V4"},
+      { id: 85,name: "Train T3 -> T5 (6,750 Fragment + Fragment Sendiri)", price:10000, category: "V4"},
+      { id: 86,name: "Train T5 -> T10 (17,500 Fragment + Fragment Sendiri)", price:15000, category: "V4"},
+      { id: 87,name: "Shark Necklace", price:10000, category: "Sea Event"},
+      { id: 88,name: "Terror Jaw", price:10000, category: "Sea Event"},
+      { id: 89,name: "Monster Magnet (Wajib Memiliki Shark Necklace & Terror Jaw)", price:20000, category: "Sea Event"},
+      { id: 90,name: "Shark Anchor (Wajib Memiliki Monster Magnet)", price:20000, category: "Sea Event"},
+      { id: 91,name: "Leviathan Crown", price:70000, category: "Sea Event"},
+      { id: 92,name: "Beast Hunter", price:70000, category: "Sea Event"},
+      { id: 93,name: "Leviathan Shield", price:80000, category: "Sea Event"},
+      { id: 94,name: "Remove CD Bribe", price:5000, category: "Sea Event"},
+      { id: 96,name: "Fox Lamp + Bonus", price:40000, category: "Kitsune Event"},
+      { id: 97,name: "Azure Ember x25", price:10000, category: "Kitsune Event"},
+      { id: 98,name: "1 Belt", price:5000, category: "Dragon Event"},
+      { id: 99,name: "6 Belt", price:30000, category: "Dragon Event"},
+      { id: 100,name: "Red Belt", price:15000, category: "Dragon Event"},
+      { id: 101,name: "Black Belt", price:25000, category: "Dragon Event"},
+      { id: 102,name: "Volcano Magnet", price:10000, category: "Dragon Event"},
+      { id: 103,name: "1 Dragon Egg", price:20000, category: "Dragon Event"},
+      { id: 104,name: "Draco Race", price:100000, category: "Dragon Event"},
+      { id: 105,name: "Fire Flower X1", price:5000, category: "Dragon Event"},
+      { id: 106,name: "V2 Draco", price:20000, category: "Dragon Event"},
+      { id: 107,name: "V3 Draco", price:10000, category: "Dragon Event"},
+      { id: 108,name: "DragonHeart Sword", price:30000, category: "Dragon Event"},
+      { id: 109,name: "DragonStorm Gun", price:50000, category: "Dragon Event"},
+      { id: 110,name: "Freezing Hydra", price:30000, category: "Dragon Event"},
+      { id: 111,name: "1X Trial Draco (Tanpa Magnet)", price:25000, category: "Dragon Event"},
+      { id: 112,name: "1X Trial Draco (Ada Magnet)", price:20000, category: "Dragon Event"},
+      { id: 113,name: "Darkcoat (10X Lawan Darkbeard)", price:100000, category: "Accessories"},
+      { id: 114,name: "Pale Scraf (Wajib Sea 3)", price:10000, category: "Accessories"},
+      { id: 115,name: "Muskeeter Hat (Wajib Level 1800+)", price:10000, category: "Accessories"},
+      { id: 116,name: "Pilot Helmet (Wajib Sea 3)", price:5000, category: "Accessories"},
+      { id: 117,name: "1 Dragon Egg", price:10000, category: "Promo"},
+      { id: 118,name: "6 Dinosaur Bones ", price:10000, category: "Promo"},
+      { id: 119,name: "Black Belt", price:15000, category: "Promo"},
+      { id: 120,name: "20 Scrap Metal", price:10000, category: "Promo"},
+      { id: 121,name: "30 Blaze Ember", price:10000, category: "Promo"},
+      { id: 122,name: "1X Trial Draco (Ada Magnet)", price:15000, category: "Promo"},
+      { id: 123,name: "1X Trial Draco (Tanpa Magnet)", price:20000, category: "Promo"},
+      { id: 124,name: "Bluegear", price:8000, category: "Promo"},
+      { id: 125,name: "Mirror Fractal", price:15000, category: "Promo"},
+      { id: 126,name: "Valkyrie Helm", price:10000, category: "Promo"},
+      { id: 127,name: "Full Gear T5", price:30000, category: "Promo"},
+      { id: 128,name: "Full Gear T10", price:40000, category: "Promo"},
+      { id: 129,name: "1X Trial", price:5000, category: "Promo"},
+     ];
+
+    let cart = [];
+    let currentCategory = "all";
+
+    const productList = document.getElementById("productList");
+    const cartList = document.getElementById("cartList");
+    const totalPrice = document.getElementById("totalPrice");
+    const searchInput = document.getElementById("searchInput");
+    const waChat = document.getElementById("waChat");
+    const container = document.getElementById("container");
+
+    function displayProducts() {
+      const searchValue = searchInput.value.toLowerCase();
+      productList.innerHTML = "";
+
+      const filtered = products.filter(p =>
+        (currentCategory === "all" || p.category === currentCategory) &&
+        p.name.toLowerCase().includes(searchValue)
+      );
+
+      if (filtered.length === 0) {
+        productList.innerHTML = "<p>Tidak ada produk ditemukan.</p>";
+        return;
+      }
+
+      filtered.forEach(p => {
+        const div = document.createElement("div");
+        div.className = "product";
+        div.innerHTML = `
+          <span>${p.name} - Rp${p.price.toLocaleString()}</span>
+          <button onclick="addToCart(${p.id})">Tambah</button>
+        `;
+        productList.appendChild(div);
+      });
+    }
+
+    function showCategory(category) {
+      container.style.opacity = "0";
+      setTimeout(() => {
+        currentCategory = category;
+        displayProducts();
+        container.style.opacity = "1";
+      }, 300);
+    }
+
+    function addToCart(id) {
+      const product = products.find(p => p.id === id);
+      cart.push(product);
+      updateCart();
+    }
+
+    function updateCart() {
+      cartList.innerHTML = "";
+      let total = 0;
+      cart.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = `${item.name} - Rp${item.price.toLocaleString()}`;
+        cartList.appendChild(li);
+        total += item.price;
+      });
+      totalPrice.textContent = `Total: Rp${total.toLocaleString()}`;
+
+      const message = encodeURIComponent(
+        "Halo, saya ingin joki di INDRAA STORE:\n" +
+        cart.map(c => `- ${c.name} (Rp${c.price.toLocaleString()})`).join("\n") +
+        `\nTotal: Rp${total.toLocaleString()}`
+      );
+      waChat.href = `https://wa.me/62895321940805?text=${message}`;
+    }
+
+    function clearCart() {
+      cart = [];
+      updateCart();
+    }
+
+    searchInput.addEventListener("input", displayProducts);
+    displayProducts();
+
+    </script>
+
+  <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- 1. Elemen dan Data Pop-up ---
+            const promoPopup = document.getElementById('promoPopup');
+            const promoContent = promoPopup.querySelector('.promo-popup-content');
+            
+            // DATA GAMBAR PROMO - Pastikan nama file sesuai
+            const promoImages = [
+                { src: "PROMO DRACO EVENT.jpg", alt: "Promo Draco Event Blox Fruits" },
+                { src: "PROMO V4.jpg", alt: "Promo V4 Blox Fruits" }
+            ];
+            
+            let currentSlide = 0;
+            const totalSlides = promoImages.length;
+            let autoSlideInterval;
+            const SLIDE_DURATION = 5000; 
+
+            // --- 2. Re-Strukturisasi HTML Pop-up ---
+            
+            const closeBtnHTML = promoContent.querySelector('.popup-close-btn').outerHTML;
+
+            let slidesHTML = promoImages.map(img => 
+                `<div class="slide"><img src="${img.src}" alt="${img.alt}"></div>`
+            ).join('');
+            
+            let dotsHTML = promoImages.map((_, index) => 
+                `<span class="dot" data-slide-index="${index}"></span>`
+            ).join('');
+
+            promoContent.innerHTML = `
+                ${closeBtnHTML}
+                <div class="slider-container">
+                    <div class="slider-wrapper">${slidesHTML}</div>
+                    <button class="prev-btn">&#10094;</button>
+                    <button class="next-btn">&#10095;</button>
+                    <div class="slider-indicators">${dotsHTML}</div>
+                </div>
+            `;
+
+            // Ambil ulang elemen yang baru dibuat
+            const newCloseBtn = promoContent.querySelector('.popup-close-btn');
+            const sliderWrapper = promoContent.querySelector('.slider-wrapper');
+            const prevBtn = promoContent.querySelector('.prev-btn');
+            const nextBtn = promoContent.querySelector('.next-btn');
+            const dots = promoContent.querySelectorAll('.dot');
+
+
+            // --- 3. Fungsi Pop-up ---
+
+            function openPopup() {
+                promoPopup.style.display = 'block'; 
+                setTimeout(() => {
+                    promoPopup.classList.add('active'); 
+                    startAutoSlide();
+                }, 10);
+            }
+
+            function closePopup() {
+                promoPopup.classList.remove('active'); 
+                clearInterval(autoSlideInterval);
+                setTimeout(() => {
+                    promoPopup.style.display = 'none';
+                }, 400); 
+            }
+
+
+            // --- 4. Fungsi Slider ---
+
+            function updateSlide() {
+                const offset = -currentSlide * 100;
+                sliderWrapper.style.transform = `translateX(${offset}%)`;
+
+                dots.forEach(dot => dot.classList.remove('active'));
+                dots[currentSlide].classList.add('active');
+            }
+
+            function changeSlide(direction) {
+                currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+                updateSlide();
+                resetAutoSlide(); 
+            }
+            
+            function startAutoSlide() {
+                clearInterval(autoSlideInterval); 
+                autoSlideInterval = setInterval(() => {
+                    changeSlide(1); 
+                }, SLIDE_DURATION); 
+            }
+            
+            function resetAutoSlide() {
+                clearInterval(autoSlideInterval);
+                startAutoSlide();
+            }
+            
+            
+            // --- 5. Event Listeners ---
+
+            // Pemicu Pop-up Otomatis
+            setTimeout(openPopup, 3000); 
+
+            // Tombol Tutup dan Overlay
+            newCloseBtn.addEventListener('click', closePopup);
+            promoPopup.addEventListener('click', function(event) {
+                if (event.target === promoPopup) {
+                    closePopup();
+                }
+            });
+
+            // Navigasi Slider Panah
+            prevBtn.addEventListener('click', () => changeSlide(-1));
+            nextBtn.addEventListener('click', () => changeSlide(1));
+
+            // Navigasi Dot
+            dots.forEach(dot => {
+                dot.addEventListener('click', (e) => {
+                    currentSlide = parseInt(e.target.dataset.slideIndex);
+                    updateSlide();
+                    resetAutoSlide();
+                });
+            });
+
+            // Inisialisasi slide
+            updateSlide();
+        });
+    </script>
+
+  <script src="secure-devtools-blocker.js"></script>
+  <script src="promo-popup-script.js"></script>
+
+</body>
+</html>
