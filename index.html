@@ -6,52 +6,56 @@
 
   <style>
         /* ==================================== */
-        /* 1. Gaya Dasar Overlay dan Pop-up */
-        /* ==================================== */
+/* 1. Gaya Dasar Overlay dan Pop-up */
+/* ==================================== */
 
-        .promo-popup-container {
-            display: none; 
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            z-index: 9999; 
-            transition: background-color 0.5s ease;
-        }
+.promo-popup-container {
+    display: none; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 9999; 
+    transition: background-color 0.5s ease; /* Transisi overlay dibiarkan */
+}
 
-        .promo-popup-content {
-            /* Posisi Awal: Di luar layar (ke kanan) */
-            position: absolute;
-            top: 50%;
-            left: 100%;
-            transform: translate(0%, -50%); 
-            
-            width: 500%; 
-            max-width: 1100px; 
-            background-color: #1a1a1a; 
-            border: 3px solid #ff4d4d; 
-            box-shadow: 0 0 30px rgba(255, 0, 0, 0.8), 0 0 10px rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
-            padding: 0;
-            overflow: hidden; 
-            
-            /* Transisi Slide: Geser */
-            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1); 
-        }
+.promo-popup-content {
+    /* Posisi Awal: Di tengah layar (langsung) */
+    position: absolute;
+    top: 50%;
+    /* GANTI INI: Langsung di tengah (50%) agar tidak ada transisi dari samping */
+    left: 50%; 
+    /* GANTI INI: Transform disetel ke -50% untuk menempatkan pop-up di tengah */
+    transform: translate(-50%, -50%); 
+    
+    width: 300%; 
+    max-width: 800px; 
+    background-color: #1a1a1a; 
+    /* Border dikecilkan */
+    border: 2px solid #ff4d4d; 
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.8), 0 0 10px rgba(255, 255, 255, 0.2);
+    /* Radius dikecilkan */
+    border-radius: 8px;
+    padding: 0;
+    overflow: hidden; 
+    
+    /* HAPUS INI: Properti Transisi telah dihapus sepenuhnya */
+    /* transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1); */ 
+}
 
-        /* Kelas aktif untuk memicu Pop-up masuk */
-        .promo-popup-container.active {
-            display: block; 
-        }
+/* Kelas aktif untuk memicu Pop-up masuk */
+.promo-popup-container.active {
+    display: block; 
+}
 
-        .promo-popup-container.active .promo-popup-content {
-            /* Posisi Akhir: Di tengah layar */
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
+.promo-popup-container.active .promo-popup-content {
+    /* Posisi Akhir: Di tengah layar (tetap sama dengan posisi awal) */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* Karena posisi awal dan akhir sama, pop-up akan muncul mendadak (tanpa slide) */
+}
         /* ==================================== */
         /* 2. Gaya Tombol Tutup */
         /* ==================================== */
@@ -717,6 +721,7 @@
 </body>
 
 </html>
+
 
 
 
