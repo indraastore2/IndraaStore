@@ -159,8 +159,32 @@
             box-shadow: 0 0 5px #ff4d4d;
         }
 
-        /* ==================================== */
-/* 4. Penyesuaian Responsif (Tampilan Kecil dan Akurat untuk Ponsel) */
+        /* ... Gaya Dasar Overlay dan Pop-up (Bagian 1) ... */
+
+.promo-popup-container {
+    /* ... tidak ada perubahan di sini ... */
+}
+
+.promo-popup-content {
+    /* ... 
+        property lainnya tetap, 
+        Hanya ganti border width dan border radius default 
+    ... */
+    
+    /* GANTI INI: Bingkai border dikecilkan (default) */
+    border: 2px solid #ff4d4d; 
+    /* GANTI INI: Radius dikecilkan (default) */
+    border-radius: 8px; 
+    /* ...
+        property lainnya tetap
+    ... */
+}
+
+/* ... Gaya Tombol Tutup (Bagian 2) ... */
+/* ... Gaya Slider/Carousel & Navigasi (Bagian 3) ... */
+
+/* ==================================== */
+/* 4. Penyesuaian Responsif (Tampilan Kecil dan Akurat untuk Ponsel PORTRAIT) */
 /* ==================================== */
 
 /* Media Query untuk perangkat dengan lebar maksimal 576px (mayoritas smartphone) */
@@ -169,65 +193,48 @@
     /* Konten Pop-up: Dikecilkan ukurannya agar tidak menutupi seluruh layar */
     .promo-popup-content {
         /* Mengambil lebar yang lebih kecil */
-        width: 80%; /* Dikecilkan dari 95% */
+        width: 80%; 
         max-width: none; 
         /* Membatasi tinggi pop-up agar pas */
-        max-height: 75vh; /* Dikecilkan dari 80vh */
+        max-height: 75vh; 
         overflow-y: hidden; 
-        border-radius: 6px; /* Sudut lebih kecil */
-    }
-
-    /* Posisi Akhir Pop-up saat aktif */
-    .promo-popup-container.active .promo-popup-content {
-        left: 50%;
-        transform: translate(-50%, -50%);
+        
+        /* Bingkai border di mode portrait dikecilkan */
+        border-width: 1px; 
+        border-radius: 5px; /* Radius dikecilkan */
     }
 
     /* Konten Slider: Disesuaikan agar gambar terlihat penuh di dalam pop-up kecil */
     .slider-container {
-        /* Tinggi kontainer slider diatur agar pas di dalam popup (75vh) */
         height: 73vh; 
-        padding: 5px; /* Tambahkan sedikit padding agar gambar tidak menempel pada border */
+        padding: 4px; /* Padding sedikit dikecilkan */
     }
 
     .slide {
-        /* Memastikan slide menggunakan lebar penuh */
-        min-width: 100%;
-        /* Batasi tinggi slide */
         max-height: 73vh; 
     }
 
     .slide img {
         width: 100%;
-        /* Menggunakan max-height agar gambar tidak terpotong (sangat penting) */
         max-height: 100%; 
-        object-fit: contain; /* Memastikan rasio aspek gambar dipertahankan */
-        border-radius: 8px; /* Sudut pada gambar */
+        object-fit: contain; 
+        border-radius: 6px; /* Sudut pada gambar dikecilkan */
     }
 
-    /* Tombol Tutup: Dibuat lebih kecil */
+    /* Tombol Tutup */
     .popup-close-btn {
-        top: 2px; 
+        top: 1px; 
         right: 8px; 
-        font-size: 28px; /* Dikecilkan */
+        font-size: 26px; /* Dikecilkan lagi */
     }
     
-    /* Navigasi Panah: Dibuat lebih kecil */
+    /* Navigasi Panah */
     .prev-btn, .next-btn {
-        padding: 4px; /* Dikecilkan */
-        font-size: 18px; /* Dikecilkan */
-        opacity: 0.9;
-    }
-
-    .prev-btn { left: 5px; }
-    .next-btn { right: 5px; }
-    
-    /* Indikator Dot: Dibuat lebih kecil */
-    .slider-indicators {
-        bottom: 5px; 
-        gap: 4px;
+        padding: 3px; 
+        font-size: 16px; 
     }
     
+    /* Indikator Dot */
     .dot {
         height: 6px;
         width: 6px;
