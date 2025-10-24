@@ -1,102 +1,125 @@
-<style>
-/* ==================================== */
-/* 1. Gaya Dasar Overlay dan Pop-up */
-/* ==================================== */
+/* =================================== */
+/* STYLING KHUSUS POP-UP PROMO DRACO   */
+/* =================================== */
 
 .promo-popup-container {
-    display: none; 
+    /* Membuat pop-up melayang di atas semua konten */
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.9);
-    z-index: 9999; 
-    transition: background-color 0.5s ease; /* Transisi overlay dibiarkan */
+    background-color: rgba(0, 0, 0, 0.9); /* Background gelap transparan */
+    display: none; /* Awalnya disembunyikan oleh JS */
+    justify-content: center;
+    align-items: center;
+    z-index: 2000; /* Pastikan di atas elemen lain */
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
 }
 
 .promo-popup-content {
-    /* Posisi Awal: Di tengah layar (langsung) */
-    position: absolute;
-    top: 50%;
-    /* GANTI INI: Langsung di tengah (50%) agar tidak ada transisi dari samping */
-    left: 50%; 
-    /* GANTI INI: Transform disetel ke -50% untuk menempatkan pop-up di tengah */
-    transform: translate(-50%, -50%); 
-    
-    width: 300%; 
-    max-width: 800px; 
-    background-color: #1a1a1a; 
-    /* Border dikecilkan */
-    border: 2px solid #ff4d4d; 
-    box-shadow: 0 0 30px rgba(255, 0, 0, 0.8), 0 0 10px rgba(255, 255, 255, 0.2);
-    /* Radius dikecilkan */
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
     border-radius: 8px;
-    padding: 0;
-    overflow: hidden; 
-    
-    /* HAPUS INI: Properti Transisi telah dihapus sepenuhnya */
-    /* transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1); */ 
+    overflow: hidden;
 }
 
-/* Kelas aktif untuk memicu Pop-up masuk */
-.promo-popup-container.active {
-    display: block; 
+.promo-popup-content img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 80vh; 
+    object-fit: contain;
 }
 
-.promo-popup-container.active .promo-popup-content {
-    /* Posisi Akhir: Di tengah layar (tetap sama dengan posisi awal) */
-    left: 50%;
-    transform: translate(-50%, -50%);
-    /* Karena posisi awal dan akhir sama, pop-up akan muncul mendadak (tanpa slide) */
+/* Tombol Tutup (X) */
+.popup-close-btn {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    color: #fff;
+    background-color: #ff4d4d;
+    border: 2px solid #fff;
+    font-size: 28px;
+    font-weight: bold;
+    line-height: 1;
+    padding: 0 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+    z-index: 2001;
+}
+
+.popup-close-btn:hover {
+    background-color: #cc0000;
 }
 
 /* ==================================== */
-/* 2. Gaya Tombol Tutup */
-/* ==================================== */
-/* ... (Gaya tetap sama) ... */
-
-/* ==================================== */
-/* 3. Gaya Slider/Carousel & Navigasi */
-/* ==================================== */
-/* ... (Gaya tetap sama) ... */
-
-
-/* ==================================== */
-/* 4. Penyesuaian Responsif (Tampilan Mirip LANDSCAPE di Mode PORTRAIT) */
+/* 4. Penyesuaian Responsif (Untuk Android/Mobile) */
 /* ==================================== */
 
-/* Media Query untuk perangkat dengan lebar maksimal 576px (mode portrait) */
-@media (max-width: 576px) { 
+@media (max-width: 850px) { /* Targetkan lebar layar yang umumnya digunakan pada tablet/mobile */
 
+    /* Menyesuaikan Overlay agar tetap terlihat */
+    .promo-popup-container {
+        /* Tidak perlu diubah, biarkan seperti semula */
+    }
+
+    /* Konten Pop-up: Menjadi lebih besar dan tinggi di layar kecil */
     .promo-popup-content {
+        /* Mengatur lebar agar mengambil sebagian besar layar */
         width: 90%; 
+        /* Menghapus 'max-width' di sini agar 90% bekerja */
         max-width: none; 
-        max-height: 40vh; 
-        overflow-y: hidden; 
-        border-width: 1px; 
-        border-radius: 5px;
-        /* Hapus transisi di sini juga jika ada (tapi karena tidak ada, aman) */
-    }
-    /* ... (Sisa gaya portrait) ... */
-}
-
-
-/* ==================================== */
-/* 5. Penyesuaian Khusus Mode Landscape (Horizontal) */
-/* ==================================== */
-
-/* Media Query untuk perangkat dengan lebar maksimal 850px DAN orientasi landscape */
-@media (max-width: 850px) and (orientation: landscape) {
-
-    .promo-popup-content {
-        width: 65%; 
-        max-width: 600px; 
+        /* Agar pop-up tidak terlalu tinggi, terutama jika kontennya panjang */
         max-height: 90vh; 
-        border-width: 1px;
-        border-radius: 5px; 
-        /* Hapus transisi di sini juga jika ada (tapi karena tidak ada, aman) */
+        /* Memastikan konten dapat discroll jika melebihi max-height */
+        overflow-y: auto; 
     }
-    /* ... (Sisa gaya landscape) ... */
+    
+    .promo-popup-container.active .promo-popup-content {
+        /* Posisi tengah tetap sama */
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    /* Konten di dalam Slider: memastikan gambar tidak terlalu tinggi */
+    .slide {
+        /* Batasi tinggi slide agar navigasi terlihat */
+        max-height: 75vh; 
+    }
+
+    .slide img {
+        /* Memastikan gambar mengisi lebar pop-up, tetapi tingginya menyesuaikan */
+        width: 100%;
+        height: auto;
+        /* Biarkan object-fit: contain; agar gambar tidak terpotong */
+    }
+
+    /* Tombol Tutup: Posisikan ulang agar tidak menutupi gambar */
+    .popup-close-btn {
+        top: 0px; /* Pindah sedikit ke atas */
+        right: 15px; /* Pindah sedikit ke kiri */
+        font-size: 30px; /* Sedikit lebih kecil agar tidak terlalu dominan */
+    }
+    
+    /* Navigasi Panah: Sedikit lebih kecil di mobile */
+    .prev-btn, .next-btn {
+        padding: 8px; 
+        font-size: 24px;
+    }
+    
+    /* Indikator Dot: Pindah ke bawah */
+    .slider-indicators {
+        bottom: 5px; 
+        gap: 6px;
+    }
+    
+    .dot {
+        height: 8px;
+        width: 8px;
+    }
 }
-</style>
