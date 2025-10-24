@@ -18,7 +18,6 @@
             height: 100%;
             background-color: rgba(0, 0, 0, 0.9);
             z-index: 9999; 
-            transition: background-color 0.5s ease;
         }
 
         .promo-popup-content {
@@ -85,7 +84,6 @@
 
         .slider-wrapper {
             display: flex; 
-            transition: transform 0.5s ease-in-out; 
         }
 
         .slide {
@@ -585,4 +583,5 @@
   <script src="promo-popup-script.js"></script>
 
 </body>
+
 </html>
