@@ -463,13 +463,13 @@ header.bubble-text {
     /* 4. Konten Utama (Daftar Produk dan Keranjang) */
     .main-content {
         flex-direction: column; /* Susun container dan cart secara vertikal */
-        padding: 5px;
+        padding: 10px;
     }
 
     .container, .cart {
         width: 100%; /* Lebar penuh di mobile */
         margin-right: 0;
-        margin-bottom: 15px;
+        margin-bottom: 20px;
     }
     
     /* 5. Daftar Produk BloxFruit (List View) */
@@ -512,4 +512,3 @@ header.bubble-text {
         font-size: 1.1em;
     }
 }
-
