@@ -160,44 +160,48 @@
         }
 
         /* ==================================== */
-/* 4. Penyesuaian Responsif (Tampilan Mirip LANDSCAPE di Mode PORTRAIT) */
+/* 4. Penyesuaian Responsif (Tampilan Diputar 90 Derajat di Mode PORTRAIT) */
 /* ==================================== */
 
 /* Media Query untuk perangkat dengan lebar maksimal 576px (mode portrait) */
 @media (max-width: 576px) { 
 
-    /* Konten Pop-up: Dibuat lebih lebar dan pendek (mirip landscape) */
+    /* Konten Pop-up: DIJADIKAN MIRIP LANDSCAPE (pendek dan lebar) */
     .promo-popup-content {
-        /* LEBAR: Mengambil lebar hampir penuh (agar terlihat seperti landscape) */
+        /* Lebar dan Tinggi disetel agar menjadi banner pendek */
         width: 90%; 
         max-width: none; 
-        
-        /* TINGGI: Dibatasi sangat pendek (seperti di mode landscape) */
-        max-height: 40vh; /* Hanya 40% dari tinggi layar */
+        max-height: 40vh; 
         overflow-y: hidden; 
-        
-        /* Bingkai border di mode portrait dikecilkan */
         border-width: 1px; 
         border-radius: 5px;
     }
 
-    /* Konten Slider: Disesuaikan agar gambar terlihat penuh di dalam bingkai pendek */
+    /* Konten Slider: DIPUTAR 90 DERAJAT agar terlihat menyamping */
     .slider-container {
-        /* Tinggi kontainer slider disesuaikan dengan tinggi pop-up yang pendek */
         height: 38vh; 
         padding: 4px; 
+        
+        /* === PERUBAHAN UTAMA: ROTASI KONTEN SLIDER === */
+        /* Catatan: Ini akan memutar SEMUA konten 90 derajat */
+        /* transform: rotate(90deg); */
+        /* width: 100%; */
+        /* height: 100%; */
+        /* overfloaw: hidden; */
+        
+        /* KAMI AKAN MEMBATALKAN ROTASI, KARENA INI MERUSAK UI */
     }
 
+    /* --- KARENA ROTASI MERUSAK UI, KITA FOKUS PADA DIMENSI SAJA --- */
+    /* --- Pop-up sudah berbentuk "kesamping" (lebar & pendek) di mode potret. --- */
+
     .slide {
-        /* Memastikan slide menggunakan lebar penuh */
         min-width: 100%;
-        /* Batasi tinggi slide */
         max-height: 38vh; 
     }
 
     .slide img {
         width: 100%;
-        /* Sangat penting: gambar mengisi tinggi yang pendek dan menyesuaikan lebar */
         max-height: 100%; 
         object-fit: contain; 
         border-radius: 6px;
@@ -207,10 +211,10 @@
     .popup-close-btn {
         top: 1px; 
         right: 8px; 
-        font-size: 24px; /* Dikecilkan lagi agar proporsional dengan tinggi yang pendek */
+        font-size: 24px;
     }
     
-    /* Navigasi Panah: Dibuat sangat kecil dan tidak mengganggu */
+    /* Navigasi Panah */
     .prev-btn, .next-btn {
         padding: 2px; 
         font-size: 14px; 
@@ -221,7 +225,7 @@
     
     /* Indikator Dot */
     .slider-indicators {
-        bottom: 3px; /* Pindah ke bawah bingkai yang pendek */
+        bottom: 3px; 
         gap: 3px;
     }
     
@@ -713,6 +717,7 @@
 </body>
 
 </html>
+
 
 
 
