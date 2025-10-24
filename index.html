@@ -160,69 +160,77 @@
         }
 
         /* ==================================== */
-/* 4. Penyesuaian Responsif (Sangat Akurat untuk Ponsel) */
+/* 4. Penyesuaian Responsif (Tampilan Kecil dan Akurat untuk Ponsel) */
 /* ==================================== */
 
 /* Media Query untuk perangkat dengan lebar maksimal 576px (mayoritas smartphone) */
 @media (max-width: 576px) { 
 
-    /* Konten Pop-up: Disesuaikan agar pas di tengah layar mobile tanpa terpotong */
+    /* Konten Pop-up: Dikecilkan ukurannya agar tidak menutupi seluruh layar */
     .promo-popup-content {
-        /* Mengambil lebar hampir penuh */
-        width: 95%; 
+        /* Mengambil lebar yang lebih kecil */
+        width: 80%; /* Dikecilkan dari 95% */
         max-width: none; 
-        /* MEMBATASI TINGGI POPUP */
-        max-height: 80vh; /* Sedikit lebih pendek dari 85vh, menyisakan ruang untuk bilah status dan navigasi HP */
-        overflow-y: hidden; /* Hilangkan scroll bar vertikal di pop-up utama */
-        border-radius: 8px;
+        /* Membatasi tinggi pop-up agar pas */
+        max-height: 75vh; /* Dikecilkan dari 80vh */
+        overflow-y: hidden; 
+        border-radius: 6px; /* Sudut lebih kecil */
     }
 
-    /* Konten Slide: Memastikan gambar promo pas di dalam pop-up */
+    /* Posisi Akhir Pop-up saat aktif */
+    .promo-popup-container.active .promo-popup-content {
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    /* Konten Slider: Disesuaikan agar gambar terlihat penuh di dalam pop-up kecil */
     .slider-container {
-        /* Tinggi kontainer slider diatur agar pas di dalam popup (80vh) dikurangi ruang navigasi dan border */
-        height: 78vh; 
+        /* Tinggi kontainer slider diatur agar pas di dalam popup (75vh) */
+        height: 73vh; 
+        padding: 5px; /* Tambahkan sedikit padding agar gambar tidak menempel pada border */
     }
 
     .slide {
-        /* Biarkan min-width 100% */
-        /* MEMBATASI TINGGI SLIDE */
-        max-height: 78vh; /* Mengikuti tinggi slider container */
+        /* Memastikan slide menggunakan lebar penuh */
+        min-width: 100%;
+        /* Batasi tinggi slide */
+        max-height: 73vh; 
     }
 
     .slide img {
         width: 100%;
-        /* MEMASTIKAN GAMBAR MENGISI TINGGI YANG TERSEDIA */
-        max-height: 100%; /* Agar gambar tidak melebihi tinggi slide container */
-        object-fit: contain; 
+        /* Menggunakan max-height agar gambar tidak terpotong (sangat penting) */
+        max-height: 100%; 
+        object-fit: contain; /* Memastikan rasio aspek gambar dipertahankan */
+        border-radius: 8px; /* Sudut pada gambar */
     }
 
-    /* Tombol Tutup: Posisikan di sudut yang lebih aman dan ukurannya pas */
+    /* Tombol Tutup: Dibuat lebih kecil */
     .popup-close-btn {
-        top: 0px; 
-        right: 10px; /* Lebih dekat ke tepi */
-        font-size: 30px; 
+        top: 2px; 
+        right: 8px; 
+        font-size: 28px; /* Dikecilkan */
     }
     
-    /* Navigasi Panah: Dibuat lebih kecil dan diletakkan lebih dekat ke tengah vertical */
+    /* Navigasi Panah: Dibuat lebih kecil */
     .prev-btn, .next-btn {
-        padding: 5px; 
-        font-size: 20px;
+        padding: 4px; /* Dikecilkan */
+        font-size: 18px; /* Dikecilkan */
         opacity: 0.9;
-        /* Tambahan: Pastikan panah berada di tengah tinggi 78vh */
     }
 
     .prev-btn { left: 5px; }
     .next-btn { right: 5px; }
     
-    /* Indikator Dot: Posisikan ulang di bagian bawah yang terlihat */
+    /* Indikator Dot: Dibuat lebih kecil */
     .slider-indicators {
         bottom: 5px; 
-        gap: 5px;
+        gap: 4px;
     }
     
     .dot {
-        height: 7px;
-        width: 7px;
+        height: 6px;
+        width: 6px;
     }
 }
     </style>
