@@ -394,4 +394,105 @@ header.bubble-text {
             font-size: 0.9em;
             font-weight: normal;
         }
+
         /* --- Akhir Gaya Baru Fish It --- */
+
+/* ========================================================================= */
+/* --- MEDIA QUERIES UNTUK TAMPILAN MOBILE --- */
+/* ========================================================================= */
+@media (max-width: 768px) {
+
+    /* 1. Header dan Teks Selamat Datang */
+    .store-header {
+        font-size: 1.8em;
+        padding: 10px 0;
+    }
+
+    .welcome-text h2 {
+        font-size: 1.4em;
+    }
+    .welcome-text p {
+        font-size: 0.9em;
+    }
+    
+    /* 2. Navigasi Utama (JOKI BLOXFRUIT / JOKI FISH IT) */
+    .main-category-nav {
+        flex-direction: column; /* Tombol jadi vertikal */
+        gap: 10px;
+        margin-bottom: 15px;
+        padding: 5px;
+    }
+
+    .main-category-nav button {
+        padding: 12px 20px;
+        font-size: 1.1em;
+        min-width: 100%; /* Lebar penuh */
+    }
+
+    /* 3. Navigasi Detail (Semua, Level, Mastery, dst.) */
+    #detailNav {
+        padding: 5px 0;
+    }
+    
+    .detail-row {
+        justify-content: flex-start; /* Rata kiri */
+    }
+
+    .detail-row button {
+        padding: 6px 10px;
+        margin: 3px;
+        font-size: 0.8em; /* Ukuran teks lebih kecil */
+    }
+
+    /* 4. Konten Utama (Daftar Produk dan Keranjang) */
+    .main-content {
+        flex-direction: column; /* Susun container dan cart secara vertikal */
+        padding: 10px;
+    }
+
+    .container, .cart {
+        width: 100%; /* Lebar penuh di mobile */
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+    
+    /* 5. Daftar Produk BloxFruit (List View) */
+    .product {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .product span {
+        margin-bottom: 5px;
+    }
+    
+    .product button {
+        width: 100%; /* Tombol tambah lebar penuh */
+        margin-top: 5px;
+    }
+
+    /* 6. Layout Produk JOKI FISH IT (Block View) */
+    .fishit-options {
+        /* Grid 2 kolom di HP untuk tombol produk Fish It */
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); 
+        gap: 8px;
+    }
+    
+    /* 7. Keranjang Belanja dan Tombol Pembayaran */
+    .cart h3 {
+        font-size: 1.3em;
+    }
+    
+    .payment-methods {
+        flex-direction: column; /* Tombol pembayaran jadi vertikal */
+        gap: 5px;
+    }
+    
+    .payment-btn {
+        flex: 0 0 100%; /* Lebar penuh */
+    }
+
+    .whatsapp {
+        font-size: 1.1em;
+    }
+}
