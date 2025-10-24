@@ -510,3 +510,43 @@ header.bubble-text {
     }
 }
 
+body {
+        /* Memastikan tidak ada margin/padding default yang mendorong konten */
+        margin: 0;
+        padding: 0;
+        /* Tambahan: pastikan latar belakang menutupi seluruh halaman */
+        background-color: #2c3e50; /* Ganti dengan warna latar belakang utama Anda */
+    }
+
+    /* KONTROL WADAH UTAMA (CONTAINER BESAR) */
+    .main-content {
+        display: flex;
+        justify-content: center; /* KUNCI 1: Memusatkan elemen di dalamnya (container produk & cart) */
+        width: 100%;
+        padding: 20px;
+        /* KUNCI 2: Membatasi lebar keseluruhan agar tidak terlalu lebar di desktop */
+        max-width: 1200px; /* Atur lebar maksimum sesuai kebutuhan Anda */
+        margin: 0 auto;  /* KUNCI 3: Memusatkan wadah utama ini di tengah layar */
+    }
+
+    /* KONTROL WADAH KERANJANG & PRODUK */
+    .container {
+        flex: 1; /* Memberi ruang utama untuk produk */
+        min-width: 300px;
+        max-width: 700px; /* Batasi lebar produk agar tidak terlalu melebar */
+        margin-right: 20px;
+    }
+
+    .cart {
+        width: 300px; /* Lebar tetap untuk keranjang */
+        /* ... (gaya keranjang lainnya) ... */
+    }
+
+    /* Memastikan Judul Toko juga di tengah (jika ada) */
+    .store-header-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+
