@@ -407,6 +407,13 @@ header.bubble-text {
         padding: 10px 0;
     }
 
+    .store-header-container { 
+        /* Pastikan elemen ini ada dan mencakup logo/judul toko */
+        text-align: center; 
+        width: 100%;
+        margin: 0 auto;
+    }
+
     /* Gaya untuk Welcome Text */
     .welcome-text {
         background-color: rgba(255, 255, 255, 0.9);
@@ -433,16 +440,23 @@ header.bubble-text {
     
     /* 2. Navigasi Utama (JOKI BLOXFRUIT / JOKI FISH IT) */
     .main-category-nav {
-        flex-direction: column; /* Tombol jadi vertikal */
+        /* Menggunakan flexbox untuk mengatur tombol */
+        display: flex;
+        flex-direction: column; /* Tetap vertikal di mobile */
         gap: 10px;
-        margin-bottom: 15px;
-        padding: 5px;
+        margin: 15px auto; /* KUNCI: Margin auto untuk memusatkan blok tombol */
+        padding: 0 10px; /* Padding samping agar tombol tidak menempel tepi layar */
+        width: 90%; /* KUNCI: Menetapkan lebar agar margin auto bekerja */
+        max-width: 400px; /* Batasan lebar maksimum agar terlihat baik */
     }
 
     .main-category-nav button {
+        /* Memastikan tombol itu sendiri mengambil lebar penuh dari wadah 90% di atas */
+        width: 100%; 
+        box-sizing: border-box; /* Penting: Padding tidak menambah lebar total */
         padding: 12px 20px;
         font-size: 1.1em;
-        min-width: 100%; /* Lebar penuh */
+        /* ... (gaya lainnya) ... */
     }
 
     /* 3. Navigasi Detail (Semua, Level, Mastery, dst.) */
