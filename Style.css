@@ -445,7 +445,7 @@ header.bubble-text {
         flex-direction: column; /* Tetap vertikal di mobile */
         gap: 10px;
         margin: 15px auto; /* KUNCI: Margin auto untuk memusatkan blok tombol */
-        padding: 0 10px; /* Padding samping agar tombol tidak menempel tepi layar */
+        padding: 0 8px; /* Padding samping agar tombol tidak menempel tepi layar */
         width: 90%; /* KUNCI: Menetapkan lebar agar margin auto bekerja */
         max-width: 400px; /* Batasan lebar maksimum agar terlihat baik */
     }
@@ -525,4 +525,5 @@ header.bubble-text {
     .whatsapp {
         font-size: 1.1em;
     }
+
 }
