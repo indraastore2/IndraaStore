@@ -565,3 +565,18 @@ header.bubble-text {
     /* ... (CSS mobile lainnya) ... */
     
 }
+    /* Gaya untuk Navigasi Utama (Pemisah Joki) */
+/* ... (CSS yang sudah ada untuk .main-category-nav button:hover) ... */
+
+.main-category-nav button.active {
+    background-color: #2ecc71; /* Warna hijau default untuk BloxFruit */
+    border: 3px solid #27ae60;
+}
+
+/* --- PENAMBAHAN BARU UNTUK JOKI GAG (Warna Kuning) --- */
+#btnJokiGag.active {
+    background-color: #f1c40f !important; /* Kuning Cerah */
+    border: 3px solid #f39c12 !important; /* Border Orange */
+    color: #2c3e50 !important; /* Ubah teks menjadi gelap agar terlihat jelas */
+}
+/* -------------------------------------------------------- */
