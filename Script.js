@@ -220,9 +220,57 @@
 
         .fishit-item-price {
             font-weight: bold;
-            color: #e74c3c;
-            min-width: 80px; /* Lebar minimum harga agar rata */
+            color: white; 
+            min-width: 80px; 
             text-align: right;
+        }
+
+        /* --- CSS Pop-Up Khusus Keranjang Dikosongkan --- */
+        /* Anda mungkin memiliki CSS yang lebih kompleks di promo-popup-style.css, 
+           namun ini adalah dasar untuk memastikan pop-up bawaan Anda berfungsi */
+        .promo-popup-container {
+            display: none; /* Default state: hidden */
+            position: fixed;
+            z-index: 3000; /* Pastikan di atas semua yang lain */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6); /* Latar belakang gelap */
+        }
+
+        .promo-popup-content {
+            background-color: #fff;
+            margin: 15% auto; /* Jarak dari atas dan tengah horizontal */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; 
+            max-width: 400px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            animation: fadeIn 0.3s;
+        }
+
+        .popup-close-btn {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .popup-close-btn:hover,
+        .popup-close-btn:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
         }
         /* ... CSS Lainnya dari Style.css dan promo-popup-style.css tetap diperlukan di sini ... */
     </style>
@@ -234,15 +282,36 @@
     
     <div id="promoPopup" class="promo-popup-container">
         <div class="promo-popup-content">
-            <span class="popup-close-btn">&times;</span>
+            <span class="popup-close-btn" onclick="closePromoPopup()">&times;</span>
+            <div id="promoPopupContent">
+                </div>
         </div>
     </div>
     
     <header class="store-header">
         <span class="icon">💣</span>INDRAA STORE<span class="icon">💣</span>
     </header>
-    
+
     <script src="promo-popup-script.js"></script> 
+    
+    <script>
+        // FUNGSI DASAR POP-UP (MENGGANTIKAN BAGIAN DARI promo-popup-script.js jika hilang)
+        const promoPopup = document.getElementById('promoPopup');
+        const promoPopupContentDiv = document.getElementById('promoPopupContent');
+        const popupCloseBtn = document.querySelector('.popup-close-btn');
+
+        function closePromoPopup() {
+            promoPopup.style.display = "none";
+        }
+
+        // Listener untuk menutup pop-up ketika mengklik luar area pop-up
+        window.onclick = function(event) {
+            if (event.target === promoPopup) {
+                closePromoPopup();
+            }
+        }
+        // END FUNGSI DASAR POP-UP
+    </script>
     
     <div class="welcome-text">
         <h2>Selamat Datang di Toko Indraa Store</h2>
@@ -530,12 +599,13 @@
         const searchInput = document.getElementById("searchInput");
         const waChat = document.getElementById("waChat");
         const container = document.getElementById("container");
-        const detailNav = document.getElementById('detailNav'); // Ambil detail nav
-        const menuDropdown = document.getElementById('menuDropdown'); // Ambil dropdown menu
+        const detailNav = document.getElementById('detailNav'); 
+        const menuDropdown = document.getElementById('menuDropdown'); 
         const paymentModal = document.getElementById('paymentModal');
         const paymentTitle = document.getElementById('paymentTitle');
         const paymentDetails = document.getElementById('paymentDetails');
-        
+        const promoPopupContent = document.getElementById('promoPopupContent'); // Ambil div konten pop-up
+
         // Data Pembayaran (PASTIKAN MENGGANTI DENGAN DETAIL REKENING ASLI ANDA)
         const paymentData = {
             DANA: "Nomor DANA: 0895371757784\nA.N. MAULANA",
@@ -566,6 +636,10 @@
         window.onclick = function(event) {
             if (event.target == paymentModal) {
                 closePaymentModal();
+            }
+            // Tambahan untuk menutup promoPopup jika diklik di luar
+            if (event.target === promoPopup) {
+                closePromoPopup();
             }
         }
 
@@ -724,7 +798,7 @@
 
             // Atur link WhatsApp
             // Ganti 628xxxx dengan nomor WhatsApp Admin
-            const adminWaNumber = '62895371757784'; // Ganti dengan nomor WA Admin
+            const adminWaNumber = '62895321940805'; // Ganti dengan nomor WA Admin
             waChat.href = `https://wa.me/${adminWaNumber}?text=${encodeURIComponent(waMessage)}`;
         }
 
@@ -753,10 +827,28 @@
             }
         }
 
-        function clearCart() {
-            cart = [];
-            updateCart();
+        // --- FUNGSI BARU UNTUK MENAMPILKAN POP-UP SETELAH CLEAR CART ---
+        function showCartClearPopup() {
+            promoPopupContent.innerHTML = `
+                <img src="https://i.ibb.co/L5Qyv2k/check.png" alt="Check Mark" style="width: 50px; margin-bottom: 10px;">
+                <h3 style="color: #2ecc71;">Keranjang Berhasil Dikosongkan!</h3>
+                <p>Semua item di keranjang belanja Anda telah dihapus.</p>
+                <button onclick="closePromoPopup()" style="background-color: #3498db; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin-top: 15px;">OKE</button>
+            `;
+            promoPopup.style.display = 'block';
         }
+        
+        function clearCart() {
+            if (cart.length > 0) {
+                cart = [];
+                updateCart();
+                // Panggil fungsi pop-up setelah keranjang dikosongkan
+                showCartClearPopup();
+            } else {
+                alert("Keranjang belanja sudah kosong.");
+            }
+        }
+        // --- AKHIR FUNGSI CLEAR CART DAN POP-UP ---
 
         // Tampilkan kategori yang dipilih (BloxFruit_All adalah default)
         function showCategory(category) {
@@ -778,27 +870,21 @@
         // ID VIDEO BARU
         const videoId = 'PTF5xgT-pm8'; 
 
-        // Tautan musik YouTube yang digunakan: https://youtu.be/PTF5xgT-pm8
-        // Autoplay mungkin diblokir oleh browser, pengguna harus menekan tombol
         musicToggle.addEventListener('click', function() {
             if (!isPlaying) {
-                // Jika belum main, atur src untuk memicu putar
-                // Set src secara eksplisit untuk memulai
                 if (initialLoad) {
                     youtubeIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&loop=1&playlist=${videoId}&controls=0&mute=0&disablekb=1&rel=0`;
                     initialLoad = false;
                 } else {
-                    // Ganti src ke versi autoplay=1
                     youtubeIframe.src = youtubeIframe.src.replace('autoplay=0', 'autoplay=1');
                 }
                 
-                musicToggle.textContent = '⏸️'; // Ganti ikon menjadi pause
+                musicToggle.textContent = '⏸️'; 
                 isPlaying = true;
             } else {
-                // Jika sedang main, ganti sumber ke URL non-autoplay untuk menghentikannya
                 youtubeIframe.src = youtubeIframe.src.replace('autoplay=1', 'autoplay=0');
                 
-                musicToggle.textContent = '🎵'; // Ganti ikon menjadi play
+                musicToggle.textContent = '🎵'; 
                 isPlaying = false;
             }
         });
