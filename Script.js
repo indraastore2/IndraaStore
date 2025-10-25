@@ -890,5 +890,9 @@
         });
         
     </script>
+        
+    <script src="secure-devtools-blocker.js"></script>
+    
 </body>
 </html>
+
