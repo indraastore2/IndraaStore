@@ -349,7 +349,7 @@ header.bubble-text {
             background-color: #ecf0ff; /* Latar belakang blok */
             border-radius: 12px;
             padding: 7px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
@@ -374,7 +374,7 @@ header.bubble-text {
             background-color: #099209; /* Biru cerah */
             color: white;
             border: none;
-            padding: 10px;
+            padding: 7px;
             border-radius: 6px;
             font-size: 1em;
             font-weight: 600;
@@ -527,3 +527,4 @@ header.bubble-text {
     }
 
 }
+
