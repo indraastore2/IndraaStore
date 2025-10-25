@@ -798,7 +798,7 @@
 
             // Atur link WhatsApp
             // Ganti 628xxxx dengan nomor WhatsApp Admin
-            const adminWaNumber = '62895371757784'; // Ganti dengan nomor WA Admin
+            const adminWaNumber = '62895321940805'; // Ganti dengan nomor WA Admin
             waChat.href = `https://wa.me/${adminWaNumber}?text=${encodeURIComponent(waMessage)}`;
         }
 
@@ -895,3 +895,4 @@
     
 </body>
 </html>
+
