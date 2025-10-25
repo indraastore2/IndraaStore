@@ -441,10 +441,15 @@ header.bubble-text {
     
     /* 2. Navigasi Utama (JOKI BLOXFRUIT / JOKI FISH IT) */
     .main-category-nav {
-        /* Memastikan wadah tombol terpusat */
-        margin: 15px auto; 
-        padding: 0; /* Hapus padding di sini */
-        width: 95%; /* Sedikit lebih lebar dari welcome-text agar terlihat dominan */
+        display: flex;
+        flex-direction: column; /* KUNCI PERUBAHAN: Mengubah tata letak menjadi vertikal (ke bawah) */
+        justify-content: center;
+        align-items: center; /* Memastikan tombol terpusat secara horizontal */
+        gap: 10px; /* Jarak antara tombol */
+        margin: 20px auto;
+        padding: 0 10px;
+        width: 90%; /* Membatasi lebar agar bisa di-center */
+        max-width: 400px; /* Batasan lebar di desktop/tablet */
     }
 
     .main-category-nav button {
@@ -544,4 +549,5 @@ header.bubble-text {
     }
     
     /* ... (CSS mobile lainnya) ... */
+
 }
