@@ -319,13 +319,16 @@
     </div>
 
     <div class="main-category-nav">
-        <button id="btnBloxFruit" onclick="showCategory('BloxFruit_All')">
-            JOKI BLOXFRUIT
-        </button>
-        <button id="btnFishIt" onclick="showCategory('JOKI FISH IT')">
-            JOKI FISH IT
-        </button>
-    </div>
+    <button id="btnBloxFruit" onclick="showCategory('BloxFruit_All')">
+        JOKI BLOXFRUIT
+    </button>
+    <button id="btnFishIt" onclick="showCategory('JOKI FISH IT')">
+        JOKI FISH IT
+    </button>
+    <button id="btnJokiGag" onclick="showCategory('JOKI GAG')">
+        JOKI GAG
+    </button>
+</div>
     <nav id="detailNav" style="display: none;">
         <div class="detail-row">
             <button onclick="showCategory('all')">Semua BloxFruit</button>
@@ -567,7 +570,7 @@
             { id: 145, name: "Aether", price: 25000, category: "JOKI FISH IT", subCategory: "Jasa Joki Bobber"},
             { id: 146, name: "Corupt", price: 15000, category: "JOKI FISH IT", subCategory: "Jasa Joki Bobber"},
             { id: 147, name: "Dark Matter", price: 10000, category: "JOKI FISH IT", subCategory: "Jasa Joki Bobber"},
-            { id: 148, name: "Chroma", price: 5000, category: "Lainnya", subCategory: "Jasa Joki Bobber"},
+            { id: 148, name: "Chroma", price: 5000, category: "JOKI FISH IT", subCategory: "Jasa Joki Bobber"},
             // Batu Enchant Esoteric
             { id: 150, name: "10 Batu", price: 1000, category: "JOKI FISH IT", subCategory: "Batu Enchant Esoteric"},
             { id: 151, name: "55 Batu", price: 5000, category: "JOKI FISH IT", subCategory: "Batu Enchant Esoteric"},
@@ -586,9 +589,18 @@
             
             // Jasa Joki Artefak Tample
             { id: 162, name: "Artefak Tample", price: 35000, category: "JOKI FISH IT", subCategory: "Jasa Joki Artefak Tample"},
-            
             // --- END PRODUK BARU ---
-        ];
+            // --- START PRODUK JOKI GAG (Kategori: JOKI GAG) ---
+            
+            // Jasa Joki AFK
+            { id: 163, name: "1 JAM", price: 3000, category: "JOKI GAG", subCategory: "Jasa Joki AFK"},
+            { id: 164, name: "2 JAM", price: 5000, category: "JOKI GAG", subCategory: "Jasa Joki AFK"},
+            { id: 165, name: "5 JAM", price: 10000, category: "JOKI GAG", subCategory: "Jasa Joki AFK"},
+            { id: 166, name: "8 JAM", price: 15000, category: "JOKI GAG", subCategory: "Jasa Joki AFK"},
+            { id: 167, name: "12 JAM", price: 25000, category: "JOKI GAG", subCategory: "Jasa Joki AFK"},
+            { id: 168, name: "24 JAM", price: 35000, category: "JOKI GAG", subCategory: "Jasa Joki AFK"},
+             // --- END PRODUK JOKI GAG ---
+         ];
 
         let cart = [];
         let currentCategory = "all";
@@ -653,111 +665,145 @@
                 document.getElementById('btnFishIt').classList.add('active');
                 // 2. SEMBUNYIKAN navigasi kategori detail
                 detailNav.style.display = 'none'; 
-            } else {
+            } else if (category === 'JOKI GAG') { // LOGIKA BARU UNTUK JOKI GAG
+                document.getElementById('btnJokiGag').classList.add('active');
+                detailNav.style.display = 'flex'; 
                 // Semua kategori lainnya (BloxFruit_All, all, Level, Mastery, dst.) dianggap BloxFruit
                 // 1. Aktifkan tombol JOKI BLOXFRUIT
                 document.getElementById('btnBloxFruit').classList.add('active');
                 // 2. TAMPILKAN navigasi kategori detail
-                detailNav.style.display = 'flex'; // Gunakan 'flex' atau 'block' sesuai gaya CSS Anda
+                detailNav.style.display = 'none'; // Gunakan 'flex' atau 'block' sesuai gaya CSS Anda
             }
         }
 
         function displayProducts() {
-            const searchValue = searchInput.value.toLowerCase();
-            productList.innerHTML = "";
+    const searchValue = searchInput.value.toLowerCase();
+    productList.innerHTML = "";
 
-            const isFishItView = currentCategory === "JOKI FISH IT";
-            const isBloxFruitView = currentCategory === "BloxFruit_All" || currentCategory === "all";
+    // --- START MODIFIKASI: Variabel JOKI GAG digunakan di logika rendering ---
+    const isFishItView = currentCategory === "JOKI FISH IT";
+    const isJokiGagView = currentCategory === "JOKI GAG"; 
+    const isBloxFruitView = currentCategory === "BloxFruit_All" || currentCategory === "all";
+    // --- END MODIFIKASI ---
 
-            // KONTROL VISIBILITAS SEARCH INPUT
-            if (isFishItView) {
-                searchInput.style.display = 'none';
+    // // KONTROL VISIBILITAS SEARCH INPUT
+    // --- START MODIFIKASI: Sembunyikan search input jika JOKI FISH IT atau JOKI GAG aktif ---
+    if (isFishItView || isJokiGagView) { 
+        searchInput.style.display = 'none';
+    } else {
+        searchInput.style.display = 'block';
+    }
+    // --- END MODIFIKASI ---
+
+    // // 1. Logika Filter
+    const filtered = products.filter(p => {
+        const searchMatch = p.name.toLowerCase().includes(searchValue);
+
+        if (isFishItView) {
+            return (p.category === "JOKI FISH IT" || p.category === "Lainnya") && searchMatch;
+        } 
+        
+        // --- START MODIFIKASI: Logika Filter JOKI GAG ---
+        else if (isJokiGagView) {
+            return p.category === "JOKI GAG" && searchMatch;
+        }
+        // --- END MODIFIKASI ---
+        
+        else {
+            // Logika default (BloxFruit/Subkategori)
+            const isBloxFruitOrSub = p.category !== "JOKI FISH IT" && p.category !== "JOKI GAG"; 
+            
+            if (isBloxFruitView) {
+                return isBloxFruitOrSub && searchMatch;
             } else {
-                searchInput.style.display = 'block';
-            }
-
-            // 1. Logika Filter
-            const filtered = products.filter(p => {
-                const searchMatch = p.name.toLowerCase().includes(searchValue);
-                
-                if (isFishItView) {
-                    // Filter untuk Fish It: tampilkan JOKI FISH IT & Lainnya
-                    return (p.category === "JOKI FISH IT" || p.category === "Lainnya") && searchMatch;
-                } else if (isBloxFruitView) {
-                    // Filter untuk BloxFruit: tampilkan semua kecuali Fish It & Lainnya
-                    return p.category !== "JOKI FISH IT" && p.category !== "Lainnya" && searchMatch;
-                } else {
-                    // Filter berdasarkan kategori detail BloxFruit (Level, Mastery, dll.)
-                    return p.category === currentCategory && searchMatch;
-                }
-            });
-
-            if (filtered.length === 0) {
-                productList.innerHTML = "<p>Tidak ada produk ditemukan di kategori ini.</p>";
-                return;
-            }
-
-            // 2. Logika Rendering
-            if (isFishItView) {
-                // Rendering KHUSUS untuk JOKI FISH IT (Gaya Blok)
-                
-                // Kelompokkan produk berdasarkan subCategory
-                const groupedProducts = filtered.reduce((acc, p) => {
-                    // Hanya grup produk JOKI FISH IT (Subkategori)
-                    if (p.category === "JOKI FISH IT") {
-                        const subCat = p.subCategory || "Lain-lain";
-                        if (!acc[subCat]) {
-                            acc[subCat] = [];
-                        }
-                        acc[subCat].push(p);
-                    }
-                    return acc;
-                }, {});
-                
-                // Render setiap grup sebagai blok terpisah
-                for (const title in groupedProducts) {
-                    const blockDiv = document.createElement("div");
-                    blockDiv.className = "fishit-block";
-                    // Tambahkan ikon di judul
-                    const iconMap = {
-                        "Jasa Joki AFK": "🕒", "Jasa Joki Coin": "💰", 
-                        "Jasa Joki Rod": "🎣", "Jasa Joki Bobber": "🔴",
-                        "Batu Enchant Esoteric": "✨", "Batu Enchant New": "🌟",
-                        "Jasa Joki Artefak Tample": "🏺"
-                    };
-                    const icon = iconMap[title] || '🌑';
-
-                    blockDiv.innerHTML = `<div class="fishit-title">${icon} ${title}</div><div class="fishit-options"></div>`;
-                    
-                    const optionsContainer = blockDiv.querySelector('.fishit-options');
-
-                    groupedProducts[title].forEach(p => {
-                        const button = document.createElement("button");
-                        button.className = "fishit-item-btn";
-                        button.setAttribute('onclick', `addToCart(${p.id})`);
-                        button.innerHTML = `
-                            ${p.name}
-                            <span class="fishit-item-price">Rp${p.price.toLocaleString()}</span>
-                        `;
-                        optionsContainer.appendChild(button);
-                    });
-                    
-                    productList.appendChild(blockDiv);
-                }
-                
-            } else {
-                // Rendering DEFAULT untuk JOKI BLOXFRUIT (Gaya Tabel/List)
-                filtered.forEach(p => {
-                    const div = document.createElement("div");
-                    div.className = "product";
-                    div.innerHTML = `
-                        <span>${p.name} - Rp${p.price.toLocaleString()}</span>
-                        <button onclick="addToCart(${p.id})">Tambah</button>
-                    `;
-                    productList.appendChild(div); // Tambahkan baris ini
-                });
+                return p.category === currentCategory && isBloxFruitOrSub && searchMatch;
             }
         }
+    });
+
+    // 2. Logika Rendering
+    // --- START MODIFIKASI: Terapkan rendering blok untuk JOKI FISH IT DAN JOKI GAG ---
+    if (isFishItView || isJokiGagView) { 
+        // Rendering KHUSUS untuk JOKI FISH IT & JOKI GAG (Gaya Blok)
+        
+        // Kelompokkan produk berdasarkan subCategory
+        const groupedProducts = filtered.reduce((acc, p) => {
+            // Hanya grup produk JOKI FISH IT atau JOKI GAG (Subkategori)
+            if (p.category === "JOKI FISH IT" || p.category === "JOKI GAG") {
+                const subCat = p.subCategory || "Lain-lain";
+                if (!acc[subCat]) {
+                    acc[subCat] = [];
+                }
+                acc[subCat].push(p);
+            }
+            return acc;
+        }, {});
+        
+        // Render setiap grup sebagai blok terpisah
+        for (const title in groupedProducts) {
+            const blockDiv = document.createElement("div");
+            blockDiv.className = "fishit-block";
+            
+            // Atur ikon. Gunakan ikon AFK/Jam jika kategori Joki GAG -> Jasa Joki AFK
+            const iconMap = {
+                "Jasa Joki AFK": "🕒", "Jasa Joki Coin": "💰", 
+                "Jasa Joki Rod": "🎣", "Jasa Joki Bobber": "🔴",
+                "Batu Enchant Esoteric": "✨", "Batu Enchant New": "🌟",
+                "Jasa Joki Artefak Tample": "🏺"
+            };
+            const icon = iconMap[title] || '🌑';
+
+            blockDiv.innerHTML = `<div class="fishit-title">${icon} ${title}</div><div class="fishit-options"></div>`;
+            
+            const optionsContainer = blockDiv.querySelector('.fishit-options');
+
+            groupedProducts[title].forEach(p => {
+                const button = document.createElement("button");
+                // Perubahan gaya untuk tombol JOKI GAG:
+                // Gunakan style inline untuk membuat tombol hijau seperti di gambar
+                button.className = "fishit-item-btn";
+                button.setAttribute('onclick', `addToCart(${p.id})`);
+                
+                // Tambahkan gaya hijau yang spesifik untuk Joki GAG AFK (mirip gambar)
+                const isJokiGagAFK = p.category === "JOKI GAG" && p.subCategory === "Jasa Joki AFK";
+                if (isJokiGagAFK) {
+                    button.style.backgroundColor = '#228B22'; // Warna Hijau
+                    button.style.color = 'white'; // Teks Putih
+                    button.style.border = 'none'; // Hilangkan border
+                    
+                    // Tambahkan style hover agar tetap responsif (opsional)
+                    button.onmouseover = function() { this.style.backgroundColor = '#27ae60'; };
+                    button.onmouseout = function() { this.style.backgroundColor = '#228B22'; };
+                }
+
+                // Struktur innerHTML diubah agar harga menjadi terpisah dan di kanan (mirip gambar)
+                // Hapus span 'fishit-item-price' agar harga bisa di styling sesuai gambar
+                button.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; width: 100%;">
+                        <span>${p.name}</span>
+                        <span style="font-weight: bold; color: white; min-width: 80px; text-align: right;">Rp${p.price.toLocaleString()}</span>
+                    </div>
+                `;
+                optionsContainer.appendChild(button);
+            });
+            
+            productList.appendChild(blockDiv);
+        }
+        
+    } else {
+        // Rendering DEFAULT untuk JOKI BLOXFRUIT (Gaya Tabel/List)
+        filtered.forEach(p => {
+            const div = document.createElement("div");
+            div.className = "product";
+            div.innerHTML = `
+                <span>${p.name} - Rp${p.price.toLocaleString()}</span>
+                <button onclick="addToCart(${p.id})">Tambah</button>
+            `;
+            productList.appendChild(div);
+        });
+    }
+}
+// ... (Sisa script)
 
         // Tampilkan produk BloxFruit default saat memuat
         displayProducts();
@@ -850,16 +896,44 @@
         }
         // --- AKHIR FUNGSI CLEAR CART DAN POP-UP ---
 
-        // Tampilkan kategori yang dipilih (BloxFruit_All adalah default)
-        function showCategory(category) {
-            currentCategory = category;
-            displayProducts();
-            setActiveButton(category);
+        // --- START PERUBAHAN (showCategory) ---
+function showCategory(category) {
+    currentCategory = category;
+    searchInput.value = '';
+
+    // TAMPILKAN SUB-NAV UNTUK SEMUA KATEGORI UTAMA
+    // DetailNav berisi subkategori BloxFruit, jadi seharusnya SELALU ditampilkan
+    // jika Anda ingin list subkategori BloxFruit selalu ada, terlepas dari kategori utama yang sedang aktif.
+    detailNav.style.display = 'flex'; // <--- PERUBAHAN UTAMA: TAMPILKAN SELALU
+
+    if (category === 'JOKI FISH IT') {
+        // Logika untuk JOKI FISH IT
+        detailNav.style.display = 'none'; // <--- INI MENYEMBUNYIKAN NAV DI FISH IT
+        const filtered = products.filter(p => p.category === 'JOKI FISH IT');
+        displayProducts(filtered);
+        setActiveButton(category);
+    } else if (category === 'JOKI GAG') {
+        // Logika untuk JOKI GAG
+        detailNav.style.display = 'flex'; // <--- INI MENYEMBUNYIKAN NAV DI JOKI GAG
+        const filtered = products.filter(p => p.category === 'JOKI GAG');
+        displayProducts(filtered);
+        setActiveButton(category);
+    } else {
+        // Logika BloxFruit atau Sub-kategori BloxFruit
+        detailNav.style.display = 'flex'; // <--- INI MENAMPILKAN NAV DI BLOXFRUIT
+        let filtered;
+        if (category === 'BloxFruit_All') {
+            // Tampilkan semua produk yang BUKAN Fish It atau Joki Gag
+            filtered = products.filter(p => p.category !== 'JOKI FISH IT' && p.category !== 'JOKI GAG');
+            setActiveButton('BloxFruit_All');
+        } else {
+            // Tampilkan subkategori BloxFruit yang dipilih
+            filtered = products.filter(p => p.category === category);
         }
-        
-        // Inisialisasi tampilan
-        showCategory('BloxFruit_All');
-        
+        displayProducts(filtered);
+    }
+}
+// --- END PERUBAHAN (showCategory) ---
         
         // --- FUNGSI UNTUK BACKGROUND MUSIC YT ---
         const musicToggle = document.getElementById('musicToggle');
@@ -895,4 +969,3 @@
     
 </body>
 </html>
-
