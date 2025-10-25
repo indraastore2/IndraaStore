@@ -547,7 +547,21 @@ header.bubble-text {
         grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); 
         gap: 8px;
     }
+
+    /* Menyembunyikan Pemutar YouTube (Hanya digunakan untuk memicu pemutaran) */
+    #youtube-bg-player {
+        position: absolute;
+        top: -9999px; /* Pindahkan jauh dari layar */
+        left: -9999px;
+        opacity: 0;
+        visibility: hidden;
+    }
+    
+    /* Gaya untuk tombol musik (sudah ada di HTML inline, ini hanya untuk memastikan) */
+    #musicToggle {
+        /* (Gaya di HTML inline sudah cukup, tetapi bisa ditambahkan di sini jika perlu) */
+    }
     
     /* ... (CSS mobile lainnya) ... */
-
+    
 }

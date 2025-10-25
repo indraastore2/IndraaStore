@@ -19,7 +19,7 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
             text-transform: uppercase;
-            position: relative; /* Diperlukan untuk #menuToggle */
+            position: relative;
         }
 
         .store-header .icon {
@@ -53,7 +53,7 @@
 
         /* Gaya untuk Menu Dropdown */
         #menuDropdown {
-            display: none; 
+            display: none; /* SEMBUNYIKAN SECARA DEFAULT */
             position: fixed;
             top: 75px; 
             right: 20px;
@@ -147,6 +147,83 @@
             background-color: #3498db;
         }
         
+        /* --- CSS Untuk Background Music --- */
+        #youtube-bg-player {
+            position: absolute;
+            top: -9999px; /* Pindahkan jauh dari layar */
+            left: -9999px;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        #musicToggle {
+            position: fixed; 
+            bottom: 20px; 
+            left: 20px; 
+            z-index: 2000; 
+            padding: 10px; 
+            background-color: #f1c40f; 
+            border: none; 
+            border-radius: 50%; 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            cursor: pointer;
+            font-size: 1.5em;
+            transition: transform 0.2s;
+        }
+
+        #musicToggle:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Gaya Blok Produk Fish It */
+        .fishit-block {
+            margin-bottom: 30px;
+            padding: 15px;
+            border: 2px solid #3498db;
+            border-radius: 10px;
+            background-color: #f8f9fa;
+        }
+
+        .fishit-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+        }
+
+        .fishit-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 10px;
+        }
+
+        .fishit-item-btn {
+            background-color: #ecf0f1;
+            color: #2c3e50;
+            border: 1px solid #bdc3c7;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.2s;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .fishit-item-btn:hover {
+            background-color: #dfe6e9;
+            transform: translateY(-1px);
+        }
+
+        .fishit-item-price {
+            font-weight: bold;
+            color: #e74c3c;
+            min-width: 80px; /* Lebar minimum harga agar rata */
+            text-align: right;
+        }
         /* ... CSS Lainnya dari Style.css dan promo-popup-style.css tetap diperlukan di sini ... */
     </style>
     
@@ -250,6 +327,17 @@
         <p>Setelah transfer, harap konfirmasi via WhatsApp Admin & Kirim Bukti Transfer !!</p>
     </div>
 </div>
+
+    <div id="youtube-bg-player">
+        <iframe width="0" height="0" 
+            src="https://www.youtube.com/embed/PTF5xgT-pm8?autoplay=1&loop=1&playlist=PTF5xgT-pm8&controls=0&mute=0&disablekb=1&rel=0" 
+            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+        </iframe>
+    </div>
+    
+    <button id="musicToggle">
+        🎵
+    </button>
 
     <script>
         const products = [
@@ -559,7 +647,9 @@
                     // Tambahkan ikon di judul
                     const iconMap = {
                         "Jasa Joki AFK": "🕒", "Jasa Joki Coin": "💰", 
-                        "Jasa Joki Rod": "🎣", "Jasa Joki Bobber": "🔴"
+                        "Jasa Joki Rod": "🎣", "Jasa Joki Bobber": "🔴",
+                        "Batu Enchant Esoteric": "✨", "Batu Enchant New": "🌟",
+                        "Jasa Joki Artefak Tample": "🏺"
                     };
                     const icon = iconMap[title] || '🌑';
 
@@ -590,90 +680,129 @@
                         <span>${p.name} - Rp${p.price.toLocaleString()}</span>
                         <button onclick="addToCart(${p.id})">Tambah</button>
                     `;
-                    productList.appendChild(div);
+                    productList.appendChild(div); // Tambahkan baris ini
                 });
             }
         }
 
-        function showCategory(category) {
-            container.style.opacity = "0";
-            setActiveButton(category); 
-            
-            // Set currentCategory untuk filtering
-            currentCategory = category;
+        // Tampilkan produk BloxFruit default saat memuat
+        displayProducts();
 
-            setTimeout(() => {
-                displayProducts();
-                container.style.opacity = "1";
-            }, 300);
-        }
+        // Aktifkan tombol BloxFruit secara default
+        setActiveButton('BloxFruit_All');
 
-        function addToCart(id) {
-            const product = products.find(p => p.id === id);
-            cart.push(product);
-            updateCart();
-        }
-
+        // Tambahkan event listener untuk input pencarian
+        searchInput.addEventListener('keyup', displayProducts);
+        
+        // --- FUNGSI KERANJANG DAN WA CHAT ---
         function updateCart() {
             cartList.innerHTML = "";
             let total = 0;
-            cart.forEach(item => {
-                const li = document.createElement("li");
-                li.textContent = `${item.name} - Rp${item.price.toLocaleString()}`;
-                cartList.appendChild(li);
-                total += item.price;
-            });
-            totalPrice.textContent = `Total: Rp${total.toLocaleString()}`;
+            let waMessage = "Halo Admin, saya ingin memesan jasa joki dari INDRAA STORE:\n\n";
 
-            const message = encodeURIComponent(
-                "Halo, saya ingin joki di INDRAA STORE:\n" +
-                cart.map(c => `- ${c.name} (Rp${c.price.toLocaleString()})`).join("\n") +
-                `\nTotal: Rp${total.toLocaleString()}`
-            );
-            waChat.href = `https://wa.me/62895321940805?text=${message}`;
+            cart.forEach((item, index) => {
+                const product = products.find(p => p.id === item.id);
+                if (product) {
+                    const li = document.createElement("li");
+                    li.innerHTML = `
+                        ${product.name} (x${item.quantity}) - Rp${(product.price * item.quantity).toLocaleString()}
+                        <button onclick="changeQuantity(${index}, 1)">+</button>
+                        <button onclick="changeQuantity(${index}, -1)">-</button>
+                        <button onclick="removeFromCart(${index})">Hapus</button>
+                    `;
+                    cartList.appendChild(li);
+                    total += product.price * item.quantity;
+                    waMessage += `- ${product.name} x${item.quantity} (Rp${(product.price * item.quantity).toLocaleString()})\n`;
+                }
+            });
+
+            totalPrice.textContent = `Total: Rp${total.toLocaleString()}`;
+            
+            // Lanjutkan pesan WhatsApp
+            waMessage += `\nTotal Harga: Rp${total.toLocaleString()}`;
+            waMessage += `\n\n[Mohon sertakan Username Roblox Anda di sini]`;
+
+            // Atur link WhatsApp
+            // Ganti 628xxxx dengan nomor WhatsApp Admin
+            const adminWaNumber = '62895371757784'; // Ganti dengan nomor WA Admin
+            waChat.href = `https://wa.me/${adminWaNumber}?text=${encodeURIComponent(waMessage)}`;
+        }
+
+        function addToCart(id) {
+            const existingItem = cart.find(item => item.id === id);
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({ id: id, quantity: 1 });
+            }
+            updateCart();
+            alert("Produk ditambahkan ke keranjang!");
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+
+        function changeQuantity(index, delta) {
+            cart[index].quantity += delta;
+            if (cart[index].quantity <= 0) {
+                removeFromCart(index);
+            } else {
+                updateCart();
+            }
         }
 
         function clearCart() {
-            const confirmed = confirm("Apakah Anda yakin ingin mengosongkan keranjang belanja?");
-            if (confirmed) {
-                cart = [];
-                updateCart();
-                alert("Keranjang belanja telah dikosongkan.");
-            }
+            cart = [];
+            updateCart();
+        }
+
+        // Tampilkan kategori yang dipilih (BloxFruit_All adalah default)
+        function showCategory(category) {
+            currentCategory = category;
+            displayProducts();
+            setActiveButton(category);
         }
         
-        // FUNGSI MENU LAIN (Toggle Dropdown)
-        document.getElementById('menuToggle').addEventListener('click', function() {
-            if (menuDropdown.style.display === 'block') {
-                menuDropdown.style.display = 'none';
+        // Inisialisasi tampilan
+        showCategory('BloxFruit_All');
+        
+        
+        // --- FUNGSI UNTUK BACKGROUND MUSIC YT ---
+        const musicToggle = document.getElementById('musicToggle');
+        const youtubeIframe = document.querySelector('#youtube-bg-player iframe');
+        let isPlaying = false; 
+        let initialLoad = true;
+        
+        // ID VIDEO BARU
+        const videoId = 'PTF5xgT-pm8'; 
+
+        // Tautan musik YouTube yang digunakan: https://youtu.be/PTF5xgT-pm8
+        // Autoplay mungkin diblokir oleh browser, pengguna harus menekan tombol
+        musicToggle.addEventListener('click', function() {
+            if (!isPlaying) {
+                // Jika belum main, atur src untuk memicu putar
+                // Set src secara eksplisit untuk memulai
+                if (initialLoad) {
+                    youtubeIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&loop=1&playlist=${videoId}&controls=0&mute=0&disablekb=1&rel=0`;
+                    initialLoad = false;
+                } else {
+                    // Ganti src ke versi autoplay=1
+                    youtubeIframe.src = youtubeIframe.src.replace('autoplay=0', 'autoplay=1');
+                }
+                
+                musicToggle.textContent = '⏸️'; // Ganti ikon menjadi pause
+                isPlaying = true;
             } else {
-                menuDropdown.style.display = 'block';
+                // Jika sedang main, ganti sumber ke URL non-autoplay untuk menghentikannya
+                youtubeIframe.src = youtubeIframe.src.replace('autoplay=1', 'autoplay=0');
+                
+                musicToggle.textContent = '🎵'; // Ganti ikon menjadi play
+                isPlaying = false;
             }
         });
-
-        // FUNGSI MEMILIH DARI MENU LAIN
-        function selectExternalMenu(menuItem) {
-            menuDropdown.style.display = 'none'; // Sembunyikan menu setelah memilih
-            
-            if (menuItem === 'BloxFruit') {
-                showCategory('BloxFruit_All'); // Mengarahkan ke tampilan Blox Fruit
-            } else if (menuItem === 'FishIt') {
-                showCategory('Lainnya'); // Tampilkan produk Fish It
-            }
-        }
-
-
-        searchInput.addEventListener("input", displayProducts);
         
-        // Atur agar halaman dimuat dengan Joki Bloxfruit sebagai default
-        window.onload = function() {
-            // Memuat dengan semua kategori BloxFruit dan mengaktifkan tombol yang benar
-            showCategory('BloxFruit_All'); 
-        };
-
     </script>
-    
-    <script src="secure-devtools-blocker.js"></script>
-
 </body>
 </html>
