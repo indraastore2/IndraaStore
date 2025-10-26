@@ -973,6 +973,7 @@ function showCategory(category) {
                 <h4>Hubungi Kami</h4>
                 <p>Admin: INDRAA STORE</p>
                 <p>WhatsApp: <a href="https://wa.me/62895321940805" target="_blank">0895-3219-40805</a></p>
+                <p>Instagram: <a href="https://www.instagram.com/indraastore13" target="_blank">indraastore13</a></p>
                 <p>Email: indraastore13@Gmail.com</p>
             </div>
             <div class="footer-section store-links">
@@ -992,4 +993,5 @@ function showCategory(category) {
     
 </body>
 </html>
+
 
