@@ -947,7 +947,7 @@ function showCategory(category) {
         musicToggle.addEventListener('click', function() {
             if (!isPlaying) {
                 if (initialLoad) {
-                    youtubeIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&loop=1&playlist=${videoId}&controls=0&mute=0&disablekb=1&rel=0`;
+                    youtubeIframe.src = `https://www.youtube.com/embed/OzLSpZ5SNc8?autoplay=1&loop=1&playlist=OzLSpZ5SNc8&controls=0&mute=0&disablekb=1&rel=0`;
                     initialLoad = false;
                 } else {
                     youtubeIframe.src = youtubeIframe.src.replace('autoplay=0', 'autoplay=1');
@@ -992,3 +992,4 @@ function showCategory(category) {
     
 </body>
 </html>
+
