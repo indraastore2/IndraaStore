@@ -580,3 +580,72 @@ header.bubble-text {
     color: #2c3e50 !important; /* Ubah teks menjadi gelap agar terlihat jelas */
 }
 /* -------------------------------------------------------- */
+
+/* --- CSS Untuk Footer --- */
+        .store-footer {
+            background-color: #2c3e50; /* Warna header */
+            color: #ecf0f1; /* Warna teks putih */
+            padding: 30px 20px;
+            margin-top: 50px;
+            border-top: 5px solid #e74c3c; /* Garis bawah merah seperti header */
+            font-family: 'Arial', sans-serif;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-section {
+            padding: 15px;
+            min-width: 200px;
+            flex-grow: 1;
+        }
+
+        .footer-section h4 {
+            color: #f1c40f; /* Warna kuning untuk judul */
+            border-bottom: 2px solid #e74c3c;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .footer-section p, 
+        .footer-section ul {
+            font-size: 0.9em;
+            margin: 5px 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: #3498db; /* Warna biru untuk link */
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-section a:hover {
+            color: #ecf0f1; /* Putih saat di-hover */
+        }
+
+        .copyright {
+            text-align: center;
+            flex-basis: 100%; /* Ambil lebar penuh untuk copyright */
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #34495e;
+        }
+        
+        /* Penyesuaian Responsif */
+        @media (max-width: 600px) {
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+            }
+            .footer-section {
+                text-align: center;
+            }
+        }
