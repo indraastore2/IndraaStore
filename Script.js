@@ -962,10 +962,33 @@ function showCategory(category) {
                 isPlaying = false;
             }
         });
-        
+
     </script>
 
     <script src="secure-devtools-blocker.js"></script>
+
+    </div> <footer class="store-footer">
+        <div class="footer-content">
+            <div class="footer-section contact-info">
+                <h4>Hubungi Kami</h4>
+                <p>Admin: INDRAA STORE</p>
+                <p>WhatsApp: <a href="https://wa.me/62895321940805" target="_blank">0895-3219-40805</a></p>
+                <p>Email: indraastore13@Gmail.com</p>
+            </div>
+            <div class="footer-section store-links">
+                <h4>Layanan Cepat</h4>
+                <ul>
+                    <li><a href="#" onclick="showCategory('BloxFruit_All'); return false;">Joki BloxFruit</a></li>
+                    <li><a href="#" onclick="showCategory('JOKI FISH IT'); return false;">Joki Fish It</a></li>
+                    <li><a href="#" onclick="showCategory('JOKI GAG'); return false;">Joki GAG</a></li>
+                </ul>
+            </div>
+            <div class="footer-section copyright">
+                <p>&copy; 2025 INDRAA DEVELOPER - Jasa Joki Roblox Terpercaya.</p>
+                <p>Semua transaksi aman dan terjamin 100%.</p>
+            </div>
+        </div>
+    </footer>
     
 </body>
 </html>
