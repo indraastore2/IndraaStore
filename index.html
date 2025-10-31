@@ -570,16 +570,14 @@
     </div>
 </div>
 
-    <div id="youtube-bg-player">
-        <iframe width="0" height="0" 
-            src="https://www.youtube.com/embed/PTF5xgT-pm8?autoplay=1&loop=1&playlist=PTF5xgT-pm8&controls=0&mute=0&disablekb=1&rel=0" 
-            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
-        </iframe>
-    </div>
-    
-    <button id="musicToggle">
-        🎵
-    </button>
+    <button id="musicToggle" aria-label="Toggle Music">🔇</button>
+
+<div id="youtube-bg-player">
+    <iframe width="0" height="0" 
+        src="https://www.youtube.com/embed/PTF5xgT-pm8?autoplay=1&loop=1&playlist=PTF5xgT-pm8&controls=0&mute=1&disablekb=1&rel=0" 
+        frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+    </iframe>
+</div>
 
     <script>
         const products = [
@@ -781,9 +779,18 @@
 
         let cart = [];
         let currentCategory = 'BloxFruit_All';
-        const searchInput = document.getElementById('searchInput'); 
+        const productList = document.getElementById("productList");
+        const cartList = document.getElementById("cartList");
+        const totalPrice = document.getElementById("totalPrice");
+        const searchInput = document.getElementById("searchInput");
+        const waChat = document.getElementById("waChat");
+        const container = document.getElementById("container");
         const detailNav = document.getElementById('detailNav'); 
-        const productList = document.getElementById('productList');
+        const menuDropdown = document.getElementById('menuDropdown'); 
+        const paymentModal = document.getElementById('paymentModal');
+        const paymentTitle = document.getElementById('paymentTitle');
+        const paymentDetails = document.getElementById('paymentDetails');
+        const promoPopupContent = document.getElementById('promoPopupContent'); // Ambil div konten pop-up
 
 
         function updateCart() {
@@ -1082,6 +1089,7 @@
                 detailsContent = `
                     <p>Scan QRIS di bawah ini:</p>
                     <img src="QRIS INDRAA STORE.jpg" alt="QRIS INDRAA STORE" class="qris-image">
+                    <p>(Silakan ganti qris_sample_image.png dengan gambar QRIS Anda)</p>
                 `;
             } else if (method === 'GOPAY') {
                 detailsContent = `
@@ -1211,33 +1219,71 @@
 
 
 <script>
-    // --- FUNGSI UNTUK BACKGROUND MUSIC YT ---
-        const musicToggle = document.getElementById('musicToggle');
-        const youtubeIframe = document.querySelector('#youtube-bg-player iframe');
-        let isPlaying = false; 
-        let initialLoad = true;
-        
-        // ID VIDEO BARU
-        const videoId = 'PTF5xgT-pm8'; 
+   // --- SKRIP BACKGROUND MUSIC (TERMASUK PERBAIKAN AUTOPLAY) ---
+const musicToggle = document.getElementById('musicToggle');
+const player = document.getElementById('youtube-bg-player').querySelector('iframe');
+// isAudible melacak apakah suara sedang aktif (TRUE) atau dimatikan/di-mute (FALSE)
+// Dimulai dengan FALSE karena mute=1 di URL
+let isAudible = false; 
 
-        musicToggle.addEventListener('click', function() {
-            if (!isPlaying) {
-                if (initialLoad) {
-                    youtubeIframe.src = `https://www.youtube.com/embed/OzLSpZ5SNc8?autoplay=1&loop=1&playlist=OzLSpZ5SNc8&controls=0&mute=0&disablekb=1&rel=0`;
-                    initialLoad = false;
-                } else {
-                    youtubeIframe.src = youtubeIframe.src.replace('autoplay=0', 'autoplay=1');
-                }
-                
-                musicToggle.textContent = '⏸️'; 
-                isPlaying = true;
-            } else {
-                youtubeIframe.src = youtubeIframe.src.replace('autoplay=1', 'autoplay=0');
-                
-                musicToggle.textContent = '🎵'; 
-                isPlaying = false;
-            }
-        });
+// Atur ikon awal menjadi MUTE (sesuai mute=1 di URL)
+if(musicToggle) { 
+    musicToggle.textContent = '🔇';
+}
+
+function toggleMusic() {
+    if (!player || !player.contentWindow) return;
+
+    if (isAudible) {
+        // Jika sedang bersuara (🎵), matikan suara dan PAUSE video
+        player.contentWindow.postMessage(JSON.stringify({
+            event: 'command',
+            func: 'mute',
+            args: []
+        }), '*');
+        player.contentWindow.postMessage(JSON.stringify({
+            event: 'command',
+            func: 'pauseVideo',
+            args: []
+        }), '*');
+        
+        isAudible = false;
+        musicToggle.textContent = '🔇'; // Ganti ikon ke MUTE
+    } else {
+        // Jika sedang tidak bersuara (🔇), aktifkan suara dan PLAY video
+        player.contentWindow.postMessage(JSON.stringify({
+            event: 'command',
+            func: 'unMute',
+            args: []
+        }), '*');
+        player.contentWindow.postMessage(JSON.stringify({
+            event: 'command',
+            func: 'playVideo',
+            args: []
+        }), '*');
+        
+        isAudible = true;
+        musicToggle.textContent = '🎵'; // Ganti ikon ke MUSIK
+    }
+}
+
+if(musicToggle) {
+    musicToggle.addEventListener('click', toggleMusic);
+}
+// --- END SKRIP BACKGROUND MUSIC ---
+
+    // Patch untuk memastikan autoplay berjalan (meskipun sering diblokir browser)
+    window.addEventListener('load', () => {
+        if (!isPlaying && player.contentWindow) {
+             player.contentWindow.postMessage(JSON.stringify({
+                event: 'command',
+                func: 'playVideo',
+                args: []
+            }), '*');
+            isPlaying = true;
+            musicToggle.textContent = '🎵';
+        }
+    });
 
     </script>
         <script src="secure-devtools-blocker.js"></script>
