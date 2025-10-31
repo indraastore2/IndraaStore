@@ -570,13 +570,14 @@
     </div>
 </div>
 
-    <div id="youtube-bg-player">
+    <button id="musicToggle" aria-label="Toggle Music">🔇</button> 
+
+<div id="youtube-bg-player" style="position: fixed; bottom: 0; right: 0; z-index: -1;">
     <iframe id="youtube-iframe" width="0" height="0" 
         src="https://www.youtube.com/embed/PTF5xgT-pm8?autoplay=1&loop=1&playlist=PTF5xgT-pm8&controls=0&mute=1&disablekb=1&rel=0" 
         frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
     </iframe>
 </div>
-<button id="musicToggle" aria-label="Toggle Music">🔇</button>
     <script>
         const products = [
             { id: 1, name: "100 Level Sea 1", price: 5000, category: "Level" },
@@ -1217,48 +1218,39 @@
 
 
 <script>
-   // --- SKRIP BACKGROUND MUSIC (TERMASUK PERBAIKAN FINAL) ---
+   // --- SKRIP BACKGROUND MUSIC (FIX FINAL: Tombol & Suara) ---
 const musicToggle = document.getElementById('musicToggle');
-const player = document.getElementById('youtube-iframe'); // Menggunakan ID baru
-// isAudible melacak apakah suara sedang aktif (TRUE) atau dimatikan/di-mute (FALSE)
-let isAudible = false; // Dimulai dengan FALSE karena mute=0 di URL
-let firstClick = true; // Melacak klik pertama
+const playerContainer = document.getElementById('youtube-bg-player');
+let isAudible = false; // Status awal: Muted
 
 // Atur ikon awal menjadi MUTE
 if(musicToggle) { 
     musicToggle.textContent = '🔇';
-    musicToggle.style.zIndex = 9999; // Opsional: Pastikan tombol di atas semua elemen
+}
+
+function createIframe(muteStatus) {
+    const videoId = 'PTF5xgT-pm8';
+    const srcUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&loop=1&playlist=${videoId}&controls=0&mute=${muteStatus}&disablekb=1&rel=0`;
+    
+    // Ganti elemen iframe secara keseluruhan (Dynamic Reload)
+    playerContainer.innerHTML = `<iframe id="youtube-iframe" width="0" height="0" 
+                                       src="${srcUrl}" 
+                                       frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
 }
 
 function toggleMusic() {
+    // Tombol diklik
     if (isAudible) {
-        // --- LOGIKA MENGHENTIKAN SUARA (MUTE) ---
-        
-        // Cukup mengganti iframe kembali ke mode MUTE
-        const mutedSrc = "https://www.youtube.com/embed/PTF5xgT-pm8?autoplay=1&loop=1&playlist=PTF5xgT-pm8&controls=0&mute=1&disablekb=1&rel=0";
-        playerContainer.innerHTML = `<iframe id="youtube-iframe" width="0" height="0" 
-                                           src="${mutedSrc}" 
-                                           frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
-                                           
+        // Jika sedang bersuara (🎵), ganti ke mode MUTE
+        createIframe(1); // Mute
         isAudible = false;
         musicToggle.textContent = '🔇'; // Ganti ikon ke MUTE
-        firstClick = false; // Reset status untuk memastikan klik berikutnya adalah "aktif"
         
     } else {
-        // --- LOGIKA MENGAKTIFKAN SUARA (UNMUTE) ---
-        
-        // 1. Definisikan URL dengan suara aktif (mute=0)
-        // Note: Pada loop, playlist harus diisi dengan ID video yang sama.
-        const unmutedSrc = "https://www.youtube.com/embed/PTF5xgT-pm8?autoplay=1&loop=1&playlist=PTF5xgT-pm8&controls=0&mute=0&disablekb=1&rel=0";
-        
-        // 2. Ganti elemen iframe secara keseluruhan (Dynamic Reload)
-        playerContainer.innerHTML = `<iframe id="youtube-iframe" width="0" height="0" 
-                                           src="${unmutedSrc}" 
-                                           frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
-
+        // Jika sedang tidak bersuara (🔇), ganti ke mode UNMUTE
+        createIframe(0); // Unmute
         isAudible = true;
         musicToggle.textContent = '🎵'; // Ganti ikon ke MUSIK
-        firstClick = false; // Klik pertama sudah selesai
     }
 }
 
@@ -1266,13 +1258,9 @@ if(musicToggle) {
     musicToggle.addEventListener('click', toggleMusic);
 }
 
-// Tambahan: Patch untuk memastikan video dimuat (Muted) di awal
+// Inisiasi awal: Pastikan IFrame awal dimuat (Muted) saat halaman selesai dimuat
 window.addEventListener('load', () => {
-    // Memuat iframe pertama kali dalam mode Muted
-    const initialMutedSrc = "https://www.youtube.com/embed/PTF5xgT-pm8?autoplay=1&loop=1&playlist=PTF5xgT-pm8&controls=0&mute=1&disablekb=1&rel=0";
-    playerContainer.innerHTML = `<iframe id="youtube-iframe" width="0" height="0" 
-                                       src="${initialMutedSrc}" 
-                                       frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+    createIframe(1); // Selalu mulai dalam mode Muted (1)
 });
 
 // --- END SKRIP BACKGROUND MUSIC ---
