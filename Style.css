@@ -838,16 +838,39 @@ header.bubble-text {
     font-style: italic;
 }
 
-/* Pastikan IFrame tidak menghalangi klik */
-#youtube-iframe {
-    pointer-events: none; /* Kunci perbaikan: Memungkinkan klik menembus IFrame */
-}
+/* --- CSS Tambahan --- */
 
-/* Gaya untuk tombol musik (pastikan z-index tinggi) */
+/* Gaya untuk tombol musik (dipindahkan ke POJOK KIRI BAWAH dengan Border Kuning) */
 #musicToggle {
     position: fixed; 
-    top: 20px; 
-    right: 20px; 
-    z-index: 9999; /* Pastikan tombol selalu di atas semua elemen */
-    /* ... (gaya visual tombol Anda yang lain) ... */
+    bottom: 20px;   /* Jarak 20px dari bawah */
+    left: 20px;     /* Jarak 20px dari kiri */
+    
+    z-index: 99999; 
+    background: none; 
+    
+    /* PENAMBAHAN BORDER KUNING */
+    border: 10px solid #FFD700; /* Border 2px solid berwarna emas/kuning */
+    border-radius: 50%;        /* Agar bentuk pinggiran border bulat */
+    padding: 0px;              /* Tambahkan padding agar ikon tidak menempel pada border */
+    
+    font-size: 24px; 
+    cursor: pointer;
+}
+
+/* Pertahankan gaya IFrame agar tetap tersembunyi dan tidak bisa diklik */
+#youtube-bg-player {
+    position: fixed; 
+    bottom: 0; 
+    right: 0; 
+    width: 0; 
+    height: 0; 
+    z-index: -99999; 
+    overflow: hidden; 
+}
+
+/* Gaya untuk IFrame itu sendiri */
+#youtube-iframe {
+    width: 100%;
+    height: 100%;
 }
