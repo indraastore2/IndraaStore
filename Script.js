@@ -1082,7 +1082,6 @@
                 detailsContent = `
                     <p>Scan QRIS di bawah ini:</p>
                     <img src="QRIS INDRAA STORE.jpg" alt="QRIS INDRAA STORE" class="qris-image">
-                    <p>(Silakan ganti qris_sample_image.png dengan gambar QRIS Anda)</p>
                 `;
             } else if (method === 'GOPAY') {
                 detailsContent = `
