@@ -649,3 +649,110 @@ header.bubble-text {
                 text-align: center;
             }
         }
+
+        /* --- Gaya Blok Produk BloxFruit (Manual Style) --- */
+        .blox-block {
+            margin-bottom: 30px;
+            padding: 15px;
+            border: 2px solid #3498db; /* Border Biru */
+            border-radius: 10px;
+            background-color: #f0f8ff; /* Background Biru Muda */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .blox-title {
+            font-size: 1.6em;
+            font-weight: bold;
+            color: #2980b9; /* Judul Biru Tua */
+            margin-bottom: 15px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 5px;
+        }
+
+        .blox-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 10px;
+        }
+
+        .blox-item-btn {
+            background-color: #3498db; /* Tombol Biru */
+            color: white; 
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.2s;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .blox-item-btn:hover {
+            background-color: #2980b9; /* Biru Lebih Tua saat hover */
+            transform: translateY(-1px);
+        }
+
+        .blox-price {
+            font-weight: bold;
+            color: #ffffff; /* Harga Kuning Pucat */
+            min-width: 80px; 
+            text-align: right;
+            border-left: 1px solid rgba(255, 255, 255, 0.3);
+            padding-left: 10px;
+        }
+
+        /* --- Gaya Blok Produk Fish It/JOKI GAG (Manual Style Hijau) --- */
+        /* Gaya ini mempertahankan gaya yang sudah ada untuk JOKI FISH IT */
+        .fishit-block {
+            margin-bottom: 30px;
+            padding: 15px;
+            border: 2px solid #27ae60; /* Border Hijau Tua */
+            border-radius: 10px;
+            background-color: #e8f5e9; /* Background Hijau Muda */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .fishit-title {
+            font-size: 1.6em;
+            font-weight: bold;
+            color: #00692c; /* Judul Hijau */
+            margin-bottom: 15px;
+            border-bottom: 3px solid #27ae60;
+            padding-bottom: 5px;
+        }
+
+        .fishit-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 10px;
+        }
+
+        .fishit-item-btn {
+            background-color: #2ecc71; /* Tombol Hijau */
+            color: rgb(0, 0, 0); 
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.2s;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .fishit-item-btn:hover {
+            background-color: #27ae60; /* Hijau Lebih Tua saat hover */
+            transform: translateY(-1px);
+        }
+        
+        .fishit-item-price-style { /* Dibuat style terpisah untuk harga */
+            font-weight: bold;
+            color: rgb(0, 0, 0); 
+            min-width: 80px; 
+            text-align: right;
+            border-left: 1px solid rgba(255, 255, 255, 0.3);
+            padding-left: 10px;
+        }

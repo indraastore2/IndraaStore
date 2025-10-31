@@ -2,32 +2,84 @@
 /* 1. Gaya Dasar Overlay dan Pop-up (TANPA TRANSISI) */
 /* ==================================== */
 
+/* promo-popup-style.css */
+
 .promo-popup-container {
-    display: none; /* Awalnya tersembunyi */
-    position: fixed;
-    top: 0;
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 3000; /* Sit on top */
     left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.9);
-    z-index: 9999; 
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    
+    /* --- MENAMBAHKAN FLEXBOX UNTUK PEMUSATAN --- */
+    display: flex; /* Mengaktifkan Flexbox */
+    justify-content: center; /* Pusatkan secara horizontal */
+    align-items: center; /* Pusatkan secara vertikal */
 }
 
 .promo-popup-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    /* Transform disetel ke tengah */
-    transform: translate(-50%, -50%); 
+    background-color: #fefefe;
+    margin: auto; /* Memastikan margin otomatis untuk pemusatan jika flexbox gagal */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 90%; /* Lebar relatif terhadap container */
+    max-width: 950px; /* Lebar maksimum yang lebih besar */
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    animation: fadeIn 0.3s;
     
-    max-width: 1100px; /* Lebar Maksimal PC/Desktop */
-    background-color: #1a1a1a; 
-    border: 2px solid #ff4d4d; 
-    box-shadow: 0 0 30px rgba(255, 0, 0, 0.8), 0 0 10px rgba(255, 255, 255, 0.2);
+    /* --- MENGHILANGKAN POSISI FIXED/ABSOLUTE DARI SINI JIKA ADA --- */
+    position: relative; /* Penting untuk penempatan tombol close */
+}
+
+.popup-close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    position: absolute; /* Posisikan secara absolut di dalam .promo-popup-content */
+    right: 15px;
+    top: 10px;
+}
+
+.popup-close-btn:hover,
+.popup-close-btn:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Tambahkan gaya untuk tata letak konten di dalam pop-up */
+.promo-popup-images {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap; /* Mengizinkan gambar untuk wrap pada layar kecil */
+    gap: 20px; /* Jarak antar gambar */
+}
+
+.promo-image-wrapper {
+    flex: 1 1 45%; /* Fleksibel, ambil 45% lebar, izinkan menyusut/tumbuh */
+    max-width: 450px; /* Maksimum lebar untuk setiap gambar promo */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     border-radius: 8px;
-    padding: 10px; /* Padding di sekeliling gambar */
-    overflow: hidden; 
-    transition: none; /* Transisi dihapus */
+    overflow: hidden; /* Memastikan gambar di dalamnya tidak meluber */
+}
+
+.promo-image-wrapper img {
+    width: 100%;
+    height: auto;
+    display: block; /* Menghilangkan spasi ekstra di bawah gambar */
+    border-radius: 8px;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
 }
 
 /* Kelas aktif untuk memicu Pop-up masuk (INSTAN) */

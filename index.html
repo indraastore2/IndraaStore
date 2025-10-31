@@ -175,21 +175,79 @@
             transform: scale(1.1);
         }
         
-        /* Gaya Blok Produk Fish It */
+        /* ======================================= */
+        /* --- STYLE MANUAL UNTUK BLOXFRUIT (BARU) --- */
+        /* ======================================= */
+        .blox-block {
+            margin-bottom: 30px;
+            padding: 15px;
+            border: 2px solid #3498db; /* Border Biru */
+            border-radius: 10px;
+            background-color: #f0f8ff; /* Background Biru Muda */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .blox-title {
+            font-size: 1.6em;
+            font-weight: bold;
+            color: #2980b9; /* Judul Biru Tua */
+            margin-bottom: 15px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 5px;
+        }
+
+        .blox-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 10px;
+        }
+
+        .blox-item-btn {
+            background-color: #3498db; /* Tombol Biru */
+            color: white; 
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.2s;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .blox-item-btn:hover {
+            background-color: #2980b9; /* Biru Lebih Tua saat hover */
+            transform: translateY(-1px);
+        }
+
+        .blox-price {
+            font-weight: bold;
+            color: #ffeaa7; /* Harga Kuning Pucat */
+            min-width: 80px; 
+            text-align: right;
+            border-left: 1px solid rgba(255, 255, 255, 0.3);
+            padding-left: 10px;
+        }
+
+        /* ==================================================== */
+        /* --- STYLE MANUAL UNTUK FISH IT & JOKI GAG (HIJAU) --- */
+        /* ==================================================== */
         .fishit-block {
             margin-bottom: 30px;
             padding: 15px;
-            border: 2px solid #3498db;
+            border: 2px solid #27ae60; /* Border Hijau Tua */
             border-radius: 10px;
-            background-color: #f8f9fa;
+            background-color: #e8f5e9; /* Background Hijau Muda */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .fishit-title {
-            font-size: 1.5em;
+            font-size: 1.6em;
             font-weight: bold;
-            color: #2c3e50;
+            color: #2ecc71; /* Judul Hijau */
             margin-bottom: 15px;
-            border-bottom: 2px solid #3498db;
+            border-bottom: 3px solid #27ae60;
             padding-bottom: 5px;
         }
 
@@ -200,9 +258,9 @@
         }
 
         .fishit-item-btn {
-            background-color: #ecf0f1;
-            color: #2c3e50;
-            border: 1px solid #bdc3c7;
+            background-color: #2ecc71; /* Tombol Hijau */
+            color: white; 
+            border: none;
             padding: 12px;
             border-radius: 8px;
             cursor: pointer;
@@ -214,17 +272,19 @@
         }
 
         .fishit-item-btn:hover {
-            background-color: #dfe6e9;
+            background-color: #27ae60; /* Hijau Lebih Tua saat hover */
             transform: translateY(-1px);
         }
-
-        .fishit-item-price {
+        
+        .fishit-item-price-style { 
             font-weight: bold;
-            color: white; 
+            color: yellow; 
             min-width: 80px; 
             text-align: right;
+            border-left: 1px solid rgba(255, 255, 255, 0.3);
+            padding-left: 10px;
         }
-
+        
         /* --- CSS Pop-Up Khusus Keranjang Dikosongkan --- */
         /* Anda mungkin memiliki CSS yang lebih kompleks di promo-popup-style.css, 
            namun ini adalah dasar untuk memastikan pop-up bawaan Anda berfungsi */
@@ -271,6 +331,17 @@
         @keyframes fadeIn {
             from {opacity: 0;}
             to {opacity: 1;}
+        }
+        
+        /* --- CSS BARU UNTUK GAMBAR QRIS DI MODAL --- */
+        .qris-image {
+            width: 100%; /* Lebar penuh modal */
+            max-width: 300px; /* Batasan maksimum ukuran QRIS */
+            height: auto;
+            display: block;
+            margin: 15px auto; /* Pusatkan gambar */
+            border: 2px solid #ccc;
+            border-radius: 5px;
         }
         /* ... CSS Lainnya dari Style.css dan promo-popup-style.css tetap diperlukan di sini ... */
     </style>
@@ -329,9 +400,9 @@
         JOKI GAG
     </button>
 </div>
-    <nav id="detailNav" style="display: none;">
+    <nav id="detailNav" style="display: flex;">
         <div class="detail-row">
-            <button onclick="showCategory('all')">Semua BloxFruit</button>
+            <button onclick="showCategory('BloxFruit_All')">Semua BloxFruit</button>
             <button onclick="showCategory('Level')">Level</button>
             <button onclick="showCategory('Mastery')">Mastery</button>
             <button onclick="showCategory('PAKET LEVEL MURAH')">Paket Level Murah</button>
@@ -376,7 +447,7 @@
     <button class="clear" onclick="clearCart()">Kosongkan Keranjang</button>
     <a id="waChat" class="whatsapp" href="#" target="_blank">💬Chat via WhatsApp</a>
     
-    <p id="cartNote" class="cart-note">Terima kasih sudah berbelanja — Silakan cek detail pesanan dan tekan Chat WhatsApp untuk konfirmasi.</p>
+    <p id="cartNote" class="cart-note">Terima kasih sudah berbelanja — Silakan cek detail pesanan dan tekan Chat WhatsApp untuk konfirmasi Admin.</p>
     
     <h2 id="termsTitle">Syarat & Ketentuan</h2>
     <div id="termsContent">
@@ -508,70 +579,60 @@
             { id: 92,name: "Beast Hunter", price:70000, category: "Sea Event"},
             { id: 93,name: "Leviathan Shield", price:80000, category: "Sea Event"},
             { id: 94,name: "Remove CD Bribe", price:5000, category: "Sea Event"},
-            { id: 96,name: "Fox Lamp + Bonus", price:40000, category: "Kitsune Event"},
-            { id: 97,name: "Azure Ember x25", price:10000, category: "Kitsune Event"},
-            { id: 98,name: "1 Belt", price:5000, category: "Dragon Event"},
-            { id: 99,name: "6 Belt", price:30000, category: "Dragon Event"},
-            { id: 100,name: "Red Belt", price:15000, category: "Dragon Event"},
-            { id: 101,name: "Black Belt", price:25000, category: "Dragon Event"},
-            { id: 102,name: "Volcano Magnet", price:10000, category: "Dragon Event"},
-            { id: 103,name: "1 Dragon Egg", price:20000, category: "Dragon Event"},
-            { id: 104,name: "Draco Race", price:100000, category: "Dragon Event"},
-            { id: 105,name: "Fire Flower X1", price:5000, category: "Dragon Event"},
-            { id: 106,name: "V2 Draco", price:20000, category: "Dragon Event"},
-            { id: 107,name: "V3 Draco", price:10000, category: "Dragon Event"},
-            { id: 108,name: "DragonHeart Sword", price:30000, category: "Dragon Event"},
-            { id: 109,name: "DragonStorm Gun", price:50000, category: "Dragon Event"},
-            { id: 110,name: "Freezing Hydra", price:30000, category: "Dragon Event"},
-            { id: 111,name: "1X Trial Draco (Tanpa Magnet)", price:25000, category: "Dragon Event"},
-            { id: 112,name: "1X Trial Draco (Ada Magnet)", price:20000, category: "Dragon Event"},
-            { id: 113,name: "Darkcoat (10X Lawan Darkbeard)", price:100000, category: "Accessories"},
-            { id: 114,name: "Pale Scraf (Wajib Sea 3)", price:10000, category: "Accessories"},
-            { id: 115,name: "Muskeeter Hat (Wajib Level 1800+)", price:10000, category: "Accessories"},
-            { id: 116,name: "Pilot Helmet (Wajib Sea 3)", price:5000, category: "Accessories"},
-            { id: 117,name: "1 Dragon Egg", price:10000, category: "Promo"},
-            { id: 118,name: "6 Dinosaur Bones ", price:10000, category: "Promo"},
-            { id: 119,name: "Black Belt", price:15000, category: "Promo"},
-            { id: 120,name: "20 Scrap Metal", price:10000, category: "Promo"},
-            { id: 121,name: "30 Blaze Ember", price:10000, category: "Promo"},
-            { id: 122,name: "1X Trial Draco (Ada Magnet)", price:15000, category: "Promo"},
-            { id: 123,name: "1X Trial Draco (Tanpa Magnet)", price:20000, category: "Promo"},
-            { id: 124,name: "Bluegear", price:8000, category: "Promo"},
-            { id: 125,name: "Mirror Fractal", price:15000, category: "Promo"},
-            { id: 126,name: "Valkyrie Helm", price:10000, category: "Promo"},
-            { id: 127,name: "Full Gear T5", price:30000, category: "Promo"},
-            { id: 128,name: "Full Gear T10", price:40000, category: "Promo"},
-            { id: 129,name: "1X Trial", price: 5000, category: "Promo"},
-            // Produk Fish It baru
-            // --- START PRODUK JOKI FISH IT (Kategori: JOKI FISH IT) ---
-            
-            // Jasa Joki AFK
+            { id: 96, name: "Fox Lamp + Bonus", price:40000, category: "Kitsune Event"},
+            { id: 97, name: "Azure Ember x25", price:10000, category: "Kitsune Event"},
+            { id: 98, name: "1 Belt", price:5000, category: "Dragon Event"},
+            { id: 99, name: "6 Belt", price:30000, category: "Dragon Event"},
+            { id: 100, name: "Red Belt", price:15000, category: "Dragon Event"},
+            { id: 101, name: "Black Belt", price:25000, category: "Dragon Event"},
+            { id: 102, name: "Volcano Magnet", price:10000, category: "Dragon Event"},
+            { id: 103, name: "1 Dragon Egg", price:20000, category: "Dragon Event"},
+            { id: 104, name: "Draco Race", price:100000, category: "Dragon Event"},
+            { id: 105, name: "Fire Flower X1", price:5000, category: "Dragon Event"},
+            { id: 106, name: "V2 Draco", price:20000, category: "Dragon Event"},
+            { id: 107, name: "V3 Draco", price:10000, category: "Dragon Event"},
+            { id: 108, name: "DragonHeart Sword", price:30000, category: "Dragon Event"},
+            { id: 109, name: "DragonStorm Gun", price:50000, category: "Dragon Event"},
+            { id: 110, name: "Freezing Hydra", price:30000, category: "Dragon Event"},
+            { id: 111, name: "1X Trial Draco (Tanpa Magnet)", price:25000, category: "Dragon Event"},
+            { id: 112, name: "1X Trial Draco (Ada Magnet)", price:20000, category: "Dragon Event"},
+            { id: 113, name: "Darkcoat (10X Lawan Darkbeard)", price:100000, category: "Accessories"},
+            { id: 114, name: "Pale Scraf (Wajib Sea 3)", price:10000, category: "Accessories"},
+            { id: 115, name: "Muskeeter Hat (Wajib Level 1800+)", price:10000, category: "Accessories"},
+            { id: 116, name: "Pilot Helmet (Wajib Sea 3)", price:5000, category: "Accessories"},
+            { id: 117, name: "1 Dragon Egg", price:10000, category: "Promo"},
+            { id: 118, name: "6 Dinosaur Bones ", price:10000, category: "Promo"},
+            { id: 119, name: "Black Belt", price:15000, category: "Promo"},
+            { id: 120, name: "20 Scrap Metal", price:10000, category: "Promo"},
+            { id: 121, name: "30 Blaze Ember", price:10000, category: "Promo"},
+            { id: 122, name: "1X Trial Draco (Ada Magnet)", price:15000, category: "Promo"},
+            { id: 123, name: "1X Trial Draco (Tanpa Magnet)", price:20000, category: "Promo"},
+            { id: 124, name: "Bluegear", price:8000, category: "Promo"},
+            { id: 125, name: "Mirror Fractal", price:15000, category: "Promo"},
+            { id: 126, name: "Valkyrie Helm", price:10000, category: "Promo"},
+            { id: 127, name: "Full Gear T5", price:30000, category: "Promo"},
+            { id: 128, name: "Full Gear T10", price:40000, category: "Promo"},
+            { id: 129, name: "1X Trial", price: 5000, category: "Promo"},
+            // Produk Fish It
             { id: 130, name: "1 Jam", price: 3000, category: "JOKI FISH IT", subCategory: "Jasa Joki AFK"}, 
             { id: 131, name: "1 Hari", price: 15000, category: "JOKI FISH IT", subCategory: "Jasa Joki AFK"},
             { id: 132, name: "2 Hari", price: 30000, category: "JOKI FISH IT", subCategory: "Jasa Joki AFK"},
             { id: 133, name: "3 Hari", price: 35000, category: "JOKI FISH IT", subCategory: "Jasa Joki AFK"},
             { id: 134, name: "7 Hari", price: 45000, category: "JOKI FISH IT", subCategory: "Jasa Joki AFK"},
             { id: 135, name: "15 Hari", price: 55000, category: "JOKI FISH IT", subCategory: "Jasa Joki AFK"},
-            
-            // Jasa Joki Coin
             { id: 136, name: "1M", price: 10000, category: "JOKI FISH IT", subCategory: "Jasa Joki Coin"},
             { id: 137, name: "2M", price: 20000, category: "JOKI FISH IT", subCategory: "Jasa Joki Coin"},
             { id: 138, name: "3M", price: 25000, category: "JOKI FISH IT", subCategory: "Jasa Joki Coin"},
-            
-            // Jasa Joki Rod
             { id: 139, name: "Ghostfin Rod", price: 60000, category: "JOKI FISH IT", subCategory: "Jasa Joki Rod"},
             { id: 140, name: "Angler Rod", price: 45000, category: "JOKI FISH IT", subCategory: "Jasa Joki Rod"},
             { id: 141, name: "Ares Rod", price: 30000, category: "JOKI FISH IT", subCategory: "Jasa Joki Rod"},
             { id: 142, name: "Astral Rod", price: 10000, category: "JOKI FISH IT", subCategory: "Jasa Joki Rod"},
             { id: 143, name: "Bamboo Rod", price: 55000, category: "JOKI FISH IT", subCategory: "Jasa Joki Rod"},
             { id: 144, name: "Element Rod", price: 100000, category: "JOKI FISH IT", subCategory: "Jasa Joki Rod"},
-            
-            // Jasa Joki Bobber
             { id: 145, name: "Aether", price: 25000, category: "JOKI FISH IT", subCategory: "Jasa Joki Bobber"},
             { id: 146, name: "Corupt", price: 15000, category: "JOKI FISH IT", subCategory: "Jasa Joki Bobber"},
             { id: 147, name: "Dark Matter", price: 10000, category: "JOKI FISH IT", subCategory: "Jasa Joki Bobber"},
             { id: 148, name: "Chroma", price: 5000, category: "JOKI FISH IT", subCategory: "Jasa Joki Bobber"},
-            // Batu Enchant Esoteric
             { id: 150, name: "10 Batu", price: 1000, category: "JOKI FISH IT", subCategory: "Batu Enchant Esoteric"},
             { id: 151, name: "55 Batu", price: 5000, category: "JOKI FISH IT", subCategory: "Batu Enchant Esoteric"},
             { id: 152, name: "100 Batu", price: 10000, category: "JOKI FISH IT", subCategory: "Batu Enchant Esoteric"},
@@ -580,30 +641,22 @@
             { id: 155, name: "280 Batu", price: 25000, category: "JOKI FISH IT", subCategory: "Batu Enchant Esoteric"},
             { id: 156, name: "340 Batu", price: 30000, category: "JOKI FISH IT", subCategory: "Batu Enchant Esoteric"},
             { id: 157, name: "400 Batu", price: 35000, category: "JOKI FISH IT", subCategory: "Batu Enchant Esoteric"},
-            
-            // Batu Enchant New
             { id: 158, name: "1 Batu", price: 5000, category: "JOKI FISH IT", subCategory: "Batu Enchant New"},
             { id: 159, name: "5 Batu", price: 15000, category: "JOKI FISH IT", subCategory: "Batu Enchant New"},
             { id: 160, name: "15 Batu", price: 60000, category: "JOKI FISH IT", subCategory: "Batu Enchant New"},
             { id: 161, name: "25 Batu", price: 100000, category: "JOKI FISH IT", subCategory: "Batu Enchant New"},
-            
-            // Jasa Joki Artefak Tample
             { id: 162, name: "Artefak Tample", price: 35000, category: "JOKI FISH IT", subCategory: "Jasa Joki Artefak Tample"},
-            // --- END PRODUK BARU ---
-            // --- START PRODUK JOKI GAG (Kategori: JOKI GAG) ---
-            
-            // Jasa Joki AFK
-            { id: 163, name: "1 JAM", price: 3000, category: "JOKI GAG", subCategory: "Jasa Joki AFK"},
-            { id: 164, name: "2 JAM", price: 5000, category: "JOKI GAG", subCategory: "Jasa Joki AFK"},
-            { id: 165, name: "5 JAM", price: 10000, category: "JOKI GAG", subCategory: "Jasa Joki AFK"},
-            { id: 166, name: "8 JAM", price: 15000, category: "JOKI GAG", subCategory: "Jasa Joki AFK"},
-            { id: 167, name: "12 JAM", price: 25000, category: "JOKI GAG", subCategory: "Jasa Joki AFK"},
-            { id: 168, name: "24 JAM", price: 35000, category: "JOKI GAG", subCategory: "Jasa Joki AFK"},
-             // --- END PRODUK JOKI GAG ---
+            // Produk Joki GAG
+            { id: 163, name: "1 JAM", price: 3000, category: "JOKI GAG", subCategory: "Jasa Joki AFK"},
+            { id: 164, name: "2 JAM", price: 5000, category: "JOKI GAG", subCategory: "Jasa Joki AFK"},
+            { id: 165, name: "5 JAM", price: 10000, category: "JOKI GAG", subCategory: "Jasa Joki AFK"},
+            { id: 166, name: "8 JAM", price: 15000, category: "JOKI GAG", subCategory: "Jasa Joki AFK"},
+            { id: 167, name: "12 JAM", price: 25000, category: "JOKI GAG", subCategory: "Jasa Joki AFK"},
+            { id: 168, name: "24 JAM", price: 35000, category: "JOKI GAG", subCategory: "Jasa Joki AFK"},
          ];
 
         let cart = [];
-        let currentCategory = "all";
+        let currentCategory = "BloxFruit_All"; // PERBAIKAN: Ubah dari "all" ke "BloxFruit_All"
 
         const productList = document.getElementById("productList");
         const cartList = document.getElementById("cartList");
@@ -621,7 +674,9 @@
         // Data Pembayaran (PASTIKAN MENGGANTI DENGAN DETAIL REKENING ASLI ANDA)
         const paymentData = {
             DANA: "Nomor DANA: 0895371757784\nA.N. MAULANA",
-            QRIS: "Metode ini menggunakan QR Code.\nSilakan tekan 'Chat via WhatsApp' untuk mendapatkan QR Code terbaru.",
+            // --- START PERUBAHAN UNTUK GAMBAR QRIS ---
+            QRIS: `<img src="QRIS INDRAA STORE.jpg" alt="QRIS INDRAA STORE" class="qris-image">`,
+            // --- END PERUBAHAN UNTUK GAMBAR QRIS ---
             GOPAY: "Nomor GOPAY: 0895321940805\nA.N. MAULANA",
             SEABANK: "Nomor Rekening: 901768241659\nA.N. MAULANA"
         };
@@ -632,9 +687,22 @@
             // Ambil total harga terbaru
             const totalText = totalPrice.textContent;
 
+            // Logika untuk menampilkan gambar QRIS atau detail rekening biasa
+            let detailsContent = '';
+            if (method === 'QRIS') {
+                detailsContent = `
+                    <p style="margin-bottom: 20px;">Scan QR Code berikut:</p>
+                    ${paymentData[method]} 
+                `;
+            } else {
+                detailsContent = `
+                    <p style="white-space: pre-wrap; margin-top: 10px;">${paymentData[method]}</p>
+                `;
+            }
+            
             paymentDetails.innerHTML = `
                 <p>Total yang harus dibayar: <strong>${totalText}</strong></p>
-                <p style="white-space: pre-wrap; margin-top: 10px;">${paymentData[method]}</p>
+                ${detailsContent}
             `;
 
             paymentModal.style.display = "block";
@@ -667,144 +735,182 @@
                 detailNav.style.display = 'none'; 
             } else if (category === 'JOKI GAG') { // LOGIKA BARU UNTUK JOKI GAG
                 document.getElementById('btnJokiGag').classList.add('active');
-                detailNav.style.display = 'flex'; 
+                detailNav.style.display = 'none'; // Sembunyikan untuk Joki Gag
+            } else {
                 // Semua kategori lainnya (BloxFruit_All, all, Level, Mastery, dst.) dianggap BloxFruit
                 // 1. Aktifkan tombol JOKI BLOXFRUIT
                 document.getElementById('btnBloxFruit').classList.add('active');
                 // 2. TAMPILKAN navigasi kategori detail
-                detailNav.style.display = 'none'; // Gunakan 'flex' atau 'block' sesuai gaya CSS Anda
+                detailNav.style.display = 'flex'; // Gunakan 'flex' atau 'block' sesuai gaya CSS Anda
             }
         }
 
         function displayProducts() {
-    const searchValue = searchInput.value.toLowerCase();
-    productList.innerHTML = "";
+            const searchValue = searchInput.value.toLowerCase();
+            productList.innerHTML = "";
 
-    // --- START MODIFIKASI: Variabel JOKI GAG digunakan di logika rendering ---
-    const isFishItView = currentCategory === "JOKI FISH IT";
-    const isJokiGagView = currentCategory === "JOKI GAG"; 
-    const isBloxFruitView = currentCategory === "BloxFruit_All" || currentCategory === "all";
-    // --- END MODIFIKASI ---
+            const isFishItView = currentCategory === "JOKI FISH IT";
+            const isJokiGagView = currentCategory === "JOKI GAG";
+            // KATEGORI BloxFruit adalah 'BloxFruit_All' ATAU SEMUA sub-kategori BloxFruit (Level, Mastery, dll.)
+            const isBloxFruitView = currentCategory !== "JOKI FISH IT" && currentCategory !== "JOKI GAG";
 
-    // // KONTROL VISIBILITAS SEARCH INPUT
-    // --- START MODIFIKASI: Sembunyikan search input jika JOKI FISH IT atau JOKI GAG aktif ---
-    if (isFishItView || isJokiGagView) { 
-        searchInput.style.display = 'none';
-    } else {
-        searchInput.style.display = 'block';
-    }
-    // --- END MODIFIKASI ---
-
-    // // 1. Logika Filter
-    const filtered = products.filter(p => {
-        const searchMatch = p.name.toLowerCase().includes(searchValue);
-
-        if (isFishItView) {
-            return (p.category === "JOKI FISH IT" || p.category === "Lainnya") && searchMatch;
-        } 
-        
-        // --- START MODIFIKASI: Logika Filter JOKI GAG ---
-        else if (isJokiGagView) {
-            return p.category === "JOKI GAG" && searchMatch;
-        }
-        // --- END MODIFIKASI ---
-        
-        else {
-            // Logika default (BloxFruit/Subkategori)
-            const isBloxFruitOrSub = p.category !== "JOKI FISH IT" && p.category !== "JOKI GAG"; 
-            
-            if (isBloxFruitView) {
-                return isBloxFruitOrSub && searchMatch;
+            // KONTROL VISIBILITAS SEARCH INPUT
+            if (isFishItView || isJokiGagView) { 
+                searchInput.style.display = 'none';
             } else {
-                return p.category === currentCategory && isBloxFruitOrSub && searchMatch;
+                searchInput.style.display = 'block';
             }
-        }
-    });
 
-    // 2. Logika Rendering
-    // --- START MODIFIKASI: Terapkan rendering blok untuk JOKI FISH IT DAN JOKI GAG ---
-    if (isFishItView || isJokiGagView) { 
-        // Rendering KHUSUS untuk JOKI FISH IT & JOKI GAG (Gaya Blok)
-        
-        // Kelompokkan produk berdasarkan subCategory
-        const groupedProducts = filtered.reduce((acc, p) => {
-            // Hanya grup produk JOKI FISH IT atau JOKI GAG (Subkategori)
-            if (p.category === "JOKI FISH IT" || p.category === "JOKI GAG") {
-                const subCat = p.subCategory || "Lain-lain";
-                if (!acc[subCat]) {
-                    acc[subCat] = [];
+            // 1. Logika Filter
+            const filtered = products.filter(p => {
+                const searchMatch = p.name.toLowerCase().includes(searchValue);
+                
+                if (isFishItView) {
+                    return (p.category === "JOKI FISH IT") && searchMatch;
+                } 
+                
+                else if (isJokiGagView) {
+                    return p.category === "JOKI GAG" && searchMatch;
                 }
-                acc[subCat].push(p);
-            }
-            return acc;
-        }, {});
-        
-        // Render setiap grup sebagai blok terpisah
-        for (const title in groupedProducts) {
-            const blockDiv = document.createElement("div");
-            blockDiv.className = "fishit-block";
+                
+                else {
+                    // Logika untuk JOKI BLOXFRUIT
+                    const isBloxFruitProduct = p.category !== "JOKI FISH IT" && p.category !== "JOKI GAG";
+                    
+                    if (currentCategory === 'BloxFruit_All') {
+                        return isBloxFruitProduct && searchMatch;
+                    } else {
+                        // Filter subkategori spesifik (Level, Mastery, dll.)
+                        return p.category === currentCategory && isBloxFruitProduct && searchMatch;
+                    }
+                }
+            });
             
-            // Atur ikon. Gunakan ikon AFK/Jam jika kategori Joki GAG -> Jasa Joki AFK
-            const iconMap = {
+            // 2. Logika Pengelompokan (Grouping) untuk BloxFruit, Fish It, dan Joki GAG
+            
+            const groupedProducts = {};
+
+            filtered.forEach(p => {
+                let groupTitle;
+                
+                if (isFishItView || isJokiGagView) {
+                    // Gunakan subCategory yang sudah ada di data produk untuk Fish It / Joki GAG
+                    groupTitle = p.subCategory || "Lain-lain"; 
+                } else {
+                    // Gunakan category (Level, Mastery, Sword, dll.) sebagai Group Title untuk BloxFruit
+                    // KHUSUS UNTUK 'BloxFruit_All' (Tampilan Awal):
+                    if (currentCategory === 'BloxFruit_All') {
+                        if (p.category === 'Level' || p.category === 'PAKET LEVEL MURAH') {
+                            groupTitle = "Jasa Joki Level & Paket Murah 🚀";
+                        } else if (p.category === 'Mastery') {
+                            groupTitle = "Jasa Joki Mastery ⚔️";
+                        } else if (p.category === 'Fighting Style') {
+                            groupTitle = "Jasa Joki Fighting Style 👊";
+                        } else if (p.category === 'Sword') {
+                            groupTitle = "Jasa Joki Sword 🔪";
+                        } else if (p.category === 'V4') {
+                            groupTitle = "Jasa Joki V4 (Race Awakening) 🔥";
+                        } else {
+                            groupTitle = "Jasa Joki " + p.category; // Sisanya tetap dikelompokkan per kategori
+                        }
+                    } else {
+                         groupTitle = "Jasa Joki " + p.category; // Untuk tampilan sub-kategori spesifik
+                    }
+                }
+                
+                if (!groupedProducts[groupTitle]) {
+                    groupedProducts[groupTitle] = [];
+                }
+                groupedProducts[groupTitle].push(p);
+            });
+
+            // 3. Logika Rendering (Menggunakan Gaya Blok Manual)
+            
+            // Mapping Icon untuk BloxFruit
+            const bloxFruitIconMap = {
+                "Level": "📈", "PAKET LEVEL MURAH": "📦", "Mastery": "⚔️", 
+                "Currency": "💰", "Instinct": "👁️", "Fighting Style": "👊", 
+                "Sword": "🔪", "Gun": "🔫", "Haki Resep": "🌈", "Raid": "🌋", 
+                "Boss Raid": "👑", "Material": "💎", "Race": "🧬", "V4": "🔥", 
+                "Sea Event": "🌊", "Kitsune Event": "🦊", "Dragon Event": "🐉", 
+                "Accessories": "🎩", "Promo": "🎁"
+            };
+            
+            // Mapping Icon untuk Fish It / Joki GAG
+            const otherIconMap = {
                 "Jasa Joki AFK": "🕒", "Jasa Joki Coin": "💰", 
                 "Jasa Joki Rod": "🎣", "Jasa Joki Bobber": "🔴",
                 "Batu Enchant Esoteric": "✨", "Batu Enchant New": "🌟",
                 "Jasa Joki Artefak Tample": "🏺"
             };
-            const icon = iconMap[title] || '🌑';
 
-            blockDiv.innerHTML = `<div class="fishit-title">${icon} ${title}</div><div class="fishit-options"></div>`;
-            
-            const optionsContainer = blockDiv.querySelector('.fishit-options');
-
-            groupedProducts[title].forEach(p => {
-                const button = document.createElement("button");
-                // Perubahan gaya untuk tombol JOKI GAG:
-                // Gunakan style inline untuk membuat tombol hijau seperti di gambar
-                button.className = "fishit-item-btn";
-                button.setAttribute('onclick', `addToCart(${p.id})`);
+            for (const title in groupedProducts) {
+                const blockDiv = document.createElement("div");
                 
-                // Tambahkan gaya hijau yang spesifik untuk Joki GAG AFK (mirip gambar)
-                const isJokiGagAFK = p.category === "JOKI GAG" && p.subCategory === "Jasa Joki AFK";
-                if (isJokiGagAFK) {
-                    button.style.backgroundColor = '#228B22'; // Warna Hijau
-                    button.style.color = 'white'; // Teks Putih
-                    button.style.border = 'none'; // Hilangkan border
-                    
-                    // Tambahkan style hover agar tetap responsif (opsional)
-                    button.onmouseover = function() { this.style.backgroundColor = '#27ae60'; };
-                    button.onmouseout = function() { this.style.backgroundColor = '#228B22'; };
+                let icon = '';
+                if (isFishItView || isJokiGagView) {
+                    icon = otherIconMap[title] || '🌑';
+                } else {
+                    let key = Object.keys(bloxFruitIconMap).find(k => title.includes(k));
+                    icon = key ? bloxFruitIconMap[key] : '⭐';
+                    if (title.includes("Level & Paket Murah")) icon = "🚀";
+                    else if (title.includes("V4")) icon = "🔥";
+                    else if (title.includes("Mastery")) icon = "⚔️";
+                    else if (title.includes("Fighting Style")) icon = "👊";
+                    else if (title.includes("Sword")) icon = "🔪";
                 }
+                
+                // --- KONDISI PENGGUNAAN STYLE MANUAL ---
+                if (isBloxFruitView) {
+                    // --- STYLE MANUAL UNTUK JOKI BLOXFRUIT (Tema Biru) ---
+                    blockDiv.className = "blox-block"; 
+                    blockDiv.innerHTML = `<div class="blox-title">${icon} ${title}</div><div class="blox-options"></div>`;
+                    const optionsContainer = blockDiv.querySelector('.blox-options');
+                    
+                    groupedProducts[title].forEach(p => {
+                        const button = document.createElement("button");
+                        button.className = "blox-item-btn";
+                        button.setAttribute('onclick', `addToCart(${p.id})`);
+                        
+                        button.innerHTML = `
+                            <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+                                <span class="blox-name">${p.name}</span>
+                                <span class="blox-price">Rp${p.price.toLocaleString()}</span>
+                            </div>
+                        `;
+                        optionsContainer.appendChild(button);
+                    });
+                    
+                } else {
+                    // --- STYLE MANUAL UNTUK JOKI FISH IT & JOKI GAG (Tema Hijau) ---
+                    blockDiv.className = "fishit-block";
+                    blockDiv.innerHTML = `<div class="fishit-title">${icon} ${title}</div><div class="fishit-options"></div>`;
+                    const optionsContainer = blockDiv.querySelector('.fishit-options');
 
-                // Struktur innerHTML diubah agar harga menjadi terpisah dan di kanan (mirip gambar)
-                // Hapus span 'fishit-item-price' agar harga bisa di styling sesuai gambar
-                button.innerHTML = `
-                    <div style="display: flex; justify-content: space-between; width: 100%;">
-                        <span>${p.name}</span>
-                        <span style="font-weight: bold; color: white; min-width: 80px; text-align: right;">Rp${p.price.toLocaleString()}</span>
-                    </div>
-                `;
-                optionsContainer.appendChild(button);
-            });
-            
-            productList.appendChild(blockDiv);
+                    groupedProducts[title].forEach(p => {
+                        const button = document.createElement("button");
+                        button.className = "fishit-item-btn";
+                        button.setAttribute('onclick', `addToCart(${p.id})`);
+
+                        button.innerHTML = `
+                            <div style="display: flex; justify-content: space-between; width: 100%;">
+                                <span>${p.name}</span>
+                                <span class="fishit-item-price-style">Rp${p.price.toLocaleString()}</span>
+                            </div>
+                        `;
+                        optionsContainer.appendChild(button);
+                    });
+                }
+                
+                productList.appendChild(blockDiv);
+            }
+
+            // Jika tidak ada produk yang terfilter
+            if (filtered.length === 0) {
+                productList.innerHTML = `<p style="text-align: center; color: gray;">Tidak ada produk yang ditemukan untuk kategori ini.</p>`;
+            }
         }
         
-    } else {
-        // Rendering DEFAULT untuk JOKI BLOXFRUIT (Gaya Tabel/List)
-        filtered.forEach(p => {
-            const div = document.createElement("div");
-            div.className = "product";
-            div.innerHTML = `
-                <span>${p.name} - Rp${p.price.toLocaleString()}</span>
-                <button onclick="addToCart(${p.id})">Tambah</button>
-            `;
-            productList.appendChild(div);
-        });
-    }
-}
-// ... (Sisa script)
-
         // Tampilkan produk BloxFruit default saat memuat
         displayProducts();
 
@@ -873,64 +979,41 @@
             }
         }
 
-        // --- FUNGSI BARU UNTUK MENAMPILKAN POP-UP SETELAH CLEAR CART ---
-        function showCartClearPopup() {
-            promoPopupContent.innerHTML = `
-                <img src="https://i.ibb.co/L5Qyv2k/check.png" alt="Check Mark" style="width: 50px; margin-bottom: 10px;">
-                <h3 style="color: #2ecc71;">Keranjang Berhasil Dikosongkan!</h3>
-                <p>Semua item di keranjang belanja Anda telah dihapus.</p>
-                <button onclick="closePromoPopup()" style="background-color: #3498db; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin-top: 15px;">OKE</button>
-            `;
-            promoPopup.style.display = 'block';
-        }
-        
+        // --- FUNGSI CLEAR CART DAN POP-UP YANG SUDAH DIBERSIHKAN (Sesuai Permintaan Awal) ---
         function clearCart() {
             if (cart.length > 0) {
                 cart = [];
                 updateCart();
-                // Panggil fungsi pop-up setelah keranjang dikosongkan
-                showCartClearPopup();
+                // Mengganti pop-up dengan alert sederhana untuk konfirmasi berhasil dikosongkan
+                alert("Keranjang Berhasil Dikosongkan!"); 
             } else {
                 alert("Keranjang belanja sudah kosong.");
             }
         }
-        // --- AKHIR FUNGSI CLEAR CART DAN POP-UP ---
+        // --- AKHIR FUNGSI CLEAR CART ---
 
-        // --- START PERUBAHAN (showCategory) ---
+        // --- START PERUBAHAN (showCategory) - Diperbaiki agar BloxFruit_All menampilkan sub-nav ---
 function showCategory(category) {
     currentCategory = category;
     searchInput.value = '';
 
-    // TAMPILKAN SUB-NAV UNTUK SEMUA KATEGORI UTAMA
-    // DetailNav berisi subkategori BloxFruit, jadi seharusnya SELALU ditampilkan
-    // jika Anda ingin list subkategori BloxFruit selalu ada, terlepas dari kategori utama yang sedang aktif.
-    detailNav.style.display = 'flex'; // <--- PERUBAHAN UTAMA: TAMPILKAN SELALU
-
-    if (category === 'JOKI FISH IT') {
-        // Logika untuk JOKI FISH IT
-        detailNav.style.display = 'none'; // <--- INI MENYEMBUNYIKAN NAV DI FISH IT
-        const filtered = products.filter(p => p.category === 'JOKI FISH IT');
-        displayProducts(filtered);
-        setActiveButton(category);
-    } else if (category === 'JOKI GAG') {
-        // Logika untuk JOKI GAG
-        detailNav.style.display = 'flex'; // <--- INI MENYEMBUNYIKAN NAV DI JOKI GAG
-        const filtered = products.filter(p => p.category === 'JOKI GAG');
-        displayProducts(filtered);
-        setActiveButton(category);
+    // Tampilkan detailNav hanya untuk kategori BloxFruit
+    if (category === 'JOKI FISH IT' || category === 'JOKI GAG') {
+        detailNav.style.display = 'none';
     } else {
-        // Logika BloxFruit atau Sub-kategori BloxFruit
-        detailNav.style.display = 'flex'; // <--- INI MENAMPILKAN NAV DI BLOXFRUIT
-        let filtered;
-        if (category === 'BloxFruit_All') {
-            // Tampilkan semua produk yang BUKAN Fish It atau Joki Gag
-            filtered = products.filter(p => p.category !== 'JOKI FISH IT' && p.category !== 'JOKI GAG');
-            setActiveButton('BloxFruit_All');
-        } else {
-            // Tampilkan subkategori BloxFruit yang dipilih
-            filtered = products.filter(p => p.category === category);
-        }
-        displayProducts(filtered);
+        detailNav.style.display = 'flex'; // Tampilkan untuk BloxFruit dan sub-kategorinya
+    }
+
+    displayProducts();
+    setActiveButton(category);
+    
+    // Nonaktifkan semua tombol sub-kategori
+    document.querySelectorAll('#detailNav button').forEach(btn => btn.classList.remove('active'));
+    
+    // Aktifkan tombol sub-kategori yang sesuai
+    const activeSubButton = document.querySelector(`#detailNav button[onclick="showCategory('${category}')"]`);
+    if (activeSubButton) {
+        activeSubButton.classList.add('active');
     }
 }
 // --- END PERUBAHAN (showCategory) ---
@@ -993,6 +1076,3 @@ function showCategory(category) {
     
 </body>
 </html>
-
-
-
