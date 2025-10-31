@@ -572,12 +572,11 @@
 
     <div id="youtube-bg-player">
     <iframe id="youtube-iframe" width="0" height="0" 
-        src="https://www.youtube.com/embed/PTF5xgT-pm8?autoplay=1&loop=1&playlist=PTF5xgT-pm8&controls=0&mute=1&disablekb=1&rel=0&enablejsapi=1" 
+        src="https://www.youtube.com/embed/PTF5xgT-pm8?autoplay=1&loop=1&playlist=PTF5xgT-pm8&controls=0&mute=1&disablekb=1&rel=0" 
         frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
     </iframe>
 </div>
 <button id="musicToggle" aria-label="Toggle Music">🔇</button>
-
     <script>
         const products = [
             { id: 1, name: "100 Level Sea 1", price: 5000, category: "Level" },
@@ -1222,37 +1221,44 @@
 const musicToggle = document.getElementById('musicToggle');
 const player = document.getElementById('youtube-iframe'); // Menggunakan ID baru
 // isAudible melacak apakah suara sedang aktif (TRUE) atau dimatikan/di-mute (FALSE)
-let isAudible = false; // Dimulai dengan FALSE karena mute=1 di URL
+let isAudible = false; // Dimulai dengan FALSE karena mute=0 di URL
+let firstClick = true; // Melacak klik pertama
 
 // Atur ikon awal menjadi MUTE
 if(musicToggle) { 
     musicToggle.textContent = '🔇';
-}
-
-function postMessageToPlayer(func, args = []) {
-    if (player && player.contentWindow) {
-        player.contentWindow.postMessage(JSON.stringify({
-            event: 'command',
-            func: func,
-            args: args
-        }), '*');
-    }
+    musicToggle.style.zIndex = 9999; // Opsional: Pastikan tombol di atas semua elemen
 }
 
 function toggleMusic() {
-    // Tombol diklik
     if (isAudible) {
-        // Jika sedang bersuara (🎵), matikan suara (mute)
-        postMessageToPlayer('mute');
+        // --- LOGIKA MENGHENTIKAN SUARA (MUTE) ---
+        
+        // Cukup mengganti iframe kembali ke mode MUTE
+        const mutedSrc = "https://www.youtube.com/embed/PTF5xgT-pm8?autoplay=1&loop=1&playlist=PTF5xgT-pm8&controls=0&mute=1&disablekb=1&rel=0";
+        playerContainer.innerHTML = `<iframe id="youtube-iframe" width="0" height="0" 
+                                           src="${mutedSrc}" 
+                                           frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+                                           
         isAudible = false;
         musicToggle.textContent = '🔇'; // Ganti ikon ke MUTE
+        firstClick = false; // Reset status untuk memastikan klik berikutnya adalah "aktif"
+        
     } else {
-        // Jika sedang tidak bersuara (🔇), aktifkan suara (unMute) dan pastikan play
-        postMessageToPlayer('unMute');
-        postMessageToPlayer('playVideo'); // Perintah ganda untuk memastikan play
+        // --- LOGIKA MENGAKTIFKAN SUARA (UNMUTE) ---
+        
+        // 1. Definisikan URL dengan suara aktif (mute=0)
+        // Note: Pada loop, playlist harus diisi dengan ID video yang sama.
+        const unmutedSrc = "https://www.youtube.com/embed/PTF5xgT-pm8?autoplay=1&loop=1&playlist=PTF5xgT-pm8&controls=0&mute=0&disablekb=1&rel=0";
+        
+        // 2. Ganti elemen iframe secara keseluruhan (Dynamic Reload)
+        playerContainer.innerHTML = `<iframe id="youtube-iframe" width="0" height="0" 
+                                           src="${unmutedSrc}" 
+                                           frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
 
         isAudible = true;
         musicToggle.textContent = '🎵'; // Ganti ikon ke MUSIK
+        firstClick = false; // Klik pertama sudah selesai
     }
 }
 
@@ -1260,11 +1266,13 @@ if(musicToggle) {
     musicToggle.addEventListener('click', toggleMusic);
 }
 
-// Tambahan: Pastikan video mulai bermain (muted) saat dimuat
+// Tambahan: Patch untuk memastikan video dimuat (Muted) di awal
 window.addEventListener('load', () => {
-    // Setelah iframe dimuat, kirim perintah playVideo
-    // Ini membantu mengatasi beberapa masalah Autoplay pada mobile/tab
-    postMessageToPlayer('playVideo');
+    // Memuat iframe pertama kali dalam mode Muted
+    const initialMutedSrc = "https://www.youtube.com/embed/PTF5xgT-pm8?autoplay=1&loop=1&playlist=PTF5xgT-pm8&controls=0&mute=1&disablekb=1&rel=0";
+    playerContainer.innerHTML = `<iframe id="youtube-iframe" width="0" height="0" 
+                                       src="${initialMutedSrc}" 
+                                       frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
 });
 
 // --- END SKRIP BACKGROUND MUSIC ---
