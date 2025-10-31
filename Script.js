@@ -570,14 +570,13 @@
     </div>
 </div>
 
-    <button id="musicToggle" aria-label="Toggle Music">🔇</button>
-
-<div id="youtube-bg-player">
-    <iframe width="0" height="0" 
-        src="https://www.youtube.com/embed/PTF5xgT-pm8?autoplay=1&loop=1&playlist=PTF5xgT-pm8&controls=0&mute=1&disablekb=1&rel=0" 
+    <div id="youtube-bg-player">
+    <iframe id="youtube-iframe" width="0" height="0" 
+        src="https://www.youtube.com/embed/PTF5xgT-pm8?autoplay=1&loop=1&playlist=PTF5xgT-pm8&controls=0&mute=1&disablekb=1&rel=0&enablejsapi=1" 
         frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
     </iframe>
 </div>
+<button id="musicToggle" aria-label="Toggle Music">🔇</button>
 
     <script>
         const products = [
@@ -1219,49 +1218,39 @@
 
 
 <script>
-   // --- SKRIP BACKGROUND MUSIC (TERMASUK PERBAIKAN AUTOPLAY) ---
+   // --- SKRIP BACKGROUND MUSIC (TERMASUK PERBAIKAN FINAL) ---
 const musicToggle = document.getElementById('musicToggle');
-const player = document.getElementById('youtube-bg-player').querySelector('iframe');
+const player = document.getElementById('youtube-iframe'); // Menggunakan ID baru
 // isAudible melacak apakah suara sedang aktif (TRUE) atau dimatikan/di-mute (FALSE)
-// Dimulai dengan FALSE karena mute=1 di URL
-let isAudible = false; 
+let isAudible = false; // Dimulai dengan FALSE karena mute=1 di URL
 
-// Atur ikon awal menjadi MUTE (sesuai mute=1 di URL)
+// Atur ikon awal menjadi MUTE
 if(musicToggle) { 
     musicToggle.textContent = '🔇';
 }
 
-function toggleMusic() {
-    if (!player || !player.contentWindow) return;
+function postMessageToPlayer(func, args = []) {
+    if (player && player.contentWindow) {
+        player.contentWindow.postMessage(JSON.stringify({
+            event: 'command',
+            func: func,
+            args: args
+        }), '*');
+    }
+}
 
+function toggleMusic() {
+    // Tombol diklik
     if (isAudible) {
-        // Jika sedang bersuara (🎵), matikan suara dan PAUSE video
-        player.contentWindow.postMessage(JSON.stringify({
-            event: 'command',
-            func: 'mute',
-            args: []
-        }), '*');
-        player.contentWindow.postMessage(JSON.stringify({
-            event: 'command',
-            func: 'pauseVideo',
-            args: []
-        }), '*');
-        
+        // Jika sedang bersuara (🎵), matikan suara (mute)
+        postMessageToPlayer('mute');
         isAudible = false;
         musicToggle.textContent = '🔇'; // Ganti ikon ke MUTE
     } else {
-        // Jika sedang tidak bersuara (🔇), aktifkan suara dan PLAY video
-        player.contentWindow.postMessage(JSON.stringify({
-            event: 'command',
-            func: 'unMute',
-            args: []
-        }), '*');
-        player.contentWindow.postMessage(JSON.stringify({
-            event: 'command',
-            func: 'playVideo',
-            args: []
-        }), '*');
-        
+        // Jika sedang tidak bersuara (🔇), aktifkan suara (unMute) dan pastikan play
+        postMessageToPlayer('unMute');
+        postMessageToPlayer('playVideo'); // Perintah ganda untuk memastikan play
+
         isAudible = true;
         musicToggle.textContent = '🎵'; // Ganti ikon ke MUSIK
     }
@@ -1270,6 +1259,14 @@ function toggleMusic() {
 if(musicToggle) {
     musicToggle.addEventListener('click', toggleMusic);
 }
+
+// Tambahan: Pastikan video mulai bermain (muted) saat dimuat
+window.addEventListener('load', () => {
+    // Setelah iframe dimuat, kirim perintah playVideo
+    // Ini membantu mengatasi beberapa masalah Autoplay pada mobile/tab
+    postMessageToPlayer('playVideo');
+});
+
 // --- END SKRIP BACKGROUND MUSIC ---
 
     // Patch untuk memastikan autoplay berjalan (meskipun sering diblokir browser)
