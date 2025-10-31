@@ -1211,46 +1211,36 @@
 
 
 <script>
-    // ... (Scripts lainnya)
-    // Script background music (diletakkan kembali di akhir)
-    const musicToggle = document.getElementById('musicToggle');
-    const player = document.getElementById('youtube-bg-player').querySelector('iframe');
-    let isPlaying = true; // Asumsikan autoplay berhasil
+    // --- FUNGSI UNTUK BACKGROUND MUSIC YT ---
+        const musicToggle = document.getElementById('musicToggle');
+        const youtubeIframe = document.querySelector('#youtube-bg-player iframe');
+        let isPlaying = false; 
+        let initialLoad = true;
+        
+        // ID VIDEO BARU
+        const videoId = 'PTF5xgT-pm8'; 
 
-    // Mengganti fungsi toggleMusic dari file asli jika ada
-    function toggleMusic() {
-        if (player.contentWindow) {
-            // Menggunakan postMessage untuk mengontrol YouTube player
-            const command = isPlaying ? 'pauseVideo' : 'playVideo';
-            player.contentWindow.postMessage(JSON.stringify({
-                event: 'command',
-                func: command,
-                args: []
-            }), '*');
-            
-            isPlaying = !isPlaying;
-            musicToggle.textContent = isPlaying ? '🎵' : '🔇';
-        }
-    }
-
-    musicToggle.addEventListener('click', toggleMusic);
-
-    // Patch untuk memastikan autoplay berjalan (meskipun sering diblokir browser)
-    window.addEventListener('load', () => {
-        if (!isPlaying && player.contentWindow) {
-             player.contentWindow.postMessage(JSON.stringify({
-                event: 'command',
-                func: 'playVideo',
-                args: []
-            }), '*');
-            isPlaying = true;
-            musicToggle.textContent = '🎵';
-        }
-    });
+        musicToggle.addEventListener('click', function() {
+            if (!isPlaying) {
+                if (initialLoad) {
+                    youtubeIframe.src = `https://www.youtube.com/embed/OzLSpZ5SNc8?autoplay=1&loop=1&playlist=OzLSpZ5SNc8&controls=0&mute=0&disablekb=1&rel=0`;
+                    initialLoad = false;
+                } else {
+                    youtubeIframe.src = youtubeIframe.src.replace('autoplay=0', 'autoplay=1');
+                }
+                
+                musicToggle.textContent = '⏸️'; 
+                isPlaying = true;
+            } else {
+                youtubeIframe.src = youtubeIframe.src.replace('autoplay=1', 'autoplay=0');
+                
+                musicToggle.textContent = '🎵'; 
+                isPlaying = false;
+            }
+        });
 
     </script>
         <script src="secure-devtools-blocker.js"></script>
 
 </body>
 </html>
-
