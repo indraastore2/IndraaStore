@@ -756,3 +756,84 @@ header.bubble-text {
             border-left: 1px solid rgba(255, 255, 255, 0.3);
             padding-left: 10px;
         }
+
+        /* ======================================= */
+/* --- STYLE MANUAL UNTUK STOCK BUAH (BARU) --- */
+/* ======================================= */
+.stock-fruit-block {
+    margin: 20px 0;
+    padding: 20px;
+    border: 1px solid #3498db; 
+    border-radius: 10px;
+    background-color: #f0f8ff; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.stock-fruit-header {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #2980b9; 
+    margin-bottom: 10px;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.stock-fruit-header .icon {
+    margin-right: 10px;
+    color: #f1c40f; 
+}
+
+.stock-fruit-note {
+    font-size: 0.9em;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.stock-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.stock-table th, .stock-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+    font-size: 1em;
+}
+
+.stock-table th {
+    background-color: #3498db;
+    color: white;
+    font-weight: bold;
+    border-bottom: 3px solid #f1c40f;
+    text-transform: uppercase;
+    font-size: 1.1em;
+}
+
+.stock-table tr:hover {
+    background-color: #e0f7fa; 
+}
+
+.stock-name {
+    font-weight: 500;
+    color: #2c3e50;
+}
+
+.stock-value {
+    font-weight: bold;
+    color: #2ecc71; /* Warna hijau untuk stok tersedia */
+}
+
+.stock-price {
+    font-weight: bold;
+    color: #e74c3c; /* Warna merah untuk harga */
+}
+
+/* Gaya khusus untuk stok 0 (Habis) */
+.stock-table .stock-value.zero-stock {
+    color: #e74c3c;
+    text-decoration: line-through;
+    font-style: italic;
+}
