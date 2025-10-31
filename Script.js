@@ -574,7 +574,7 @@
 
 <div id="youtube-bg-player" style="position: fixed; bottom: 0; right: 0; z-index: -1;">
     <iframe id="youtube-iframe" width="0" height="0" 
-        src="https://www.youtube.com/embed/PTF5xgT-pm8?autoplay=1&loop=1&playlist=PTF5xgT-pm8&controls=0&mute=1&disablekb=1&rel=0" 
+        src="https://www.youtube.com/embed/Mv_Sq5bOT-8?autoplay=1&loop=1&playlist=Mv_Sq5bOT-8&controls=0&mute=1&disablekb=1&rel=0" 
         frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
     </iframe>
 </div>
@@ -1229,7 +1229,7 @@ if(musicToggle) {
 }
 
 function createIframe(muteStatus) {
-    const videoId = 'PTF5xgT-pm8';
+    const videoId = 'Mv_Sq5bOT-8';
     const srcUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&loop=1&playlist=${videoId}&controls=0&mute=${muteStatus}&disablekb=1&rel=0`;
     
     // Ganti elemen iframe secara keseluruhan (Dynamic Reload)
