@@ -837,3 +837,17 @@ header.bubble-text {
     text-decoration: line-through;
     font-style: italic;
 }
+
+/* Pastikan IFrame tidak menghalangi klik */
+#youtube-iframe {
+    pointer-events: none; /* Kunci perbaikan: Memungkinkan klik menembus IFrame */
+}
+
+/* Gaya untuk tombol musik (pastikan z-index tinggi) */
+#musicToggle {
+    position: fixed; 
+    top: 20px; 
+    right: 20px; 
+    z-index: 9999; /* Pastikan tombol selalu di atas semua elemen */
+    /* ... (gaya visual tombol Anda yang lain) ... */
+}
