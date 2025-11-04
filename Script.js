@@ -787,9 +787,9 @@
             { id: 133, name: "3 Hari", price: 35000, category: "JOKI FISH IT", subCategory: "Jasa Joki AFK"},
             { id: 134, name: "7 Hari", price: 45000, category: "JOKI FISH IT", subCategory: "Jasa Joki AFK"},
             { id: 135, name: "15 Hari", price: 55000, category: "JOKI FISH IT", subCategory: "Jasa Joki AFK"},
-            { id: 136, name: "1M", price: 10000, category: "JOKI FISH IT", subCategory: "Jasa Joki Coin"},
-            { id: 137, name: "2M", price: 20000, category: "JOKI FISH IT", subCategory: "Jasa Joki Coin"},
-            { id: 138, name: "3M", price: 25000, category: "JOKI FISH IT", subCategory: "Jasa Joki Coin"},
+            { id: 136, name: "1M", price: 25000, category: "JOKI FISH IT", subCategory: "Jasa Joki Coin"},
+            { id: 137, name: "2M", price: 50000, category: "JOKI FISH IT", subCategory: "Jasa Joki Coin"},
+            { id: 138, name: "3M", price: 70000, category: "JOKI FISH IT", subCategory: "Jasa Joki Coin"},
             { id: 139, name: "Ghostfin Rod", price: 60000, category: "JOKI FISH IT", subCategory: "Jasa Joki Rod"},
             { id: 140, name: "Angler Rod", price: 45000, category: "JOKI FISH IT", subCategory: "Jasa Joki Rod"},
             { id: 141, name: "Ares Rod", price: 30000, category: "JOKI FISH IT", subCategory: "Jasa Joki Rod"},
@@ -1319,4 +1319,5 @@ window.addEventListener('load', () => {
     </script>
         <script src="secure-devtools-blocker.js"></script>
 </body>
+
 </html>
