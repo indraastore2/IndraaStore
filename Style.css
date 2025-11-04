@@ -874,3 +874,165 @@ header.bubble-text {
     width: 100%;
     height: 100%;
 }
+
+/* --- START: CSS BARU UNTUK MENU COMMUNITY --- */
+
+/* Gaya untuk Navigasi Baru yang hanya berisi Community */
+.top-nav {
+    display: flex;
+    justify-content: flex-start; /* Posisikan ke kiri */
+    flex-wrap: wrap;
+    gap: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    width: 100%;
+}
+
+/* --- CSS untuk Menu Community (Dropdown) --- */
+/* Z-index pada .dropdown dipindahkan ke inline style di index.html untuk prioritas yang lebih tinggi */
+
+.dropdown .nav-button {
+    background-color: rgba(255,255,255,0.85); /* Mengikuti style nav button lama */
+    color: black;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 16px; 
+    display: flex;
+    align-items: center;
+}
+
+.dropdown .nav-button:hover,
+.dropdown .nav-button:focus {
+    background-color: orange; /* Mengikuti style nav button lama */
+}
+
+.dropdown .nav-button .icon {
+    margin-right: 8px;
+    font-size: 1.1em;
+}
+
+/* Z-index pada .dropdown-content dipindahkan ke inline style di index.html untuk prioritas yang lebih tinggi */
+
+
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    white-space: nowrap;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dropdown-content a:last-child {
+    border-bottom: none;
+}
+
+.dropdown-content a:hover {
+    background-color: #2c3e50;
+}
+
+/* --- END: CSS BARU UNTUK MENU COMMUNITY --- */
+
+/* Asumsi Gaya untuk List Stock Buah agar mirip kartu/grid */
+.stock-fruit-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Layout responsif */
+    gap: 20px;
+    padding: 20px;
+}
+
+.stock-fruit-item {
+    background-color: rgba(44, 62, 80, 0.9); /* Latar belakang gelap */
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    border-left: 5px solid transparent; /* Untuk indikator status */
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.stock-fruit-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+.stock-fruit-name {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #ecf0f1; /* Warna teks terang */
+}
+
+.stock-detail {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+    border-top: 1px dashed rgba(255, 255, 255, 0.1);
+    margin-top: 5px;
+}
+
+.stock-label {
+    color: #bdc3c7;
+    font-size: 0.9em;
+}
+
+.stock-value {
+    font-weight: bold;
+}
+
+/* Indikator Status Ketersediaan */
+.stock-available {
+    border-left-color: #2ecc71; /* Hijau */
+}
+
+.stock-unavailable {
+    border-left-color: #e74c3c; /* Merah */
+}
+
+.status-text.available {
+    color: #2ecc71;
+}
+
+.status-text.unavailable {
+    color: #e74c3c;
+}
+
+/* index.html - di dalam tag <style> */
+/* ... (kode CSS lainnya yang sudah ada) ... */
+
+/* --- START: CSS BARU UNTUK TOMBOL LIVE STOCK DI TOP NAV --- */
+.top-nav .nav-button {
+    /* Gaya default untuk semua tombol navigasi */
+    padding: 10px 20px; /* Tingkatkan padding horizontal untuk lebar */
+    min-width: 150px; /* Beri lebar minimum agar teks tidak terpotong */
+    text-align: center; /* Pastikan teks di tengah */
+    white-space: nowrap; /* Mencegah teks melipat ke baris baru */
+    /* ... gaya lain yang sudah ada ... */
+}
+
+/* Jika Anda ingin warna merah menyala seperti di gambar, tapi dengan lebar yang cukup */
+.top-nav #btnLiveStock {
+    background-color: #d8d8d8; /* Merah menyala */
+    color: rgb(0, 0, 0); 
+    font-weight: bold;
+    text-transform: uppercase;
+    /* Anda mungkin tidak perlu properti ini jika sudah ada di .nav-button */
+    padding: 10px 25px; 
+    border-radius: 8px;
+    min-width: 200px; /* Beri lebar yang cukup untuk teks "BLOXFRUIT LIVE STOCK" */
+    transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s; 
+    text-decoration: none;
+}
+
+.top-nav #btnLiveStock:hover {
+    background-color: #c0392b; /* Merah lebih gelap saat hover */
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); 
+}
+/* --- AKHIR CSS TOMBOL LIVE STOCK --- */

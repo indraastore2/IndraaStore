@@ -439,7 +439,31 @@
             border: 2px solid #ccc;
             border-radius: 5px;
         }
-        /* ... CSS Lainnya dari Style.css dan promo-popup-style.css tetap diperlukan di sini ... */
+        
+        /* --- CSS UNTUK DROPDOWN COMMUNITY (Tambahkan Z-Index Tinggi di sini) --- */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            z-index: 100; /* PENTING: Untuk memastikan tombol dapat diklik */
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #34495e; 
+            min-width: 220px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.6);
+            z-index: 1001; /* PENTING: Lebih tinggi dari tombol lain dan konten */
+            border-radius: 5px;
+            overflow: hidden;
+            left: 0; 
+            top: 100%; 
+            margin-top: 5px;
+        }
+
+        .dropdown.show .dropdown-content {
+            display: block;
+        }
     </style>
     
     <link rel="Stylesheet" href="Style.css">
@@ -459,6 +483,33 @@
         <span class="icon">💣</span>INDRAA STORE<span class="icon">💣</span>
     </header>
 
+    <nav class="top-nav">
+
+        <div id="communityMenu" class="dropdown">
+            <button class="nav-button" aria-expanded="false" aria-controls="dropdownContent">
+                <span class="icon">👥</span> COMMUNITY
+            </button>
+            <div id="dropdownContent" class="dropdown-content">
+                <a href="https://chat.whatsapp.com/L0DOkfoFK8YEdfPMZbZeQK" target="_blank" class="whatsapp-link">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo" style="width: 20px; height: 20px; margin-right: 10px;">
+                    WhatsApp Group
+                </a>
+                <a href="https://discord.gg/3yM2jPgq" target="_blank" class="discord-link">
+                    <img src="discord.png" alt="Discord Logo" style="width: 20px; height: 20px; margin-right: 10px;">
+                    Discord Server
+                </a>
+            </div>
+        </div>
+        <a href="live_stock.html" id="btnLiveStock" class="nav-button">
+        <span class="icon">💎</span> BLOXFRUIT LIVE STOCK
+        </a>
+    </button>
+    </nav>
+    <section>
+       <main class="main-content">
+
+
+</main> 
     <script src="promo-popup-script.js"></script> 
     
     <script>
@@ -479,6 +530,26 @@
         }
         // END FUNGSI DASAR POP-UP
     </script>
+
+    </section>
+
+        <section id="BloxFruit_Stock" class="content-section" style="display: none;">
+            <h2><span class="icon">💎</span> Blox Fruit Live Stock (Langsung dari Sumber)</h2>
+            
+            <div class="iframe-container">
+                <iframe 
+                    src="https://fruityblox.com/stock" 
+                    title="Blox Fruit Live Stock Iframe"
+                    style="width: 100%; height: 100%; border: 2px solid #e74c3c; border-radius: 10px;"
+                    allowfullscreen>
+                    Browser Anda tidak mendukung embedding (iframe). Silakan kunjungi <a href="https://fruityblox.com/stock" target="_blank">halaman sumber secara langsung</a>.
+                </iframe>
+            </div>
+
+            <p class="source-info" style="text-align: center; margin-top: 15px;">
+                Halaman ini menampilkan konten langsung dari: <a href="https://fruityblox.com/stock" target="_blank" style="color: #3498db;">fruityblox.com/stock</a>
+            </p>
+        </section>
     
     <div class="welcome-text">
         <h2>Selamat Datang di Toko Indraa Store</h2>
@@ -574,7 +645,7 @@
 
 <div id="youtube-bg-player" style="position: fixed; bottom: 0; right: 0; z-index: -1;">
     <iframe id="youtube-iframe" width="0" height="0" 
-        src="https://www.youtube.com/embed/Mv_Sq5bOT-8?autoplay=1&loop=1&playlist=Mv_Sq5bOT-8&controls=0&mute=1&disablekb=1&rel=0" 
+        src="https://www.youtube.com/embed/PTF5xgT-pm8?autoplay=1&loop=1&playlist=PTF5xgT-pm8&controls=0&mute=1&disablekb=1&rel=0" 
         frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
     </iframe>
 </div>
@@ -784,60 +855,50 @@
         const searchInput = document.getElementById("searchInput");
         const waChat = document.getElementById("waChat");
         const container = document.getElementById("container");
-        const detailNav = document.getElementById('detailNav'); 
+        const detailNav = document.getElementById("detailNav");
         const menuDropdown = document.getElementById('menuDropdown'); 
         const paymentModal = document.getElementById('paymentModal');
         const paymentTitle = document.getElementById('paymentTitle');
         const paymentDetails = document.getElementById('paymentDetails');
         const promoPopupContent = document.getElementById('promoPopupContent'); // Ambil div konten pop-up
 
-
+        // FUNGSI UTAMA UNTUK MENGUPDATE KERANJANG
         function updateCart() {
-            const cartList = document.getElementById('cartList');
-            const totalPriceElement = document.getElementById('totalPrice');
-            const waChat = document.getElementById('waChat');
-            
-            cartList.innerHTML = '';
+            cartList.innerHTML = "";
             let total = 0;
-            let whatsappMessage = "Halo Admin, saya ingin memesan:\n\n";
+            let whatsappMessage = "Halo Admin, saya ingin memesan jasa joki. Mohon direspon!\n\n";
             let itemCounter = 1;
 
-            if (cart.length === 0) {
-                cartList.innerHTML = '<li>Keranjang kosong.</li>';
-                totalPriceElement.textContent = 'Total: Rp0';
-                whatsappMessage = "Halo Admin, saya ingin memesan jasa joki. Mohon direspon!";
-                waChat.href = `https://wa.me/62895321940805?text=${encodeURIComponent(whatsappMessage)}`;
-                return;
-            }
-
+            // Mengelompokkan item yang sama dan menghitung jumlahnya
             const groupedCart = cart.reduce((acc, item) => {
-                const existing = acc.find(i => i.id === item.id);
-                if (existing) {
-                    existing.quantity += 1;
-                } else {
-                    acc.push({ ...item, quantity: 1 });
+                const key = item.id;
+                if (!acc[key]) {
+                    acc[key] = { ...item, quantity: 0 };
                 }
+                acc[key].quantity++;
                 return acc;
-            }, []);
+            }, {});
 
-            groupedCart.forEach(item => {
+            const totalPriceElement = document.getElementById('totalPrice');
+            const sortedGroupedCart = Object.values(groupedCart).sort((a, b) => a.id - b.id);
+
+            sortedGroupedCart.forEach(item => {
                 const itemTotal = item.price * item.quantity;
                 total += itemTotal;
-                
-                const listItem = document.createElement('li');
+
+                const listItem = document.createElement("li");
                 listItem.innerHTML = `
-                    ${item.name} (x${item.quantity}) - Rp${itemTotal.toLocaleString()}
-                    <button onclick="removeFromCart(${item.id})" style="margin-left: 10px; background-color: #e74c3c; color: white; border: none; border-radius: 4px; padding: 2px 6px; cursor: pointer;">Hapus</button>
+                    ${item.name} (${item.quantity}x) - Rp${itemTotal.toLocaleString()}
+                    <button onclick="removeFromCart(${item.id})" style="float: right; background-color: #e74c3c; color: white; border: none; border-radius: 4px; padding: 2px 6px; cursor: pointer;">Hapus</button>
                 `;
                 cartList.appendChild(listItem);
-                
+
                 whatsappMessage += `${itemCounter}. ${item.name} (x${item.quantity}) - Rp${itemTotal.toLocaleString()}\n`;
                 itemCounter++;
             });
 
             const totalText = `Rp${total.toLocaleString()}`;
             totalPriceElement.textContent = `Total: ${totalText}`;
-
             whatsappMessage += `\nTotal Pembayaran: ${totalText}\n\nTerima kasih!`;
             waChat.href = `https://wa.me/62895321940805?text=${encodeURIComponent(whatsappMessage)}`;
         }
@@ -852,21 +913,31 @@
         }
 
         function removeFromCart(productId) {
+            // Hapus hanya satu instance dari item dengan ID ini
             const indexToRemove = cart.findIndex(item => item.id === productId);
             if (indexToRemove !== -1) {
                 cart.splice(indexToRemove, 1);
                 updateCart();
             }
         }
-        
+
+        function clearCart() {
+            // Menampilkan pop-up konfirmasi
+            const confirmed = confirm("Apakah Anda yakin ingin mengosongkan keranjang belanja?");
+            if (confirmed) {
+                cart = [];
+                updateCart();
+                alert("Keranjang belanja telah dikosongkan.");
+            }
+        }
+
         // --- FUNGSI BARU: MERENDER STOK BUAH (Menggantikan List Joki) ---
         function renderFruitStocks() {
-            productList.innerHTML = "";
+            productList.innerHTML = ""; // Kosongkan list produk joki
             
             // Header dan Struktur Tabel
             const stockBlock = document.createElement("div");
             stockBlock.className = "stock-fruit-block";
-
             stockBlock.innerHTML = `
                 <div class="stock-fruit-header">
                     <span class="icon">🛒</span> STOCK BUAH BLOX FRUIT <span class="icon">💎</span>
@@ -886,70 +957,51 @@
                     </tbody>
                 </table>
             `;
-            
             productList.appendChild(stockBlock);
+
             const stockBody = document.getElementById('fruitStockBody');
 
             // Isi Tabel
             fruitStocks.forEach(fruit => {
-                const row = stockBody.insertRow();
-                
-                const stockClass = fruit.stock === 0 ? 'zero-stock' : 'stock-value';
-                const stockText = fruit.stock === 0 ? 'HABIS' : fruit.stock.toLocaleString();
-                const priceText = fruit.stock === 0 ? '---' : `Rp${fruit.price.toLocaleString()}`;
+                const row = document.createElement('tr');
+                const isZeroStock = fruit.stock === 0;
 
                 row.innerHTML = `
-                    <td class="stock-name">${fruit.name}</td>
-                    <td class="${stockClass}">${stockText}</td>
-                    <td class="stock-price">${priceText}</td>
+                    <td class="stock-name ${isZeroStock ? 'zero-stock' : ''}">${fruit.name}</td>
+                    <td class="stock-value ${isZeroStock ? 'zero-stock' : ''}" style="text-align: center;">${isZeroStock ? 'HABIS' : fruit.stock}</td>
+                    <td class="stock-price ${isZeroStock ? 'zero-stock' : ''}" style="text-align: right;">Rp${fruit.price.toLocaleString()}</td>
                 `;
+                // Buat baris tidak bisa di-klik jika stok habis, jika tidak biarkan default
+                if (!isZeroStock) {
+                    row.style.cursor = 'pointer';
+                    row.setAttribute('title', `Klik untuk pesan ${fruit.name}`);
+                    // Catatan: Tidak ada fungsi addToCart untuk stok buah di sini, pemesanan via WA.
+                }
+
+                stockBody.appendChild(row);
             });
         }
 
 
+        // FUNGSI UNTUK MERENDER LIST JOKI
         function renderProducts(filteredProducts) {
-            // Jika kategori aktif adalah Stock Fruit, gunakan fungsi renderFruitStocks dan keluar
-            if (currentCategory === 'BloxFruit_Stock') {
-                renderFruitStocks();
-                return;
-            }
-            
-            // ... (Kode rendering produk joki Blox Fruit, Fish It, GAG)
-            productList.innerHTML = ''; 
-
-            if (!filteredProducts || filteredProducts.length === 0) {
-                productList.innerHTML = `<p style="text-align: center; color: gray;">Tidak ada produk yang ditemukan.</p>`;
-                return;
-            }
-
-            const groupedProducts = {};
+            productList.innerHTML = "";
+            let groupedProducts = {};
 
             filteredProducts.forEach(p => {
                 let groupTitle;
-                let icon; 
-
-                // Logika pengelompokan JOKI FISH IT & JOKI GAG
                 if (p.category === 'JOKI FISH IT' || p.category === 'JOKI GAG') {
-                    groupTitle = p.subCategory || "Lain-lain";
+                    // Gunakan subCategory untuk pengelompokan Joki Lain
+                    groupTitle = p.subCategory;
                 } else {
-                    // Logika pengelompokan JOKI BLOXFRUIT
-                    if (currentCategory === 'BloxFruit_All') {
-                        if (p.category === 'Level' || p.category === 'PAKET LEVEL MURAH') {
-                            groupTitle = "Jasa Joki Level & Paket Murah 🚀";
-                        } else if (p.category === 'Mastery') {
-                            groupTitle = "Jasa Joki Mastery ⚔️";
-                        } else if (p.category === 'Fighting Style') {
-                            groupTitle = "Jasa Joki Fighting Style 👊";
-                        } else if (p.category === 'Sword') {
-                            groupTitle = "Jasa Joki Sword 🔪";
-                        } else if (p.category === 'V4') {
-                            groupTitle = "Jasa Joki V4 (Race Awakening) 🔥";
-                        } else {
-                            groupTitle = "Jasa Joki " + p.category;
-                        }
-                    } else {
-                        groupTitle = "Jasa Joki " + p.category;
-                    }
+                    // Gunakan Kategori untuk BloxFruit
+                    if (p.category === 'Level') { groupTitle = "Jasa Joki Level 🚀"; }
+                    else if (p.category === 'Mastery') { groupTitle = "Jasa Joki Mastery ⚔️"; }
+                    else if (p.category === 'PAKET LEVEL MURAH') { groupTitle = "PAKET LEVEL MURAH 📦"; }
+                    else if (p.category === 'Fighting Style') { groupTitle = "Jasa Joki Fighting Style 👊"; }
+                    else if (p.category === 'Sword') { groupTitle = "Jasa Joki Sword 🔪"; }
+                    else if (p.category === 'V4') { groupTitle = "Jasa Joki V4 (Race Awakening) 🔥"; }
+                    else { groupTitle = "Jasa Joki " + p.category; }
                 }
 
                 if (!groupedProducts[groupTitle]) {
@@ -960,53 +1012,35 @@
 
             // Mapping Icon untuk BloxFruit
             const bloxFruitIconMap = {
-                "Level": "📈", "PAKET LEVEL MURAH": "📦", "Mastery": "⚔️", "Currency": "💰", 
-                "Instinct": "👁️", "Fighting Style": "👊", "Sword": "🔪", "Gun": "🔫", 
-                "Haki Resep": "🌈", "Raid": "🌋", "Boss Raid": "💀", "Material": "🧱", 
-                "Race": "🧬", "V4": "🔥", "Sea Event": "🌊", "Kitsune Event": "🦊", 
-                "Dragon Event": "🐉", "Accessories": "👑", "Promo": "🎁"
+                "Level": "📈", "PAKET LEVEL MURAH": "📦", "Mastery": "⚔️", "Currency": "💰", "Instinct": "👁️",
+                "Fighting Style": "👊", "Sword": "🔪", "Gun": "🔫", "Haki Resep": "🌈", "Raid": "🌋",
+                "Boss Raid": "💀", "Material": "🧱", "Race": "🧬", "V4": "🔥", "Sea Event": "🌊",
+                "Kitsune Event": "🦊", "Dragon Event": "🐉", "Accessories": "👑", "Promo": "🎁"
             };
-            
+
             // Mapping Icon untuk Joki Lain
             const otherIconMap = {
-                "Jasa Joki Rod": "🎣", "Jasa Joki Bobber": "🎈", "Jasa Joki Koin": "🪙", "Jasa Joki AFK": "💤"
+                "Jasa Joki Rod": "🎣", "Jasa Joki Bobber": "🎈", "Jasa Joki Koin": "🪙", "Jasa Joki AFK": "💤",
+                "Batu Enchant Esoteric": "✨", "Jasa Joki Fishing": "🎣", "Jasa Joki Lain": "✨"
             };
 
             for (const title in groupedProducts) {
                 const blockDiv = document.createElement("div");
+                const firstProductCategory = groupedProducts[title][0].category;
 
                 // Tentukan Icon berdasarkan Judul Grup/Kategori
                 let icon = '';
-                if (title.startsWith("Jasa Joki ")) {
-                    // Cek apakah ini grup BloxFruit (mengambil kategori dari produk pertama)
-                    const firstProductCategory = groupedProducts[title][0].category;
-                    if (firstProductCategory !== 'JOKI FISH IT' && firstProductCategory !== 'JOKI GAG') {
-                        // Ini adalah Joki BloxFruit
-                        const categoryKey = filteredProducts.find(p => p.category === p.category).category; // Cara kasar untuk mendapatkan kategori utama
-                        const cleanedCategory = categoryKey.replace("Jasa Joki ", "").trim();
-                        icon = bloxFruitIconMap[cleanedCategory] || '🎮';
-                    } else {
-                        // Ini adalah Joki Fish It / Joki GAG
-                        icon = otherIconMap[title] || '🛠️';
-                    }
-                    
-                    // Logic khusus untuk BloxFruit_All
-                    if (currentCategory === 'BloxFruit_All') {
-                        if (title.includes("Level")) icon = "🚀";
-                        else if (title.includes("Mastery")) icon = "⚔️";
-                        else if (title.includes("V4")) icon = "🔥";
-                    }
-
+                if (firstProductCategory === 'JOKI FISH IT' || firstProductCategory === 'JOKI GAG') {
+                    icon = otherIconMap[title] || '⭐';
                 } else {
-                    icon = otherIconMap[title] || '🛠️';
+                    // Ini adalah Joki BloxFruit
+                    const categoryKey = groupedProducts[title][0].category;
+                    icon = bloxFruitIconMap[categoryKey] || '⭐';
                 }
-                
-                // Gunakan nama grup produk jika bukan Fish It/GAG, jika Fish It/GAG gunakan subCategory
-                const firstProduct = groupedProducts[title][0];
-                const blockTitle = (firstProduct.category === 'JOKI FISH IT' || firstProduct.category === 'JOKI GAG') ? title : title;
 
+                const blockTitle = title.replace("Jasa Joki ", "").toUpperCase();
 
-                if (firstProduct.category !== 'JOKI FISH IT' && firstProduct.category !== 'JOKI GAG') {
+                if (firstProductCategory !== 'JOKI FISH IT' && firstProductCategory !== 'JOKI GAG') {
                     // --- STYLE MANUAL UNTUK BLOXFRUIT (Tema Biru) ---
                     blockDiv.className = "blox-block";
                     blockDiv.innerHTML = `<div class="blox-title">${icon} ${blockTitle}</div><div class="blox-options"></div>`;
@@ -1025,7 +1059,7 @@
                         optionsContainer.appendChild(button);
                     });
                 } else {
-                    // --- STYLE MANUAL UNTUK JOKI FISH IT & JOKI GAG (Tema Hijau) ---
+                    // --- STYLE MANUAL UNTUK JOKI FISH IT & JOKI GAG (Tema Hijau/Kuning) ---
                     blockDiv.className = "fishit-block";
                     blockDiv.innerHTML = `<div class="fishit-title">${icon} ${blockTitle}</div><div class="fishit-options"></div>`;
                     
@@ -1043,19 +1077,18 @@
                         optionsContainer.appendChild(button);
                     });
                 }
-                
+
                 productList.appendChild(blockDiv);
             }
         }
-        
+
         function filterProducts() {
             const query = searchInput.value.toLowerCase();
-            
             // Cek jika kategori aktif adalah Stock Fruit, jangan lakukan filter
             if (currentCategory === 'BloxFruit_Stock') {
-                return; 
+                return;
             }
-            
+
             const filtered = products.filter(p => 
                 (p.category === currentCategory || currentCategory === 'BloxFruit_All') &&
                 p.name.toLowerCase().includes(query)
@@ -1066,11 +1099,9 @@
         searchInput.addEventListener('keyup', filterProducts);
         searchInput.addEventListener('change', filterProducts);
 
-
         function showPaymentInfo(method) {
             const total = cart.reduce((sum, item) => sum + item.price, 0);
             const totalText = `Rp${total.toLocaleString()}`;
-            
             const paymentModal = document.getElementById('paymentModal');
             const paymentTitle = document.getElementById('paymentTitle');
             const paymentDetails = document.getElementById('paymentDetails');
@@ -1078,121 +1109,101 @@
             paymentTitle.textContent = `Pembayaran Melalui ${method}`;
             
             let detailsContent = '';
-            
             if (method === 'DANA') {
-                detailsContent = `
-                    <p>Nomor DANA: 0895371757784</p>
-                    <p>Atas Nama: MAULANA</p>
-                `;
+                detailsContent = `DANA: 0895371757784 a.n Maulana`;
             } else if (method === 'QRIS') {
                 detailsContent = `
-                    <p>Scan QRIS di bawah ini:</p>
+                    <p>Silakan Scan QRIS di bawah ini:</p>
                     <img src="QRIS INDRAA STORE.jpg" alt="QRIS INDRAA STORE" class="qris-image">
-                    <p>(Silakan ganti qris_sample_image.png dengan gambar QRIS Anda)</p>
+                    <p>Total: ${totalText}</p>
                 `;
             } else if (method === 'GOPAY') {
-                detailsContent = `
-                    <p>Nomor GOPAY: 0895321940805</p>
-                    <p>Atas Nama: MAULANA</p>
-                `;
+                detailsContent = `GOPAY: 0895321940805 a.n Maulana`;
             } else if (method === 'SEABANK') {
-                detailsContent = `
-                    <p>Nomor Rekening: 901768241659</p>
-                    <p>Atas Nama: MAULANA</p>
-                `;
+                detailsContent = `SEABANK: 901768241659 a.n Maulana`;
             }
 
-            paymentDetails.innerHTML = `
-                ${detailsContent}
-                <p>Total yang harus dibayar: <strong>${totalText}</strong></p>
-            `;
-            paymentModal.style.display = "block";
+            paymentDetails.innerHTML = detailsContent;
+            paymentModal.style.display = 'block';
         }
 
         function closePaymentModal() {
-            document.getElementById('paymentModal').style.display = "none";
+            document.getElementById('paymentModal').style.display = 'none';
         }
 
-        // Tambahkan listener untuk menutup modal ketika mengklik di luar area modal
-        window.onclick = function(event) {
-            if (event.target == document.getElementById('paymentModal')) {
-                closePaymentModal();
-            }
-            // Tambahan untuk menutup promoPopup jika diklik di luar
-            if (event.target === promoPopup) {
-                closePromoPopup();
-            }
-        }
-
+        // --- FUNGSI UNTUK MENGATUR TOMBOL AKTIF DI NAVIGASI UTAMA ---
         function setActiveButton(category) {
             const buttons = document.querySelectorAll('.main-category-nav button');
-            buttons.forEach(btn => btn.classList.remove('active'));
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.id === 'btnBloxFruit' && (category === 'BloxFruit_All' || category === 'Level' || category === 'Mastery' || category === 'PAKET LEVEL MURAH' || category === 'Currency' || category === 'Instinct' || category === 'Fighting Style' || category === 'Sword' || category === 'Gun' || category === 'Haki Resep' || category === 'Raid' || category === 'Boss Raid' || category === 'Material' || category === 'Race' || category === 'V4' || category === 'Sea Event' || category === 'Kitsune Event' || category === 'Dragon Event' || category === 'Accessories' || category === 'Promo')) {
+                    document.getElementById('btnBloxFruit').classList.add('active');
+                } else if (btn.id === 'btnStockBuah' && category === 'BloxFruit_Stock') {
+                    btn.classList.add('active');
+                } else if (btn.id === 'btnFishIt' && category === 'JOKI FISH IT') {
+                    btn.classList.add('active');
+                } else if (btn.id === 'btnJokiGag' && category === 'JOKI GAG') {
+                    btn.classList.add('active');
+                }
+            });
+        }
+        // --- END FUNGSI UNTUK MENGATUR TOMBOL AKTIF ---
 
-            if (category === 'JOKI FISH IT') {
-                document.getElementById('btnFishIt').classList.add('active');
-            } else if (category === 'JOKI GAG') {
-                document.getElementById('btnJokiGag').classList.add('active');
-            } else if (category === 'BloxFruit_Stock') {
-                document.getElementById('btnStockBuah').classList.add('active');
-            } else {
-                document.getElementById('btnBloxFruit').classList.add('active');
-            }
+
+    function showCategory(category) {
+    currentCategory = category;
+    searchInput.value = ''; // Clear search
+    // Sembunyikan detailNav dan searchInput secara default, lalu tampilkan yang diperlukan
+    detailNav.style.display = 'none';
+    searchInput.style.display = 'none';
+    if (category === 'BloxFruit_Stock') {
+        // Logika untuk kategori lokal 'Stock Fruit BF' Anda
+        if (typeof setActiveButton !== 'undefined') setActiveButton(category);
+        if (typeof renderFruitStocks !== 'undefined') renderFruitStocks(); 
+
+    } else if (category === 'JOKI FISH IT' || category === 'JOKI GAG') {
+        // Untuk kategori Fish It & Joki GAG
+        if (typeof searchInput !== 'undefined') searchInput.style.display = 'block'; 
+        if (typeof setActiveButton !== 'undefined') setActiveButton(category);
+        if (typeof renderProducts !== 'undefined' && typeof products !== 'undefined') {
+            renderProducts(products.filter(p => p.category === category));
         }
 
-        // --- START PERUBAHAN (showCategory) - Ditambahkan logika untuk Stock Fruit BF ---
-        function showCategory(category) {
-            currentCategory = category;
-            searchInput.value = ''; // Clear search
+    } else {
+        // Untuk semua kategori JOKI BLOXFRUIT lainnya (TERMASUK 'BloxFruit_All')
+        if (typeof detailNav !== 'undefined') detailNav.style.display = 'flex'; // Tampilkan navigasi detail
+        if (typeof searchInput !== 'undefined') searchInput.style.display = 'block'; // Tampilkan Search Bar
+        if (typeof setActiveButton !== 'undefined') setActiveButton(category);
+        
+        if (typeof renderProducts !== 'undefined' && typeof products !== 'undefined') {
+             // Filter produk joki Blox Fruit, mengecualikan kategori yang dipisahkan
+            const filtered = (category === 'BloxFruit_All') 
+                ? products.filter(p => p.category !== 'JOKI FISH IT' && p.category !== 'JOKI GAG' && p.category !== 'BloxFruit_Stock') 
+                : products.filter(p => p.category === category);
             
-            // Sembunyikan detailNav dan searchInput secara default, lalu tampilkan yang diperlukan
-            detailNav.style.display = 'none';
-            searchInput.style.display = 'none';
-
-            if (category === 'BloxFruit_Stock') { // LOGIKA BARU UNTUK STOCK FRUIT BF
-                setActiveButton(category);
-                renderFruitStocks(); // Panggil fungsi render stok buah
-                
-            } else if (category === 'JOKI FISH IT' || category === 'JOKI GAG') {
-                // Untuk kategori Fish It & Joki GAG
-                searchInput.style.display = 'block'; // Tampilkan Search Bar
-                setActiveButton(category);
-                renderProducts(products.filter(p => p.category === category));
-
-            } else {
-                // Untuk semua kategori JOKI BLOXFRUIT lainnya (Level, Mastery, All, dll.)
-                detailNav.style.display = 'flex'; // Tampilkan navigasi detail
-                searchInput.style.display = 'block'; // Tampilkan Search Bar
-                setActiveButton(category);
-                
-                // Filter produk joki Blox Fruit
-                const filtered = (category === 'BloxFruit_All') 
-                    ? products.filter(p => p.category !== 'JOKI FISH IT' && p.category !== 'JOKI GAG') 
-                    : products.filter(p => p.category === category);
-                renderProducts(filtered);
-            }
+            renderProducts(filtered);
         }
+    }
 
-        // --- FUNGSI CLEAR CART DIBERSIHKAN (Sesuai Permintaan Awal) ---
-        function clearCart() {
-            if (cart.length > 0) {
-                cart = [];
-                updateCart();
-                // Mengganti pop-up dengan alert sederhana untuk konfirmasi berhasil dikosongkan
-                alert("Keranjang Berhasil Dikosongkan!");
-            } else {
-                alert("Keranjang belanja sudah kosong.");
-            }
-        }
-        // --- AKHIR FUNGSI CLEAR CART ---
-        
-        // Inisialisasi tampilan awal
-        showCategory('BloxFruit_All'); 
-        
-        // ... (sisanya dari script block tetap sama)
-        
-    </script>
+    // --- Langkah 4: Pembersihan Akhir (JALANKAN SELALU) ---
+    if (typeof closePaymentModal !== 'undefined') closePaymentModal();
+    if (typeof closePromoPopup !== 'undefined') closePromoPopup(); 
+    if (typeof updateCart !== 'undefined') updateCart();
 
-    </div> <footer class="store-footer">
+    // Setelah mengubah kategori, pastikan semua pop-up tertutup
+    closePaymentModal();
+    closePromoPopup(); 
+    updateCart();
+}
+
+        // Inisialisasi awal: Tampilkan semua BloxFruit saat pertama kali dimuat
+        window.onload = function() {
+            showCategory('BloxFruit_All');
+        };
+
+</script>
+
+        </div> <footer class="store-footer">
         <div class="footer-content">
             <div class="footer-section contact-info">
                 <h4>Hubungi Kami</h4>
@@ -1215,10 +1226,8 @@
             </div>
         </div>
     </footer>
-
-
 <script>
-   // --- SKRIP BACKGROUND MUSIC (FIX FINAL: Tombol & Suara) ---
+        // --- SKRIP BACKGROUND MUSIC (FIX FINAL: Tombol & Suara) ---
 const musicToggle = document.getElementById('musicToggle');
 const playerContainer = document.getElementById('youtube-bg-player');
 let isAudible = false; // Status awal: Muted
@@ -1278,9 +1287,36 @@ window.addEventListener('load', () => {
         }
     });
 
+        // --- START SKRIP COMMUNITY DROPDOWN (DIPERBAIKI) ---
+        const communityMenu = document.getElementById('communityMenu');
+        const navButton = communityMenu ? communityMenu.querySelector('.nav-button') : null;
+
+        if (navButton) {
+            // Fungsi untuk toggle kelas 'show'
+            function toggleDropdown(event) {
+                // PENTING: Menggunakan preventDefault dan stopPropagation untuk memastikan klik tombol ditangani
+                event.preventDefault(); 
+                event.stopPropagation();
+                
+                communityMenu.classList.toggle('show');
+                const isExpanded = communityMenu.classList.contains('show');
+                navButton.setAttribute('aria-expanded', isExpanded);
+            }
+
+            // Toggle saat tombol di-klik
+            navButton.addEventListener('click', toggleDropdown);
+
+            // Tutup dropdown saat klik di luar area
+            document.addEventListener('click', (event) => {
+                // Periksa apakah communityMenu ada dan klik bukan di dalamnya
+                if (communityMenu && !communityMenu.contains(event.target)) {
+                    communityMenu.classList.remove('show');
+                    navButton.setAttribute('aria-expanded', 'false');
+                }
+            });
+        }
+        // --- END SKRIP COMMUNITY DROPDOWN ---
     </script>
         <script src="secure-devtools-blocker.js"></script>
-
 </body>
 </html>
-
