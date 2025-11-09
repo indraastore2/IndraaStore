@@ -615,7 +615,13 @@
         <button class="payment-btn seabank" onclick="showPaymentInfo('SEABANK')">SEABANK</button>
     </div>
     <button class="clear" onclick="clearCart()">Kosongkan Keranjang</button>
-    <a id="waChat" class="whatsapp" href="#" target="_blank">💬Chat via WhatsApp</a>
+    
+    <button class="clear" onclick="showHistoryPopup()" style="background-color: #2980b9; margin-top: 10px; color: #ecf0f1;">
+        📜 Riwayat Pesanan
+
+    </button>
+
+    <a id="waChat" class="whatsapp" href="#" onclick="return handleWaChat(event);" target="_blank">💬Chat via WhatsApp</a>
     
     <p id="cartNote" class="cart-note">Terima kasih sudah berbelanja — Silakan cek detail pesanan dan tekan Chat WhatsApp untuk konfirmasi Admin.</p>
     
@@ -641,7 +647,18 @@
     </div>
 </div>
 
-    <button id="musicToggle" aria-label="Toggle Music">🔇</button> 
+<div id="historyModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeHistoryPopup()">&times;</span>
+        <h2>📜 Riwayat Pesanan</h2>
+        <div id="historyContent" style="max-height: 400px; overflow-y: auto; padding: 10px 0;">
+            <p id="historyEmpty" style="text-align: center; color: #000000;">Belum ada pesanan yang di order.</p>
+            <ul id="historyList" style="list-style-type: none; padding: 0;">
+                </ul>
+        </div>
+    </div>
+</div>
+<button id="musicToggle" aria-label="Toggle Music">🔇</button> 
 
 <div id="youtube-bg-player" style="position: fixed; bottom: 0; right: 0; z-index: -1;">
     <iframe id="youtube-iframe" width="0" height="0" 
@@ -787,9 +804,9 @@
             { id: 133, name: "3 Hari", price: 35000, category: "JOKI FISH IT", subCategory: "Jasa Joki AFK"},
             { id: 134, name: "7 Hari", price: 45000, category: "JOKI FISH IT", subCategory: "Jasa Joki AFK"},
             { id: 135, name: "15 Hari", price: 55000, category: "JOKI FISH IT", subCategory: "Jasa Joki AFK"},
-            { id: 136, name: "1M", price: 25000, category: "JOKI FISH IT", subCategory: "Jasa Joki Coin"},
-            { id: 137, name: "2M", price: 45000, category: "JOKI FISH IT", subCategory: "Jasa Joki Coin"},
-            { id: 138, name: "3M", price: 70000, category: "JOKI FISH IT", subCategory: "Jasa Joki Coin"},
+            { id: 136, name: "1M", price: 10000, category: "JOKI FISH IT", subCategory: "Jasa Joki Coin"},
+            { id: 137, name: "2M", price: 20000, category: "JOKI FISH IT", subCategory: "Jasa Joki Coin"},
+            { id: 138, name: "3M", price: 25000, category: "JOKI FISH IT", subCategory: "Jasa Joki Coin"},
             { id: 139, name: "Ghostfin Rod", price: 60000, category: "JOKI FISH IT", subCategory: "Jasa Joki Rod"},
             { id: 140, name: "Angler Rod", price: 45000, category: "JOKI FISH IT", subCategory: "Jasa Joki Rod"},
             { id: 141, name: "Ares Rod", price: 30000, category: "JOKI FISH IT", subCategory: "Jasa Joki Rod"},
@@ -829,7 +846,7 @@
             { name: "Yeti", stock: 0, price: 30000 },
             { name: "Gas", stock: 1, price: 15000 },
             { name: "Leopard", stock: 0, price: 30000 },
-            { name: "Dough", stock: 2, price: 10000 },
+            { name: "Dough", stock: 1, price: 10000 },
             { name: "T-Rex", stock: 3, price: 7000 },
             { name: "Mammoth", stock: 4, price: 5000 },
             { name: "Spirit", stock: 4, price: 5000 },
@@ -862,13 +879,157 @@
         const paymentDetails = document.getElementById('paymentDetails');
         const promoPopupContent = document.getElementById('promoPopupContent'); // Ambil div konten pop-up
 
+        // --- DEKLARASI RIWAYAT PESANAN BARU ---
+        let orderHistory = [];
+        const historyModal = document.getElementById('historyModal');
+        // --- END DEKLARASI RIWAYAT PESANAN BARU ---
+        
+        // --- FUNGSI RIWAYAT PESANAN BARU ---
+        
+        // Inisialisasi Riwayat dari localStorage saat dimuat
+        function loadHistory() {
+            const storedHistory = localStorage.getItem('indraa_store_history');
+            if (storedHistory) {
+                orderHistory = JSON.parse(storedHistory);
+            }
+        }
+
+        // Simpan Riwayat ke localStorage
+        function saveHistory() {
+            localStorage.setItem('indraa_store_history', JSON.stringify(orderHistory));
+        }
+
+        // Fungsi untuk merender daftar Riwayat Pesanan (untuk Modal)
+        function renderHistory() {
+            const historyList = document.getElementById('historyList');
+            const historyEmpty = document.getElementById('historyEmpty');
+            historyList.innerHTML = "";
+            
+            if (orderHistory.length === 0) {
+                historyEmpty.style.display = 'block';
+            } else {
+                historyEmpty.style.display = 'none';
+                
+                orderHistory.forEach((historyItem, index) => {
+                    const total = historyItem.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+                    
+                    const listItem = document.createElement("li");
+                    listItem.style.borderBottom = '1px dashed #ddd';
+                    listItem.style.padding = '10px 0';
+                    listItem.innerHTML = `
+                        <div style="font-weight: bold; color: #2c3e50; display: flex; justify-content: space-between; align-items: center;">
+                            <span>Pesanan #${orderHistory.length - index} (${historyItem.date})</span>
+                            <button onclick="deleteHistoryItem(${index})" style="background-color: #c0392b; color: white; border: none; border-radius: 4px; padding: 4px 8px; cursor: pointer; font-size: 0.8em;">Hapus</button>
+                        </div>
+                        <div style="font-size: 0.9em; margin-left: 10px; margin-top: 5px;">
+                            ${historyItem.items.map(item => 
+                                `<span>${item.name} (x${item.quantity}) - Rp${(item.price * item.quantity).toLocaleString()}</span><br>`
+                            ).join('')}
+                        </div>
+                        <div style="font-weight: bold; color: #e74c3c; margin-top: 5px;">Total: Rp${total.toLocaleString()}</div>
+                    `;
+                    historyList.appendChild(listItem);
+                });
+            }
+        }
+
+        // FUNGSI BARU: Tampilkan Pop-up Riwayat
+        function showHistoryPopup() {
+            loadHistory(); // Pastikan data terbaru dimuat sebelum ditampilkan
+            renderHistory(); // Render konten di dalam modal
+            historyModal.style.display = 'block';
+        }
+
+        // FUNGSI BARU: Tutup Pop-up Riwayat
+        function closeHistoryPopup() {
+            historyModal.style.display = 'none';
+        }
+
+        // Fungsi untuk menghapus item dari riwayat
+        function deleteHistoryItem(index) {
+            const confirmed = confirm("Apakah Anda yakin ingin menghapus pesanan ini dari riwayat?");
+            if (confirmed) {
+                orderHistory.splice(index, 1);
+                saveHistory();
+                renderHistory(); // Render ulang setelah dihapus
+                alert("Pesanan berhasil dihapus dari riwayat.");
+            }
+        }
+
+        // Fungsi untuk menyimpan keranjang ke riwayat
+        function saveCartToHistory() {
+            if (cart.length === 0) {
+                return "Keranjang belanja kosong. Tidak ada yang disimpan ke riwayat.";
+            }
+            
+            // Mengelompokkan item yang sama
+            const groupedCart = cart.reduce((acc, item) => {
+                const key = item.id;
+                if (!acc[key]) {
+                    acc[key] = { ...item, quantity: 0 };
+                }
+                acc[key].quantity++;
+                return acc;
+            }, {});
+            
+            const groupedItems = Object.values(groupedCart).map(item => ({
+                name: item.name,
+                price: item.price,
+                quantity: item.quantity
+            }));
+            
+            const now = new Date();
+            const dateString = now.toLocaleDateString('id-ID', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+            const newHistoryItem = {
+                items: groupedItems,
+                date: dateString
+            };
+
+            orderHistory.unshift(newHistoryItem); 
+            saveHistory();
+            
+            return `Pesanan dengan ${groupedItems.length} jenis item berhasil disimpan ke Riwayat!`;
+        }
+        
+        // --- END FUNGSI RIWAYAT PESANAN BARU ---
+        
+        // --- FUNGSI UNTUK MEMBUAT PESAN WHATSAPP (Diambil dari updateCart lama) ---
+        function generateWhatsAppMessage() {
+            let whatsappMessage = "Halo Admin, saya ingin memesan jasa joki. Mohon direspon!\n\n";
+            let total = 0;
+            let itemCounter = 1;
+
+            // Mengelompokkan item yang sama dan menghitung jumlahnya
+            const groupedCart = cart.reduce((acc, item) => {
+                const key = item.id;
+                if (!acc[key]) {
+                    acc[key] = { ...item, quantity: 0, price: item.price, name: item.name };
+                }
+                acc[key].quantity++;
+                return acc;
+            }, {});
+
+            const sortedGroupedCart = Object.values(groupedCart).sort((a, b) => a.id - b.id);
+
+            sortedGroupedCart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                whatsappMessage += `${itemCounter}. ${item.name} (x${item.quantity}) - Rp${itemTotal.toLocaleString()}\n`;
+                itemCounter++;
+            });
+            
+            const totalText = `Rp${total.toLocaleString()}`;
+            whatsappMessage += `\nTotal Pembayaran: ${totalText}\n\nTerima kasih!`;
+            
+            return { message: whatsappMessage, totalText: totalText };
+        }
+
         // FUNGSI UTAMA UNTUK MENGUPDATE KERANJANG
         function updateCart() {
             cartList.innerHTML = "";
             let total = 0;
-            let whatsappMessage = "Halo Admin, saya ingin memesan jasa joki. Mohon direspon!\n\n";
-            let itemCounter = 1;
-
+            
             // Mengelompokkan item yang sama dan menghitung jumlahnya
             const groupedCart = cart.reduce((acc, item) => {
                 const key = item.id;
@@ -892,15 +1053,32 @@
                     <button onclick="removeFromCart(${item.id})" style="float: right; background-color: #e74c3c; color: white; border: none; border-radius: 4px; padding: 2px 6px; cursor: pointer;">Hapus</button>
                 `;
                 cartList.appendChild(listItem);
-
-                whatsappMessage += `${itemCounter}. ${item.name} (x${item.quantity}) - Rp${itemTotal.toLocaleString()}\n`;
-                itemCounter++;
             });
-
-            const totalText = `Rp${total.toLocaleString()}`;
+            
+            const { message, totalText } = generateWhatsAppMessage();
+            
             totalPriceElement.textContent = `Total: ${totalText}`;
-            whatsappMessage += `\nTotal Pembayaran: ${totalText}\n\nTerima kasih!`;
-            waChat.href = `https://wa.me/62895321940805?text=${encodeURIComponent(whatsappMessage)}`;
+            // NOTE: Nomor WA Anda adalah 0895321940805
+            waChat.href = `https://wa.me/62895321940805?text=${encodeURIComponent(message)}`;
+        }
+
+        // --- FUNGSI BARU UNTUK MENGHANDLE KLIK TOMBOL WA ---
+        function handleWaChat(event) {
+            if (cart.length === 0) {
+                alert("Keranjang belanja kosong. Silakan tambahkan item terlebih dahulu.");
+                event.preventDefault(); 
+                return false;
+            }
+
+            // Simpan pesanan ke riwayat sebelum melanjutkan ke WhatsApp
+            const saveMessage = saveCartToHistory();
+            
+            // Perbarui link WhatsApp untuk memastikan pesan ter-update
+            updateCart(); 
+
+            alert(saveMessage); 
+            // Izinkan navigasi ke link WA
+            return true;
         }
 
         function addToCart(productId) {
@@ -928,6 +1106,7 @@
                 cart = [];
                 updateCart();
                 alert("Keranjang belanja telah dikosongkan.");
+                closeHistoryPopup(); // Tutup modal riwayat
             }
         }
 
@@ -1199,8 +1378,21 @@
         // Inisialisasi awal: Tampilkan semua BloxFruit saat pertama kali dimuat
         window.onload = function() {
             showCategory('BloxFruit_All');
+            loadHistory(); // BARU: Muat riwayat saat dimuat
         };
 
+        // Tambahkan event listener untuk menutup modal saat klik di luar
+        window.onclick = function(event) {
+            const modal = document.getElementById('paymentModal');
+            const historyModal = document.getElementById('historyModal');
+            
+            if (event.target == modal) {
+                closePaymentModal();
+            }
+            if (event.target == historyModal) {
+                closeHistoryPopup();
+            }
+        }
 </script>
 
         </div> <footer class="store-footer">
@@ -1319,6 +1511,4 @@ window.addEventListener('load', () => {
     </script>
         <script src="secure-devtools-blocker.js"></script>
 </body>
-
 </html>
-
