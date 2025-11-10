@@ -843,7 +843,7 @@
         const fruitStocks = [
             { name: "Kitsune", stock: 0, price: 50000 },
             { name: "Dragon", stock: 0, price: 130000 },
-            { name: "Yeti", stock: 0, price: 30000 },
+            { name: "Yeti", stock: 1, price: 30000 },
             { name: "Gas", stock: 1, price: 15000 },
             { name: "Leopard", stock: 0, price: 30000 },
             { name: "Dough", stock: 1, price: 10000 },
@@ -1511,4 +1511,5 @@ window.addEventListener('load', () => {
     </script>
         <script src="secure-devtools-blocker.js"></script>
 </body>
+
 </html>
