@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -7,16 +8,16 @@
     
     <style>
         .store-header {
-            background-color: #2c3e50;
-            color: #ecf0f1;
+            background-color: #000000; /* DIGANTI KE HITAM */
+            color: #ffffff; /* DIGANTI KE MERAH TERANG */
             padding: 15px 0;
             text-align: center;
             font-family: 'Arial', sans-serif;
             font-size: 2.2em;
             font-weight: bold;
             letter-spacing: 2px;
-            border-bottom: 5px solid #e74c3c;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-bottom: 5px solid #f1c40f; /* GARIS KUNING */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5); 
             margin-bottom: 20px;
             text-transform: uppercase;
             position: relative;
@@ -230,6 +231,15 @@
             padding-left: 10px;
         }
 
+        .blox-detail-note {
+            font-size: 0.95em;
+            color: #ffffff; /* Warna kuning muda agar kontras dengan latar biru */
+            font-weight: 500;
+            margin-top: 3px;
+            display: block; 
+            opacity: 0.8;
+        }
+
         /* ==================================================== */
         /* --- STYLE MANUAL UNTUK FISH IT & JOKI GAG (HIJAU) --- */
         /* ==================================================== */
@@ -440,7 +450,7 @@
             border-radius: 5px;
         }
         
-        /* --- CSS UNTUK DROPDOWN COMMUNITY (Tambahkan Z-Index Tinggi di sini) --- */
+        /* --- CSS UNTUK DROPDOWN COMMUNITY  --- */
         .dropdown {
             position: relative;
             display: inline-block;
@@ -674,10 +684,10 @@
             { id: 4, name: "1 - 700", price: 10000, category: "PAKET LEVEL MURAH" },
             { id: 5, name: "700 - 1500", price: 20000, category: "PAKET LEVEL MURAH" },
             { id: 6, name: "1500 - 2800", price: 35000, category: "PAKET LEVEL MURAH" },
-            { id: 7, name: "150 Mastery Melee/Sword (0 - 300)", price: 3000, category: "Mastery" },
-            { id: 8, name: "100 Mastery Fruit/Gun (0 - 300)", price: 5000, category: "Mastery" },
-            { id: 9, name: "150 Mastery Melle/Sword (300 - 600)", price: 5000, category: "Mastery"},
-            { id: 10,name: "100 Mastery Fruit/Gun (300 - 600)", price: 10000, category: "Mastery"},
+            { id: 7, name: "150 Mastery Melee/Sword", price: 3000, category: "Mastery", note: "(Mastery 0 - 300)"},
+            { id: 8, name: "100 Mastery Fruit/Gun", price: 5000, category: "Mastery", note: "(Mastery 0 - 300)" },
+            { id: 9, name: "150 Mastery Melle/Sword", price: 5000, category: "Mastery", note: "(Mastery Di Atas 300 - 600)"},
+            { id: 10,name: "100 Mastery Fruit/Gun", price: 10000, category: "Mastery", note: "(Mastery Di Atas 300 - 600)"},
             { id: 11,name: "1M Belly", price: 5000, category: "Currency"},
             { id: 12,name: "1K Fragment (Buah Buyer)", price: 1000, category: "Currency"},
             { id: 13,name: "1K Fragment (Buah Penjoki)", price: 2000, category: "Currency"},
@@ -685,34 +695,35 @@
             { id: 15,name: "100K Fragment", price: 180000, category: "Currency"},
             { id: 16,name: "1000 Instinct", price: 15000, category: "Instinct"},
             { id: 17,name: "Instinct V2", price: 10000, category: "Instinct"},
-            { id: 18,name: "Superhuman", price: 25000, category: "Fighting Style"},
-            { id: 19,name: "Electric Claw", price: 5000, category: "Fighting Style"},
-            { id: 20,name: "Death Step", price: 10000, category: "Fighting Style"},
-            { id: 21,name: "Sharkman Karate", price: 10000, category: "Fighting Style"},
-            { id: 22,name: "Dragontalon", price: 20000, category: "Fighting Style"},
-            { id: 23,name: "God Human", price: 15000, category: "Fighting Style"},
+            { id: 18,name: "Superhuman", price: 25000, category: "Fighting Style", note: "(Wajib Memiliki Dark Step, Electric, Water Kung Fu, Dragon Breath)"},
+            { id: 19,name: "Electric Claw", price: 5000, category: "Fighting Style", note: "(Wajib 400 Mastery Electric, 3M Belly, 5K Fragment)"},
+            { id: 20,name: "Death Step", price: 10000, category: "Fighting Style", note: "(Wajib 400 Mastery Dark Step)"},
+            { id: 21,name: "Sharkman Karate", price: 10000, category: "Fighting Style", note: "(Wajib 400 Mastery Water Kung Fu, 3M Belly, 5K Fragment)"},
+            { id: 22,name: "Dragontalon", price: 20000, category: "Fighting Style", note: "(Wajib 400 Mastery Dragon Breath, 3M Belly, 5K Fragment)"},
+            { id: 23,name: "God Human", price: 15000, category: "Fighting Style", note: "(Wajib Memiliki Electric Claw, Death Step, Sharkman Karate, Dragon Talon)"},
             { id: 24,name: "Sanguine Art", price: 60000, category: "Fighting Style"},
             { id: 25,name: "Dark Dagger", price: 80000, category: "Sword"},
             { id: 26,name: "Hallow Scythe", price: 40000, category: "Sword"},
             { id: 27,name: "V2 Dark Blade", price: 5000, category: "Sword"},
-            { id: 28,name: "V3 Dark Blade (Wajib V3 Race Human, Angel, Shark, Rabbit)", price: 50000, category: "Sword"},
-            { id: 29,name: "TTK (Wajib Memiliki 2M Belly, Wando, Shisui, Saddi)", price: 20000, category: "Sword"},
-            { id: 30,name: "CDK (Wajib Level 2200 Keatas + 10K Jika Yama Dan Tushita Belum 350 Mastery)", price: 20000, category: "Sword"},
+            { id: 28,name: "V3 Dark Blade", price: 50000, category: "Sword", note: "(Wajib V3 Race Human, Angel, Shark, Rabbit)"},
+            { id: 29,name: "TTK", price: 20000, category: "Sword", note: "(Wajib Memiliki 2M Belly, Wando, Shisui, Saddi)"},
+            { id: 30,name: "CDK", price: 20000, category: "Sword", note: "(Wajib Level 2200 Keatas + 10K Jika Yama Dan Tushita Belum 350 Mastery)"},
             { id: 31,name: "Yama", price: 15000, category: "Sword"},
-            { id: 32,name: "Tushita (Wajib Level 2000 Keatas)", price: 15000, category: "Sword"},
-            { id: 33,name: "Oroshi (Wajib Memiliki 2M Belly)↘", price: 4000, category: "Sword"},
-            { id: 34,name: "Shizu (Wajib Memiliki 2M Belly) --> 10K (Wajib Memiliki 6M Belly)", price: 4000, category: "Sword"},
-            { id: 35,name: "Saishi (Wajib Memiliki 2M Belly)↗", price: 4000, category: "Sword"},
+            { id: 32,name: "Tushita", price: 15000, category: "Sword", note: "(Wajib Level 2000 Keatas)"},
+            { id: 33,name: "Oroshi", price: 4000, category: "Sword", note:"(Wajib Memiliki 2M Belly)s"},
+            { id: 34,name: "Shizu", price: 4000, category: "Sword", note:"(Wajib Memiliki 2M Belly)"},
+            { id: 35,name: "Saishi", price: 4000, category: "Sword", note:"(Wajib Memiliki 2M Belly)"},
+            { id: 35.5,name: "3 Legendary Sword", price: 10000, category: "Sword", note:"(Oroshi,Shizu,Saishi)"},
             { id: 36,name: "Trident Spikey", price: 20000, category: "Sword"},
             { id: 37,name: "Kabucha", price: 5000, category: "Gun"},
             { id: 38,name: "Acidum Rifle", price: 20000, category: "Gun"},
-            { id: 39,name: "Skull Guitar (Wajib Level 2300 Keatas + 15K Jika Material Belum Ada)", price: 15000, category: "Gun"},
+            { id: 39,name: "Skull Guitar", price: 15000, category: "Gun", note: "(Wajib Level 2300 Keatas + 15K Jika Material Belum Ada)"},
             { id: 40,name: "Normal ", price: 2000, category: "Haki Resep"},
             { id: 41,name: "Legend", price: 5000, category: "Haki Resep"},
-            { id: 42,name: "Normal Raid 1X (BUAH BUYER)", price: 1000, category: "Raid"},
-            { id: 43,name: "Normal Raid + Fruit (FRUIT PENJOKI)", price: 2000, category: "Raid"},
-            { id: 44,name: "Advanced Raid 1X (BUAH BUYER)", price: 5000, category: "Raid"},
-            { id: 45,name: "Advanced Raid 1X (BUAH PENJOKI)", price: 8000, category: "Raid"},
+            { id: 42,name: "Normal Raid 1X", price: 1000, category: "Raid", note: "(BUAH DARI BUYER)"},
+            { id: 43,name: "Normal Raid + Fruit", price: 2000, category: "Raid", note: "(FRUIT DARI PENJOKI)"},
+            { id: 44,name: "Advanced Raid 1X", price: 5000, category: "Raid", note: "(BUAH DARI BUYER)"},
+            { id: 45,name: "Advanced Raid 1X", price: 8000, category: "Raid", note: "(FRUIT DARI PENJOKI)"},
             { id: 46,name: "Law Raid 1X", price: 5000, category: "Raid"},
             { id: 47,name: "Pirate Raid", price: 10000, category: "Raid"},
             { id: 48,name: "Dough King", price: 20000, category: "Boss Raid"},
@@ -741,24 +752,24 @@
             { id: 71,name: "Leviathan Heart (x1)", price: 30000, category: "Material"},
             { id: 72,name: "Legend Scroll", price: 30000, category: "Material"},
             { id: 73,name: "Mythical Scroll", price:80000, category: "Material"},
-            { id: 74,name: "V2 All Race (Belly Sendiri)", price:3000, category: "Race"},
-            { id: 75,name: "V3 Race Not Ghoul (Belly Sendiri)", price:5000, category: "Race"},
-            { id: 76,name: "V3 Race Ghoul (Belly Sendiri)", price:15000, category: "Race"},
+            { id: 74,name: "V2 All Race", price:3000, category: "Race", note: "(Belly Punya Sendiri)"},
+            { id: 75,name: "V3 Race Not Ghoul", price:5000, category: "Race", note: "(Belly Punya Sendiri)"},
+            { id: 76,name: "V3 Race Ghoul", price:15000, category: "Race", note: "(Belly Punya Sendiri)"},
             { id: 77,name: "Unlock Ghoul", price:15000, category: "Race"},
             { id: 78,name: "Insert FOD Cyborg", price:10000, category: "Race"},
-            { id: 79,name: "Unlock Cyborg (Fragment Sendiri + Wajib sudah insert FOD)", price:10000, category: "Race"},
-            { id: 80,name: "Pull Lever/Bluegear (Wajib Memiliki Mirror Fractal + Valkyrie Helm)", price:10000, category: "V4"},
-            { id: 81,name: "1x Trial (Via Login)", price:7000, category: "V4"},
-            { id: 82,name: "1x Trial (Via Gendong)", price:10000, category: "V4"},
-            { id: 82,name: "1x Train (Khusus T1-T2)", price:3000, category: "V4"},
-            { id: 83,name: "FullGear T5 (9,250 Fragment + Fragment Sendiri)", price:40000, category: "V4"},
-            { id: 84,name: "FullGear T10 / TrueGear (26,750 Fragment + Fragment Sendiri)", price:50000, category: "V4"},
-            { id: 85,name: "Train T3 -> T5 (6,750 Fragment + Fragment Sendiri)", price:10000, category: "V4"},
-            { id: 86,name: "Train T5 -> T10 (17,500 Fragment + Fragment Sendiri)", price:15000, category: "V4"},
+            { id: 79,name: "Unlock Cyborg", price:10000, category: "Race", note: "(Fragment Sendiri + Wajib sudah insert FOD)"},
+            { id: 80,name: "Pull Lever/Bluegear", price:10000, category: "V4", note: "(Wajib Memiliki Mirror Fractal + Valkyrie Helm)"},
+            { id: 81,name: "1x Trial", price:7000, category: "V4", note: "(Via Login)"},
+            { id: 82,name: "1x Trial", price:10000, category: "V4", note: "(Via Gendong)"},
+            { id: 82,name: "1x Train", price:3000, category: "V4", note: "(Khusus T1-T2)"},
+            { id: 83,name: "FullGear T5", price:40000, category: "V4", note: "(9,250 Fragment + Fragment Sendiri)"},
+            { id: 84,name: "FullGear T10 / TrueGear", price:50000, category: "V4", note: "(26,750 Fragment + Fragment Sendiri)"},
+            { id: 85,name: "Train T3 -> T5", price:10000, category: "V4", note: "(6,750 Fragment + Fragment Sendiri)"},
+            { id: 86,name: "Train T5 -> T10", price:15000, category: "V4", note: "(17,500 Fragment + Fragment Sendiri)"},
             { id: 87,name: "Shark Necklace", price:10000, category: "Sea Event"},
             { id: 88,name: "Terror Jaw", price:10000, category: "Sea Event"},
-            { id: 89,name: "Monster Magnet (Wajib Memiliki Shark Necklace & Terror Jaw)", price:20000, category: "Sea Event"},
-            { id: 90,name: "Shark Anchor (Wajib Memiliki Monster Magnet)", price:20000, category: "Sea Event"},
+            { id: 89,name: "Monster Magnet", price:20000, category: "Sea Event", note: "(Wajib Memiliki Shark Necklace & Terror Jaw)"},
+            { id: 90,name: "Shark Anchor", price:20000, category: "Sea Event", note: "(Wajib Memiliki Monster Magnet)"},
             { id: 91,name: "Leviathan Crown", price:70000, category: "Sea Event"},
             { id: 92,name: "Beast Hunter", price:70000, category: "Sea Event"},
             { id: 93,name: "Leviathan Shield", price:80000, category: "Sea Event"},
@@ -777,20 +788,20 @@
             { id: 107, name: "V3 Draco", price:10000, category: "Dragon Event"},
             { id: 108, name: "DragonHeart Sword", price:30000, category: "Dragon Event"},
             { id: 109, name: "DragonStorm Gun", price:50000, category: "Dragon Event"},
-            { id: 110, name: "Freezing Hydra", price:30000, category: "Dragon Event"},
-            { id: 111, name: "1X Trial Draco (Tanpa Magnet)", price:25000, category: "Dragon Event"},
-            { id: 112, name: "1X Trial Draco (Ada Magnet)", price:20000, category: "Dragon Event"},
-            { id: 113, name: "Darkcoat (10X Lawan Darkbeard)", price:100000, category: "Accessories"},
-            { id: 114, name: "Pale Scraf (Wajib Sea 3)", price:10000, category: "Accessories"},
-            { id: 115, name: "Muskeeter Hat (Wajib Level 1800+)", price:10000, category: "Accessories"},
-            { id: 116, name: "Pilot Helmet (Wajib Sea 3)", price:5000, category: "Accessories"},
+            { id: 110, name: "Freezing Hydra", price:30000, category: "Dragon Event", note: "(Wajib 500 Mastery DragonHeart,DragonStorm,Draco V3)"},
+            { id: 111, name: "1X Trial Draco", price:25000, category: "Dragon Event", note: "(Tanpa Magnet)"},
+            { id: 112, name: "1X Trial Draco", price:20000, category: "Dragon Event", note: "(Ada Magnet)"},
+            { id: 113, name: "Darkcoat", price:100000, category: "Accessories"},
+            { id: 114, name: "Pale Scraf", price:10000, category: "Accessories", note: "(Wajib Sea 3)"},
+            { id: 115, name: "Muskeeter Hat", price:10000, category: "Accessories", note: "(Wajib Level 1800+)"},
+            { id: 116, name: "Pilot Helmet", price:5000, category: "Accessories", note: "(Wajib Sea 3)"},
             { id: 117, name: "1 Dragon Egg", price:10000, category: "Promo"},
             { id: 118, name: "6 Dinosaur Bones ", price:10000, category: "Promo"},
             { id: 119, name: "Black Belt", price:15000, category: "Promo"},
             { id: 120, name: "20 Scrap Metal", price:10000, category: "Promo"},
             { id: 121, name: "30 Blaze Ember", price:10000, category: "Promo"},
-            { id: 122, name: "1X Trial Draco (Ada Magnet)", price:15000, category: "Promo"},
-            { id: 123, name: "1X Trial Draco (Tanpa Magnet)", price:20000, category: "Promo"},
+            { id: 122, name: "1X Trial Draco", price:15000, category: "Promo", note: "(Ada Magnet)"},
+            { id: 123, name: "1X Trial Draco", price:20000, category: "Promo", note: "(Tanpa Magnet)"},
             { id: 124, name: "Bluegear", price:8000, category: "Promo"},
             { id: 125, name: "Mirror Fractal", price:15000, category: "Promo"},
             { id: 126, name: "Valkyrie Helm", price:10000, category: "Promo"},
@@ -839,7 +850,7 @@
             { id: 168, name: "24 JAM", price: 35000, category: "JOKI GAG", subCategory: "Jasa Joki AFK"},
         ]; 
 
-        // --- DATA STOK BUAH BLOX FRUIT (DIPERBARUI) --- 
+        // --- DATA STOK BUAH BLOX FRUIT --- 
         const fruitStocks = [
             { name: "Kitsune", stock: 0, price: 45000 },
             { name: "Dragon", stock: 0, price: 130000 },
@@ -1229,10 +1240,19 @@
                         const button = document.createElement("button");
                         button.className = "blox-item-btn";
                         button.setAttribute('onclick', `addToCart(${p.id})`);
+                        
+                        // Logika untuk menampilkan Note jika ada
+                        const noteHtml = p.note 
+                            ? `<span class="blox-detail-note">${p.note}</span>` 
+                            : '';
+
                         button.innerHTML = `
-                            <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
-                                <span class="blox-name">${p.name}</span>
-                                <span class="blox-price">Rp${p.price.toLocaleString()}</span>
+                            <div style="display: flex; justify-content: space-between; width: 100%; align-items: center; flex-direction: row;">
+                                <div class="blox-name-detail" style="display: flex; flex-direction: column; text-align: left; margin-right: 10px;">
+                                    <span class="blox-name" style="font-weight: bold;">${p.name}</span>
+                                    ${noteHtml}
+                                </div>
+                                <span class="blox-price">Rp${p.price.toLocaleString('id-ID')}</span>
                             </div>
                         `;
                         optionsContainer.appendChild(button);
@@ -1511,8 +1531,4 @@ window.addEventListener('load', () => {
     </script>
         <script src="secure-devtools-blocker.js"></script>
 </body>
-
 </html>
-
-
-
