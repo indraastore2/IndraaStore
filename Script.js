@@ -504,7 +504,7 @@
                     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo" style="width: 20px; height: 20px; margin-right: 10px;">
                     WhatsApp Group
                 </a>
-                <a href="https://discord.gg/3yM2jPgq" target="_blank" class="discord-link">
+                <a href="https://discord.gg/B5XmN67KTX" target="_blank" class="discord-link">
                     <img src="discord.png" alt="Discord Logo" style="width: 20px; height: 20px; margin-right: 10px;">
                     Discord Server
                 </a>
@@ -1532,3 +1532,4 @@ window.addEventListener('load', () => {
         <script src="secure-devtools-blocker.js"></script>
 </body>
 </html>
+
