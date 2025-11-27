@@ -868,8 +868,8 @@
             { name: "Blizzard", stock: 3, price: 3000 },
             { name: "Pain", stock: 3, price: 15000 },
             { name: "Lightning", stock: 0, price: 12000 }, // Contoh stok habis
-            { name: "Portal", stock: 1, price: 5000 },
-            { name: "Buddha", stock: 1, price: 5000 },
+            { name: "Portal", stock: 5, price: 5000 },
+            { name: "Buddha", stock: 0, price: 5000 },
             { name: "Sound", stock: 5, price: 3000 },
             { name: "Phoenix", stock: 4, price: 1000 },
             { name: "Magma", stock: 4, price: 3000 }
@@ -1532,4 +1532,5 @@ window.addEventListener('load', () => {
         <script src="secure-devtools-blocker.js"></script>
 </body>
 </html>
+
 
