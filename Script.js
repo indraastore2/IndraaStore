@@ -802,9 +802,9 @@
             { id: 121, name: "30 Blaze Ember", price:10000, category: "Promo"},
             { id: 122, name: "1X Trial Draco", price:15000, category: "Promo", note: "(Ada Magnet)"},
             { id: 123, name: "1X Trial Draco", price:20000, category: "Promo", note: "(Tanpa Magnet)"},
-            { id: 124, name: "Bluegear", price:8000, category: "Promo"},
-            { id: 125, name: "Mirror Fractal", price:15000, category: "Promo"},
-            { id: 126, name: "Valkyrie Helm", price:10000, category: "Promo"},
+            { id: 124, name: "50K Fragment", price:25000, category: "Promo", note: "(Khusus SEA 3)"},
+            { id: 125, name: "Leviathan Heart", price:20000, category: "Promo"},
+            { id: 126, name: "Shark Anchor", price:30000, category: "Promo"},
             { id: 127, name: "Full Gear T5", price:30000, category: "Promo"},
             { id: 128, name: "Full Gear T10", price:40000, category: "Promo"},
             { id: 129, name: "1X Trial", price: 5000, category: "Promo"},
@@ -852,12 +852,12 @@
 
         // --- DATA STOK BUAH BLOX FRUIT --- 
         const fruitStocks = [
-            { name: "Kitsune", stock: 1, price: 45000 },
+            { name: "Kitsune", stock: 0, price: 45000 },
             { name: "Dragon", stock: 0, price: 130000 },
             { name: "Yeti", stock: 3, price: 30000 },
             { name: "Gas", stock: 2, price: 15000 },
             { name: "Leopard", stock: 0, price: 30000 },
-            { name: "Dough", stock: 2, price: 10000 },
+            { name: "Dough", stock: 1, price: 10000 },
             { name: "T-Rex", stock: 3, price: 7000 },
             { name: "Mammoth", stock: 4, price: 5000 },
             { name: "Spirit", stock: 4, price: 5000 },
@@ -1532,6 +1532,3 @@ window.addEventListener('load', () => {
         <script src="secure-devtools-blocker.js"></script>
 </body>
 </html>
-
-
-
