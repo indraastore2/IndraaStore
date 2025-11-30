@@ -852,10 +852,10 @@
 
         // --- DATA STOK BUAH BLOX FRUIT --- 
         const fruitStocks = [
-            { name: "Kitsune", stock: 0, price: 45000 },
+            { name: "Kitsune", stock: 1, price: 45000 },
             { name: "Dragon", stock: 0, price: 130000 },
             { name: "Yeti", stock: 3, price: 30000 },
-            { name: "Gas", stock: 1, price: 15000 },
+            { name: "Gas", stock: 2, price: 15000 },
             { name: "Leopard", stock: 0, price: 30000 },
             { name: "Dough", stock: 2, price: 10000 },
             { name: "T-Rex", stock: 3, price: 7000 },
@@ -868,7 +868,7 @@
             { name: "Blizzard", stock: 3, price: 3000 },
             { name: "Pain", stock: 3, price: 15000 },
             { name: "Lightning", stock: 0, price: 12000 }, // Contoh stok habis
-            { name: "Portal", stock: 5, price: 5000 },
+            { name: "Portal", stock: 2, price: 5000 },
             { name: "Buddha", stock: 0, price: 5000 },
             { name: "Sound", stock: 5, price: 3000 },
             { name: "Phoenix", stock: 4, price: 1000 },
@@ -1532,5 +1532,6 @@ window.addEventListener('load', () => {
         <script src="secure-devtools-blocker.js"></script>
 </body>
 </html>
+
 
 
