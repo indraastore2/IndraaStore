@@ -861,7 +861,7 @@
             { name: "T-Rex", stock: 3, price: 7000 },
             { name: "Mammoth", stock: 4, price: 5000 },
             { name: "Spirit", stock: 4, price: 5000 },
-            { name: "Control", stock: 2, price: - },
+            { name: "Control", stock: 2, price: rework },
             { name: "Shadow", stock: 4, price: 4000 },
             { name: "Venom", stock: 4, price: 5000 },
             { name: "Gravity", stock: 4, price: 10000 },
@@ -1533,4 +1533,5 @@ window.addEventListener('load', () => {
 </body>
 
 </html>
+
 
