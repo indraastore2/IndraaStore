@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -856,7 +855,7 @@
             { name: "Dragon", stock: 0, price: 130000 },
             { name: "Yeti", stock: 1, price: 30000 },
             { name: "Gas", stock: 2, price: 15000 },
-            { name: "Leopard", stock: 1, price: 30000 },
+            { name: "Tiger", stock: 1, price: 30000 },
             { name: "Dough", stock: 2, price: 10000 },
             { name: "T-Rex", stock: 3, price: 7000 },
             { name: "Mammoth", stock: 4, price: 5000 },
@@ -1533,6 +1532,3 @@ window.addEventListener('load', () => {
 </body>
 
 </html>
-
-
-
