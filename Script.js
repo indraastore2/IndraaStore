@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -239,61 +240,6 @@
             opacity: 0.8;
         }
 
-        /* ==================================================== */
-        /* --- STYLE MANUAL UNTUK FISH IT & JOKI GAG (HIJAU) --- */
-        /* ==================================================== */
-        .fishit-block {
-            margin-bottom: 30px;
-            padding: 15px;
-            border: 2px solid #27ae60; /* Border Hijau Tua */
-            border-radius: 10px;
-            background-color: #e8f5e9; /* Background Hijau Muda */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .fishit-title {
-            font-size: 1.6em;
-            font-weight: bold;
-            color: #2ecc71; /* Judul Hijau */
-            margin-bottom: 15px;
-            border-bottom: 3px solid #27ae60;
-            padding-bottom: 5px;
-        }
-
-        .fishit-options {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 10px;
-        }
-
-        .fishit-item-btn {
-            background-color: #2ecc71; /* Tombol Hijau */
-            color: white; 
-            border: none;
-            padding: 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.2s, transform 0.2s;
-            text-align: left;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .fishit-item-btn:hover {
-            background-color: #27ae60; /* Hijau Lebih Tua saat hover */
-            transform: translateY(-1px);
-        }
-        
-        .fishit-item-price-style { 
-            font-weight: bold;
-            color: yellow; 
-            min-width: 80px; 
-            text-align: right;
-            border-left: 1px solid rgba(255, 255, 255, 0.3);
-            padding-left: 10px;
-        }
-        
         /* ======================================= */
         /* --- STYLE MANUAL UNTUK STOCK BUAH (BARU) --- */
         /* ======================================= */
@@ -485,6 +431,18 @@
             <span class="popup-close-btn" onclick="closePromoPopup()">&times;</span>
             <div id="promoPopupContent">
                 </div>
+            <div id="timer-anchor"></div>
+            <div class="promo-timer-container">
+            <p class="timer-title">🔥 PROMO BERAKHIR DALAM 🔥</p>
+            <div id="promo-timer-display">
+                <div class="timer-segment"><span id="days">00</span><small>Hari</small></div>
+                <div class="timer-segment"><span id="hours">00</span><small>Jam</small></div>
+                <div class="timer-segment"><span id="minutes">00</span><small>Menit</small></div>
+                <div class="timer-segment"><span id="seconds">00</span><small>Detik</small></div>
+            </div>
+        </div>
+    </div>
+</div>
         </div>
     </div>
     
@@ -572,9 +530,6 @@
     <button id="btnStockBuah" onclick="showCategory('BloxFruit_Stock')">
         STOCK FRUIT BF
     </button>
-    <button id="btnFishIt" onclick="showCategory('JOKI FISH IT')">
-        JOKI FISH IT
-    </button>
     <button id="btnJokiGag" onclick="showCategory('JOKI GAG')">
         JOKI GAG
     </button>
@@ -604,6 +559,7 @@
             <button onclick="showCategory('Dragon Event')">Dragon Event</button>
             <button onclick="showCategory('Accessories')">Accessories</button>
             <button onclick="showCategory('Promo')">Promo</button>
+            <button onclick="showCategory('Christmas Event')">Christmas Event</button>
         </div>
     </nav>
     <div class="main-content">
@@ -807,39 +763,13 @@
             { id: 127, name: "Full Gear T5", price:30000, category: "Promo"},
             { id: 128, name: "Full Gear T10", price:40000, category: "Promo"},
             { id: 129, name: "1X Trial", price: 5000, category: "Promo"},
-            // Produk Fish It
-            { id: 130, name: "1 Jam", price: 3000, category: "JOKI FISH IT", subCategory: "Jasa Joki AFK"}, 
-            { id: 131, name: "1 Hari", price: 15000, category: "JOKI FISH IT", subCategory: "Jasa Joki AFK"},
-            { id: 132, name: "2 Hari", price: 30000, category: "JOKI FISH IT", subCategory: "Jasa Joki AFK"},
-            { id: 133, name: "3 Hari", price: 35000, category: "JOKI FISH IT", subCategory: "Jasa Joki AFK"},
-            { id: 134, name: "7 Hari", price: 45000, category: "JOKI FISH IT", subCategory: "Jasa Joki AFK"},
-            { id: 135, name: "15 Hari", price: 55000, category: "JOKI FISH IT", subCategory: "Jasa Joki AFK"},
-            { id: 136, name: "1M", price: 20000, category: "JOKI FISH IT", subCategory: "Jasa Joki Coin"},
-            { id: 137, name: "2M", price: 40000, category: "JOKI FISH IT", subCategory: "Jasa Joki Coin"},
-            { id: 138, name: "3M", price: 55000, category: "JOKI FISH IT", subCategory: "Jasa Joki Coin"},
-            { id: 139, name: "Ghostfin Rod", price: 60000, category: "JOKI FISH IT", subCategory: "Jasa Joki Rod"},
-            { id: 140, name: "Angler Rod", price: 45000, category: "JOKI FISH IT", subCategory: "Jasa Joki Rod"},
-            { id: 141, name: "Ares Rod", price: 30000, category: "JOKI FISH IT", subCategory: "Jasa Joki Rod"},
-            { id: 142, name: "Astral Rod", price: 10000, category: "JOKI FISH IT", subCategory: "Jasa Joki Rod"},
-            { id: 143, name: "Bamboo Rod", price: 55000, category: "JOKI FISH IT", subCategory: "Jasa Joki Rod"},
-            { id: 144, name: "Element Rod", price: 100000, category: "JOKI FISH IT", subCategory: "Jasa Joki Rod"},
-            { id: 145, name: "Aether", price: 25000, category: "JOKI FISH IT", subCategory: "Jasa Joki Bobber"},
-            { id: 146, name: "Corupt", price: 15000, category: "JOKI FISH IT", subCategory: "Jasa Joki Bobber"},
-            { id: 147, name: "Dark Matter", price: 10000, category: "JOKI FISH IT", subCategory: "Jasa Joki Bobber"},
-            { id: 148, name: "Chroma", price: 5000, category: "JOKI FISH IT", subCategory: "Jasa Joki Bobber"},
-            { id: 150, name: "10 Batu", price: 1000, category: "JOKI FISH IT", subCategory: "Batu Enchant Esoteric"},
-            { id: 151, name: "55 Batu", price: 5000, category: "JOKI FISH IT", subCategory: "Batu Enchant Esoteric"},
-            { id: 152, name: "100 Batu", price: 10000, category: "JOKI FISH IT", subCategory: "Batu Enchant Esoteric"},
-            { id: 153, name: "150 Batu", price: 15000, category: "JOKI FISH IT", subCategory: "Batu Enchant Esoteric"},
-            { id: 154, name: "220 Batu", price: 20000, category: "JOKI FISH IT", subCategory: "Batu Enchant Esoteric"},
-            { id: 155, name: "280 Batu", price: 25000, category: "JOKI FISH IT", subCategory: "Batu Enchant Esoteric"},
-            { id: 156, name: "340 Batu", price: 30000, category: "JOKI FISH IT", subCategory: "Batu Enchant Esoteric"},
-            { id: 157, name: "400 Batu", price: 35000, category: "JOKI FISH IT", subCategory: "Batu Enchant Esoteric"},
-            { id: 158, name: "1 Batu", price: 5000, category: "JOKI FISH IT", subCategory: "Batu Enchant New"},
-            { id: 159, name: "5 Batu", price: 15000, category: "JOKI FISH IT", subCategory: "Batu Enchant New"},
-            { id: 160, name: "15 Batu", price: 60000, category: "JOKI FISH IT", subCategory: "Batu Enchant New"},
-            { id: 161, name: "25 Batu", price: 100000, category: "JOKI FISH IT", subCategory: "Batu Enchant New"},
-            { id: 162, name: "Artefak Tample", price: 35000, category: "JOKI FISH IT", subCategory: "Jasa Joki Artefak Tample"},
+            { id: 130, name: "500 Candy", price: 5000, category: "Christmas Event"},
+            { id: 131, name: "1000 Candy", price: 10000, category: "Christmas Event"},
+            { id: 132, name: "2000 Candy", price: 15000, category: "Christmas Event"},
+            { id: 133, name: "3000 Candy", price: 20000, category: "Christmas Event"},
+            { id: 134, name: "4000 Candy", price: 25000, category: "Christmas Event"},
+            { id: 135, name: "5000 Candy", price: 35000, category: "Christmas Event"},
+            { id: 136, name: "1x Present Gift", price: 1000, category: "Christmas Event", note: "(Gift Akan Di Masukkan Ke Inventory Akun)"},
             // Produk Joki GAG
             { id: 163, name: "1 JAM", price: 3000, category: "JOKI GAG", subCategory: "Jasa Joki AFK"},
             { id: 164, name: "2 JAM", price: 5000, category: "JOKI GAG", subCategory: "Jasa Joki AFK"},
@@ -853,20 +783,20 @@
         const fruitStocks = [
             { name: "Kitsune", stock: 0, price: 45000 },
             { name: "Dragon", stock: 0, price: 130000 },
-            { name: "Yeti", stock: 1, price: 30000 },
+            { name: "Yeti", stock: 0, price: 30000 },
             { name: "Gas", stock: 2, price: 15000 },
-            { name: "Tiger", stock: 2, price: 30000 },
+            { name: "Tiger", stock: 1, price: 30000 },
             { name: "Dough", stock: 2, price: 10000 },
             { name: "T-Rex", stock: 3, price: 7000 },
             { name: "Mammoth", stock: 4, price: 5000 },
             { name: "Spirit", stock: 4, price: 5000 },
-            { name: "Control", stock: 0, price: 0 },
+            { name: "Control", stock: 2, price: 30000 },
             { name: "Shadow", stock: 4, price: 4000 },
             { name: "Venom", stock: 4, price: 5000 },
             { name: "Gravity", stock: 4, price: 10000 },
             { name: "Blizzard", stock: 3, price: 3000 },
             { name: "Pain", stock: 3, price: 15000 },
-            { name: "Lightning", stock: 0, price: 12000 }, // Contoh stok habis
+            { name: "Lightning", stock: 1, price: 12000 }, // Contoh stok habis
             { name: "Portal", stock: 1, price: 5000 },
             { name: "Buddha", stock: 0, price: 5000 },
             { name: "Sound", stock: 5, price: 3000 },
@@ -1532,4 +1462,3 @@ window.addEventListener('load', () => {
 </body>
 
 </html>
-
