@@ -36,8 +36,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- 2. Logika Hitung Mundur ---
     function startTimer() {
         // Tentukan tanggal berakhir (Tahun, Bulan-1, Tanggal, Jam, Menit)
-        // Contoh: 31 Desember 2025 jam 23:59
-        const targetDate = new Date("December 31, 2025 23:59:59").getTime();
+        // Contoh: 31 Januari 2026 jam 23:59
+        const targetDate = new Date("Januari 31, 2026 23:59:59").getTime();
 
         const updateInterval = setInterval(() => {
             const now = new Date().getTime();
@@ -74,4 +74,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Munculkan otomatis setelah 3 detik
     setTimeout(openPopup, 3000); 
+
 });
