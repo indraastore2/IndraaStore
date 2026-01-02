@@ -559,7 +559,6 @@
             <button onclick="showCategory('Dragon Event')">Dragon Event</button>
             <button onclick="showCategory('Accessories')">Accessories</button>
             <button onclick="showCategory('Promo')">Promo</button>
-            <button onclick="showCategory('Christmas Event')">Christmas Event</button>
         </div>
     </nav>
     <div class="main-content">
@@ -763,13 +762,6 @@
             { id: 127, name: "Full Gear T5", price:30000, category: "Promo"},
             { id: 128, name: "Full Gear T10", price:40000, category: "Promo"},
             { id: 129, name: "1X Trial", price: 5000, category: "Promo"},
-            { id: 130, name: "500 Candy", price: 5000, category: "Christmas Event"},
-            { id: 131, name: "1000 Candy", price: 10000, category: "Christmas Event"},
-            { id: 132, name: "2000 Candy", price: 15000, category: "Christmas Event"},
-            { id: 133, name: "3000 Candy", price: 20000, category: "Christmas Event"},
-            { id: 134, name: "4000 Candy", price: 25000, category: "Christmas Event"},
-            { id: 135, name: "5000 Candy", price: 35000, category: "Christmas Event"},
-            { id: 136, name: "1x Present Gift", price: 1000, category: "Christmas Event", note: "(Gift Akan Di Masukkan Ke Inventory Akun)"},
             // Produk Joki GAG
             { id: 163, name: "1 JAM", price: 3000, category: "JOKI GAG", subCategory: "Jasa Joki AFK"},
             { id: 164, name: "2 JAM", price: 5000, category: "JOKI GAG", subCategory: "Jasa Joki AFK"},
@@ -790,15 +782,15 @@
             { name: "T-Rex", stock: 3, price: 7000 },
             { name: "Mammoth", stock: 4, price: 5000 },
             { name: "Spirit", stock: 4, price: 5000 },
-            { name: "Control", stock: 2, price: 20000 },
+            { name: "Control", stock: 3, price: 20000 },
             { name: "Shadow", stock: 4, price: 4000 },
             { name: "Venom", stock: 4, price: 5000 },
             { name: "Gravity", stock: 4, price: 10000 },
             { name: "Blizzard", stock: 3, price: 3000 },
             { name: "Pain", stock: 3, price: 15000 },
             { name: "Lightning", stock: 2, price: 12000 }, // Contoh stok habis
-            { name: "Portal", stock: 6, price: 5000 },
-            { name: "Buddha", stock: 2, price: 5000 },
+            { name: "Portal", stock: 5, price: 5000 },
+            { name: "Buddha", stock: 7, price: 5000 },
             { name: "Sound", stock: 5, price: 3000 },
             { name: "Phoenix", stock: 4, price: 1000 },
             { name: "Magma", stock: 4, price: 3000 }
@@ -1460,7 +1452,4 @@ window.addEventListener('load', () => {
     </script>
         <script src="secure-devtools-blocker.js"></script>
 </body>
-
-
 </html>
-
