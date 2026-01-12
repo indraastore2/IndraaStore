@@ -505,16 +505,16 @@
             
             <div class="iframe-container">
                 <iframe 
-                    src="https://fruityblox.com/stock" 
+                    src="https://www.gamersberg.com/blox-fruits/stock" 
                     title="Blox Fruit Live Stock Iframe"
                     style="width: 100%; height: 100%; border: 2px solid #e74c3c; border-radius: 10px;"
                     allowfullscreen>
-                    Browser Anda tidak mendukung embedding (iframe). Silakan kunjungi <a href="https://fruityblox.com/stock" target="_blank">halaman sumber secara langsung</a>.
+                    Browser Anda tidak mendukung embedding (iframe). Silakan kunjungi <a href="https://www.gamersberg.com/blox-fruits/stock" target="_blank">halaman sumber secara langsung</a>.
                 </iframe>
             </div>
 
             <p class="source-info" style="text-align: center; margin-top: 15px;">
-                Halaman ini menampilkan konten langsung dari: <a href="https://fruityblox.com/stock" target="_blank" style="color: #3498db;">fruityblox.com/stock</a>
+                Halaman ini menampilkan konten langsung dari: <a href="https://www.gamersberg.com/blox-fruits/stock" target="_blank" style="color: #3498db;">fruityblox.com/stock</a>
             </p>
         </section>
     
@@ -775,22 +775,22 @@
         const fruitStocks = [
             { name: "Kitsune", stock: 0, price: 45000 },
             { name: "Dragon", stock: 0, price: 130000 },
-            { name: "Yeti", stock: 0, price: 30000 },
+            { name: "Yeti", stock: 2, price: 30000 },
             { name: "Gas", stock: 2, price: 15000 },
             { name: "Tiger", stock: 1, price: 30000 },
-            { name: "Dough", stock: 2, price: 10000 },
-            { name: "T-Rex", stock: 3, price: 7000 },
+            { name: "Dough", stock: 0, price: 10000 },
+            { name: "T-Rex", stock: 0, price: 7000 },
             { name: "Mammoth", stock: 4, price: 5000 },
-            { name: "Spirit", stock: 4, price: 5000 },
+            { name: "Spirit", stock: 2, price: 5000 },
             { name: "Control", stock: 3, price: 20000 },
             { name: "Shadow", stock: 4, price: 4000 },
             { name: "Venom", stock: 4, price: 5000 },
             { name: "Gravity", stock: 4, price: 10000 },
             { name: "Blizzard", stock: 3, price: 3000 },
             { name: "Pain", stock: 3, price: 15000 },
-            { name: "Lightning", stock: 2, price: 12000 }, // Contoh stok habis
+            { name: "Lightning", stock: 1, price: 12000 }, // Contoh stok habis
             { name: "Portal", stock: 5, price: 5000 },
-            { name: "Buddha", stock: 7, price: 5000 },
+            { name: "Buddha", stock: 4, price: 5000 },
             { name: "Sound", stock: 5, price: 3000 },
             { name: "Phoenix", stock: 4, price: 1000 },
             { name: "Magma", stock: 4, price: 3000 }
